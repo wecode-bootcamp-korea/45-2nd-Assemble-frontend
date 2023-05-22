@@ -1,4 +1,3 @@
-import React from "react";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
@@ -11,6 +10,7 @@ a{
 }
 *{
     box-sizing: border-box;
+    word-break: keep-all;
 }
 input, textarea { 
   -moz-user-select: auto;
