@@ -40,9 +40,9 @@ const MNavWrapper = styled.div`
   display: flex;
   width: 100%;
   height: 56px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid ${props => props.theme.lightGray};
   border-radius: 36px;
-  box-shadow: 5px 5px 5px 0 #d9d9d9;
+  box-shadow: 5px 5px 5px 0 ${props => props.theme.lightGray};
   padding: 8px 15px 8px 20px;
 `;
 
@@ -56,7 +56,7 @@ const MNavSearch = styled.button`
 const MNavFilter = styled.button`
   width: 40px;
   border-radius: 50%;
-  border: 1px solid #d9d9d9;
+  border: 1px solid ${props => props.theme.lightGray};
 `;
 const MNavFilterImg = styled.img`
   width: 100%;

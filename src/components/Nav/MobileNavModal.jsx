@@ -5,9 +5,9 @@ import MatchingButton from "../../pages/Matching/components/MatchingButton";
 const MobileNavModal = ({ onClick }) => {
   return (
     <Container>
-      <header style={{ padding: "16px" }}>
+      <Header>
         <ClosedButton onClick={onClick}>X</ClosedButton>
-      </header>
+      </Header>
       <Wrapper>
         <Location>
           <Title>지역을 알려주세요</Title>
@@ -33,6 +33,10 @@ const MobileNavModal = ({ onClick }) => {
 };
 
 export default MobileNavModal;
+
+const Header = styled.header`
+  padding: 16px;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -67,11 +71,11 @@ const Location = styled.div`
   display: flex;
   flex-direction: column;
   padding: 24px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid ${props => props.theme.lightGray};
   border-radius: 20px;
   gap: 24px;
   background-color: white;
-  box-shadow: 5px 5px 8px 0 #d9d9d9;
+  box-shadow: 5px 5px 8px 0 ${props => props.theme.lightGray};
 `;
 
 const Title = styled.p`
@@ -83,7 +87,7 @@ const Search = styled.div`
   align-items: center;
   width: 100%;
   height: 56px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid ${props => props.theme.lightGray};
   border-radius: 16px;
 `;
 
@@ -111,11 +115,11 @@ const DatePicker = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid#d9d9d9;
+  border: 1px solid ${props => props.theme.lightGray};
   border-radius: 12px;
   padding: 16px 24px;
   background-color: white;
-  box-shadow: 2px 2px 2px 0 #d9d9d9;
+  box-shadow: 2px 2px 2px 0 ${props => props.theme.lightGray};
 `;
 
 const Date = styled.div`
@@ -130,5 +134,5 @@ const Footer = styled.div`
   padding: 24px;
   display: flex;
   justify-content: flex-end;
-  border-top: 1px solid #d9d9d9;
+  border-top: 1px solid ${props => props.theme.lightGray};
 `;

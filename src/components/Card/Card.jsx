@@ -22,19 +22,13 @@ const Card = () => {
         <CardDate>2023년 5월 22일 월요일</CardDate>
       </CardInfo>
       <CardDescription>
-        <div style={{ flex: "1" }}>
+        <CardTimeInfo>
           <CardTime>17:00 ~ 19:00</CardTime>
           <CardPrice>20,000 원/시간</CardPrice>
-        </div>
-        <div
-          style={{
-            alignSelf: "flex-end",
-            flex: "0.5",
-            textAlign: "right",
-          }}
-        >
+        </CardTimeInfo>
+        <JoinButton>
           <MatchingButton color="#89B922">조인하기</MatchingButton>
-        </div>
+        </JoinButton>
       </CardDescription>
     </Container>
   );
@@ -89,6 +83,9 @@ const CardTitle = styled.p`
   }
 `;
 
+const CardTimeInfo = styled.div`
+  flex: 1;
+`;
 const CardDate = styled.p`
   font-size: ${props => props.theme.sm.fontSize};
   line-height: ${props => props.theme.sm.lineHeight};
@@ -103,4 +100,10 @@ const CardPrice = styled.p`
   font-size: ${props => props.theme.sm.fontSize};
   line-height: ${props => props.theme.sm.lineHeight};
   font-weight: 900;
+`;
+
+const JoinButton = styled.div`
+  align-self: flex-end;
+  flex: 0.5;
+  text-align: right;
 `;
