@@ -1,12 +1,16 @@
 import React from "react";
+import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
 
-const ProfileBookModal = () => {
-  const isClosedProfileBook = () => {};
+export default NiceModal.create(() => {
+  const modal = useModal();
+  const closedModal = () => {
+    modal.remove();
+  };
 
   return (
     <Container>
-      <CloseBtn onClick={isClosedProfileBook}>X</CloseBtn>
+      <CloseBtn onClick={closedModal}>X</CloseBtn>
       <ProfileBox>
         <ProfileRight>
           <LevelImg src="/images/LevelTwo.png" alt="실력을 나타내는 이미지" />
@@ -21,9 +25,7 @@ const ProfileBookModal = () => {
       </ProfileBox>
     </Container>
   );
-};
-
-export default ProfileBookModal;
+});
 
 const Container = styled.div`
   position: absolute;
