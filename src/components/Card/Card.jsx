@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import MatchingButton from "../../pages/Matching/components/MatchingButton";
+import styled from "styled-components";
 
 const Card = () => {
   const navigate = useNavigate();

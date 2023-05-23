@@ -1,12 +1,18 @@
 import React from "react";
-import styled from "styled-components";
+import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import MatchingButton from "../../pages/Matching/components/MatchingButton";
+import styled from "styled-components";
 
-const MobileNavModal = ({ onClick }) => {
+export default NiceModal.create(() => {
+  const modal = useModal();
+  const closedModal = () => {
+    modal.remove();
+    document.body.style.overflow = "unset";
+  };
   return (
     <Container>
       <Header>
-        <ClosedButton onClick={onClick}>X</ClosedButton>
+        <ClosedButton onClick={closedModal}>X</ClosedButton>
       </Header>
       <Wrapper>
         <Location>
@@ -30,9 +36,7 @@ const MobileNavModal = ({ onClick }) => {
       </Footer>
     </Container>
   );
-};
-
-export default MobileNavModal;
+});
 
 const Header = styled.header`
   padding: 16px;

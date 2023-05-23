@@ -1,26 +1,20 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import NiceModal from "@ebay/nice-modal-react";
 import MobileNavModal from "./MobileNavModal";
+import styled from "styled-components";
 
 const MobileNav = () => {
-  const [modal, setModal] = useState(false);
-  const handleMNavModal = () => {
-    setModal(!modal);
-    if (document.body.style.overflow === "") {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+  const showMNavModal = () => {
+    NiceModal.show(MobileNavModal);
+    document.body.style.overflow = "hidden";
   };
-
   return (
     <MNavContainer>
       <MNavWrapper>
-        <MNavSearch onClick={handleMNavModal}>
+        <MNavSearch onClick={showMNavModal}>
           <MNavImg src="/images/search.png" alt="magnify" />
           <MNavLocation>어디든지</MNavLocation>
         </MNavSearch>
-        {modal && <MobileNavModal onClick={handleMNavModal} />}
         <MNavFilter>
           <MNavFilterImg src="/images/filter.png" al="filter" />
         </MNavFilter>
