@@ -9,18 +9,18 @@ const Login = () => {
   const url = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`;
   // const url = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&prompt=none`;
 
-  // const gogo = () => {
-  //   window.open(
-  //     url,
-  //     "window_name",
-  //     "width=430,height=500,location=no,status=no,scrollbars=yes"
-  //   );
-  // };
+  const gogo = () => {
+    window.open(
+      url,
+      "window_name",
+      "width=430,height=500,location=no,status=no,scrollbars=yes"
+    );
+  };
 
   return (
     <div>
-      <Link to={url}>Login</Link>
-      {/* <div onClick={gogo}>Login</div> */}
+      {/* <Link to={url}>Login</Link> */}
+      <div onClick={gogo}>Login</div>
     </div>
   );
 };

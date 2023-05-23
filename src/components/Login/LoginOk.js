@@ -15,7 +15,7 @@ const LoginOk = () => {
 
     axios
       .get(
-        `http://10.58.52.94:3000/kakao/code?code=${code}`
+        `http://10.58.52.94:3000/users/kakaologin?code=${code}`
         // `https://kauth.kakao.com/oauth/token?
         // grant_type=${grant_type}
         // &client_id=${client_id}
