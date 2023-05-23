@@ -7,6 +7,8 @@ import Header from "./components/Header/Header";
 import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
+import Login from "./components/Login/Login";
+import LoginOk from "./components/Login/LoginOk";
 
 const Router = () => {
   return (
@@ -18,6 +20,9 @@ const Router = () => {
         <Route path="/matching" element={<Matching />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/court" element={<ProductDetails />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/login-ok" element={<LoginOk />} />
+        <Route path="*" element="없는 페이지~" />
       </Routes>
       <Footer />
     </BrowserRouter>
