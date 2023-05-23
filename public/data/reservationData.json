@@ -1,0 +1,43 @@
+[
+  {
+    "reservationNumber": 1,
+    "isMatch": false,
+    "courts": {},
+    "timeslot": "235959"
+  },
+  {
+    "reservationId": 2,
+    "isMatch": true,
+    "status": 0,
+    "courts": {},
+    "timeslot": "235959"
+  },
+  {
+    "reservationId": 3,
+    "isMatch": true,
+    "status": 1,
+    "courts": {},
+    "timeslot": "235959",
+    "guest": {
+      "guestId": 2,
+      "guestName": "오진석",
+      "guestLevelImg": "/images/LevelThree.png",
+      "guestLevel": "입문",
+      "guestGender": "남"
+    }
+  },
+  {
+    "reservationId": 4,
+    "isMatch": true,
+    "status": 1,
+    "courts": {},
+    "timeslot": "235959",
+    "host": {
+      "hostId": 3,
+      "hostName": "김수성",
+      "hostLevelImg": "/images/LevelOne.png",
+      "hostLevel": "입문",
+      "hostGender": "여"
+    }
+  }
+]
