@@ -6,6 +6,7 @@ const theme = {
   gray: "#999999",
 
   lightGray: "#D9D9D9",
+
   xs: {
     fontSize: "0.75rem",
     lineHeight: "1rem",

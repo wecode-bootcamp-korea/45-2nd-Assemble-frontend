@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 const ProductImages = ({ courtData }) => {
   const { courtImage } = courtData;
-
+  if (!courtImage) return;
   return (
     <Flex>
       <BigImage src={`${courtImage[0]}`} />

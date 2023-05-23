@@ -1,18 +1,81 @@
 import { React, useEffect, useState } from "react";
 import styled from "styled-components";
+import DatePicker from "react-datepicker";
+import { addDays } from "date-fns";
+import { ko } from "date-fns/esm/locale";
 
-const ProductReserve = ({ courtData }) => {
-  const { price } = courtData;
-  const taxPrice = (price / 100) * 14 + price;
+import TimeTable from "./TimeTable";
+
+import "react-datepicker/dist/react-datepicker.css";
+import "./datePicker.css";
+
+const ProductReserve = ({ courtData, startDate, setStartDate }) => {
+  const { price, timeSlots } = courtData;
+  const [isDate, setIsDate] = useState(false);
+  const [isTime, setIsTime] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(""); // 유저가 선택한 날짜 (startDate값으로 초기세팅 후 유저가 새로운 날짜를 선택하면 바뀌도록 )
+  const [selectedTime, setSelectedTime] = useState(""); // 유저가 선택한 시간 (메인에서 들어온 시간 데이터가 있을 경우 selectedTime값으로 넣어주기 )
   const [inputValues, setInputValues] = useState("");
 
-  const handleInput = event => {
-    const { id, value } = event.target;
+  const handleInput = e => {
+    const { id, value } = e.target;
     setInputValues({ [id]: value });
   };
+
+  const matching = inputValues.matching === "on" ? 1 : 0; //서버로 보낼 isMatch 값
+
+  const taxPrice = (price / 100) * 14 + price;
   const totalPrice = () => {
     return inputValues.matching ? taxPrice / 2 : taxPrice;
   };
+
+  //서버로 보내는 데이터들 /merge후  해당 데이터 전역 상태 관리 예정
+  const reservationsData = {
+    timeSlot: selectedTime,
+    isMatch: matching,
+    amount: totalPrice(),
+  };
+
+  //예약하기 클릭 시 전역 상태 관리로 reservationsData 보내는 함수 //merge 후 연결 예정
+  const doReserve = () => {};
+
+  const dateButton = e => {
+    setIsTime(false);
+    setIsDate(!isDate);
+  };
+
+  const timeButton = e => {
+    setIsDate(false);
+    setIsTime(!isTime);
+  };
+
+  const startTime = selectedTime.slice(11, 16);
+  const endTime = new Date(selectedTime);
+  endTime.setHours(endTime.getHours() + 1);
+  const formattedTime = `${startTime} ~ ${endTime
+    .getHours()
+    .toString()
+    .padStart(2, "0")}:00`;
+
+  const dateFormat = date => {
+    if (!date) return;
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    month = month >= 10 ? month : "0" + month;
+    day = day >= 10 ? day : "0" + day;
+
+    return date.getFullYear() + "-" + month + "-" + day;
+  };
+
+  const changeDate = () => {
+    if (!selectedDate) return startDate;
+    if (selectedDate) return dateFormat(selectedDate);
+  };
+
+  useEffect(() => {
+    setStartDate(changeDate());
+  }, [selectedDate]);
 
   return (
     <Flex>
@@ -20,13 +83,44 @@ const ProductReserve = ({ courtData }) => {
         {price}원 /<span>시간당</span>
       </CourtPrice>
       <SelectBox>
-        <DateButton>
+        <DateButton onClick={dateButton}>
           <span>예약 날짜</span>
-          <span>2023.05.23</span>
+          <span>{changeDate()}</span>
+          {isDate && (
+            <DatePickerWrapper>
+              <DatePicker
+                locale={ko}
+                dateFormat="yyyy/MM/dd"
+                selected={selectedDate}
+                minDate={new Date()}
+                maxDate={addDays(new Date(), 6)}
+                showDisabledMonthNavigation
+                onChange={date => setSelectedDate(date)}
+                inline
+              >
+                <div>
+                  현재 날짜를 기준으로 6일후까지만
+                  <br /> 예약이 가능합니다.
+                </div>
+              </DatePicker>
+            </DatePickerWrapper>
+          )}
         </DateButton>
-        <TimeButton>
+
+        <TimeButton onClick={timeButton}>
           <span>예약 시간</span>
-          <span>13:00 - 14:00</span>
+
+          {endTime == "Invalid Date" ? (
+            <TimeSelectNotice>시간을 선택해주세요</TimeSelectNotice>
+          ) : (
+            <span> {formattedTime}</span>
+          )}
+
+          {isTime && (
+            <TimeTableWapper>
+              <TimeTable time={timeSlots} setSelectedTime={setSelectedTime} />
+            </TimeTableWapper>
+          )}
         </TimeButton>
         <MatchButton>
           <Title>파트너 매칭 희망 여부</Title>
@@ -51,7 +145,9 @@ const ProductReserve = ({ courtData }) => {
           </Box>
         </MatchButton>
       </SelectBox>
-      <ReserveButton>예약하기</ReserveButton>
+      <ReserveButton onClick={doReserve} disabled={selectedTime === ""}>
+        예약하기
+      </ReserveButton>
       <Notice>매칭을 희망하신 경우 이용 금액의 절반이 결제됩니다.</Notice>
       <Line />
       <TotalPrice>
@@ -117,6 +213,7 @@ const SelectBox = styled.div`
 `;
 
 const DateButton = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 150px;
@@ -130,7 +227,7 @@ const DateButton = styled.div`
     font-weight: 500;
   }
 
-  span:last-child {
+  span {
     font-weight: 300;
   }
 
@@ -145,7 +242,16 @@ const DateButton = styled.div`
   }
 `;
 
+const DatePickerWrapper = styled.div`
+  width: 280px;
+  position: absolute;
+  top: 90px;
+  left: 10px;
+  z-index: 1;
+`;
+
 const TimeButton = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 150px;
@@ -159,7 +265,7 @@ const TimeButton = styled.div`
     font-weight: 500;
   }
 
-  span:last-child {
+  span {
     font-weight: 300;
   }
 
@@ -172,6 +278,42 @@ const TimeButton = styled.div`
   &:hover {
     box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   }
+`;
+
+const TimeTableWapper = styled.div`
+  width: 280px;
+  height: 317px;
+  position: absolute;
+  padding: 15px;
+  box-sizing: border-box;
+  top: 90px;
+  right: 10px;
+  z-index: 1;
+  background-color: white;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid ${props => props.theme.lightGray};
+  border-radius: 20px;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  cursor: default;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    background: white;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${props => props.theme.lightGray};
+    border-radius: 6px;
+  }
+`;
+
+const TimeSelectNotice = styled.span`
+  margin-top: 3px;
+  font-size: 12px;
 `;
 
 const MatchButton = styled.fieldset`
@@ -244,6 +386,12 @@ const ReserveButton = styled.button`
   &:hover {
     background-color: ${props => props.theme.lightGreen};
     box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  }
+
+  &:disabled {
+    background-color: ${props => props.theme.gray};
+    box-shadow: none;
+    cursor: default;
   }
 
   @media screen and (max-width: 1280px) {

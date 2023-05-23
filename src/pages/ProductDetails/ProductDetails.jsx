@@ -11,15 +11,29 @@ import ProductReserve from "./components/ProductReserve";
 const dataURL = "data/courtData.json";
 
 const ProductDetails = () => {
-  const [courtData, setCourtData] = useState({});
+  const [courtData, setCourtData] = useState(null);
+  const dateFormat = date => {
+    if (!date) return;
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    month = month >= 10 ? month : "0" + month;
+    day = day >= 10 ? day : "0" + day;
+
+    return date.getFullYear() + "-" + month + "-" + day;
+  };
+  const [startDate, setStartDate] = useState(dateFormat(new Date())); //Merge 후 detailpage에 연결 /메인에서 선택한 날짜가 있을 경우 값 변경
 
   useEffect(() => {
     axios.get(dataURL).then(response => {
-      setCourtData(response.data);
+      if (response.data) {
+        setCourtData(response.data);
+      }
     });
   }, []);
 
   if (!courtData) return;
+
   return (
     <Background>
       <ProductWrapper>
@@ -27,7 +41,11 @@ const ProductDetails = () => {
         <ProductImages courtData={courtData} />
         <ContentsFlex>
           <ProductInfo courtData={courtData} />
-          <ProductReserve courtData={courtData} />
+          <ProductReserve
+            courtData={courtData}
+            startDate={startDate}
+            setStartDate={setStartDate}
+          />
         </ContentsFlex>
         <ProductLocation courtData={courtData} />
       </ProductWrapper>
