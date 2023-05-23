@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import MatchingButton from "../../pages/Matching/components/MatchingButton";
 import styled from "styled-components";
@@ -9,6 +10,20 @@ export default NiceModal.create(() => {
     modal.remove();
     document.body.style.overflow = "unset";
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 550) {
+        closedModal();
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <Container>
       <Header>
