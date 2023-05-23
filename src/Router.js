@@ -7,6 +7,7 @@ import Main from "./pages/Main/Main";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Matching from "./pages/Matching/Matching";
 import ReservationStatusPage from "./pages/ReservationStatusPage/ReservationStatusPage";
+import ProfilePage from "./pages/Mypage/ProfilePage";
 
 const Router = () => {
   return (
@@ -21,6 +22,7 @@ const Router = () => {
           path="/reservationstatuspage"
           element={<ReservationStatusPage />}
         />
+        <Route path="/profilepage" element={<ProfilePage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
