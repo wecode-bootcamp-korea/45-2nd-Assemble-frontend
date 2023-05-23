@@ -9,6 +9,7 @@ import Login from "./components/Login/Login";
 import LoginOk from "./components/Login/LoginOk";
 import Matching from "./pages/Matching/Matching";
 import ReservationStatusPage from "./pages/ReservationStatusPage/ReservationStatusPage";
+import ProfilePage from "./pages/Mypage/ProfilePage";
 
 const Router = () => {
   return (
@@ -21,6 +22,7 @@ const Router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/login-ok" element={<LoginOk />} />
         <Route path="/matching" element={<Matching />} />
+        <Route path="/profilepage" element={<ProfilePage />} />
         <Route
           path="/reservationstatuspage"
           element={<ReservationStatusPage />}
