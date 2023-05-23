@@ -8,6 +8,7 @@ import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Matching from "./pages/Matching/Matching";
 import ReservationStatusPage from "./pages/ReservationStatusPage/ReservationStatusPage";
 import ProfilePage from "./pages/Mypage/ProfilePage";
+import HostPage from "./pages/HostPage/HostPage";
 
 const Router = () => {
   return (
@@ -23,6 +24,7 @@ const Router = () => {
           element={<ReservationStatusPage />}
         />
         <Route path="/profilepage" element={<ProfilePage />} />
+        <Route path="/hostpage" element={<HostPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
