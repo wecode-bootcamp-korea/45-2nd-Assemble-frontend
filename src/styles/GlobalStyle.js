@@ -13,6 +13,10 @@ a{
     word-break: keep-all;
 }
 
+body {
+font-family: 'Noto Sans KR', sans-serif;
+}
+
 input, textarea { 
   -moz-user-select: auto;
   -webkit-user-select: auto;
