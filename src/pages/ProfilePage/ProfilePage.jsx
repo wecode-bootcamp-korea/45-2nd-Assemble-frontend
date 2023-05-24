@@ -1,14 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ProfileInfoCard from "./components/ProfileInfoCard";
-import CardEstimate from "../../components/CardEstimate/CardEstimate";
+import ExpireReservationCard from "./components/ExpireReservationCard";
 
 const ProfilePage = () => {
   const [profileValue, setProfileValue] = useState({
-    nameValue: "하지현",
-    genderValue: "여",
-    levelValue: 2,
+    nameValue: "",
+    genderValue: "",
+    levelValue: "",
   });
+  const [reservationList, setReservationList] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const profileRes = await fetch("/data/profileData.json");
+      const profileData = await profileRes.json();
+      setProfileValue({
+        nameValue: profileData[0].userName,
+        genderValue: profileData[0].userGender,
+        levelValue: profileData[0].userLevel,
+      });
+      const matchHostRes = await fetch("/data/expireMatchHostData.json");
+      const matchHostData = await matchHostRes.json();
+      const matchGuestRes = await fetch("/data/expireMatchGuestData.json");
+      const matchGuestData = await matchGuestRes.json();
+      const matchData = [...matchHostData, ...matchGuestData];
+      const sortedData = matchData.sort(
+        (a, b) => new Date(b.timeslot) - new Date(a.timeslot)
+      );
+      setReservationList(sortedData);
+    };
+    fetchData();
+  }, []);
 
   return (
     <Container>
@@ -32,8 +55,8 @@ const ProfilePage = () => {
       <section>
         <SecondTitle>완료내역</SecondTitle>
         <CompletionList>
-          {TEST_DATA.map(item => (
-            <CardEstimate key={item} />
+          {reservationList.map(item => (
+            <ExpireReservationCard key={item.reservationId} />
           ))}
         </CompletionList>
       </section>
@@ -49,8 +72,6 @@ const PROFILE_INFO_DATA = [
   { id: 4, title: "실력", name: "levelValue" },
 ];
 
-const TEST_DATA = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 const Container = styled.div`
   padding: 40px 0px;
   max-width: 1280px;
@@ -64,21 +85,15 @@ const FirstTitle = styled.h1`
 
 const ProfileInfoBox = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 150px;
-  grid-gap: 16px;
-
-  @media screen and (max-width: 1128px) {
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 150px;
-    grid-gap: 8px;
-  }
-  @media screen and (max-width: 842px) {
+  grid-gap: 8px;
+  @media screen and (max-width: 852px) {
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 150px;
     grid-gap: 4px;
   }
-  @media screen and (max-width: 556px) {
+  @media screen and (max-width: 570px) {
     grid-template-columns: repeat(1, 1fr);
     grid-auto-rows: 150px;
     grid-row-gap: 16px;
@@ -93,21 +108,21 @@ const SecondTitle = styled.h1`
 const CompletionList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 300px;
+  grid-auto-rows: 460px;
   grid-gap: 16px;
-  @media screen and (max-width: 1128px) {
+  @media screen and (max-width: 928px) {
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 300px;
+    grid-auto-rows: 460px;
     grid-gap: 8px;
   }
-  @media screen and (max-width: 842px) {
+  @media screen and (max-width: 628px) {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 300px;
+    grid-auto-rows: 460px;
     grid-gap: 4px;
   }
-  @media screen and (max-width: 556px) {
+  @media screen and (max-width: 328px) {
     grid-template-columns: repeat(1, 1fr);
-    grid-auto-rows: 300px;
+    grid-auto-rows: 460px;
     grid-row-gap: 16px;
   }
 `;

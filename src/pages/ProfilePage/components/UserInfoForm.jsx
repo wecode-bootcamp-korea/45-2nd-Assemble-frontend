@@ -23,7 +23,7 @@ const UserInfoForm = ({ type, title, name, profileValue, setProfileValue }) => {
         <InfoInput
           name={name}
           type="text"
-          placeholder="10자까지 등록가능합니다."
+          placeholder="10자까지 등록됩니다."
           onChange={changeUserInfo}
         />
       ) : (

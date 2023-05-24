@@ -1,28 +1,28 @@
 [
   {
-    "reservationNumber": 1,
+    "reservationId": 1,
     "isMatch": false,
     "courts": {},
-    "timeslot": "235959"
+    "timeslot": "2023-04-01 23:00:00"
   },
   {
     "reservationId": 2,
     "isMatch": true,
     "status": 0,
     "courts": {},
-    "timeslot": "235959"
+    "timeslot": "2023-04-01 10:00:00"
   },
   {
     "reservationId": 3,
     "isMatch": true,
     "status": 1,
     "courts": {},
-    "timeslot": "235959",
+    "timeslot": "2023-04-03 21:00:00",
     "guest": {
-      "guestId": 2,
+      "guestId": 1,
       "guestName": "오진석",
       "guestLevelImg": "/images/LevelThree.png",
-      "guestLevel": "입문",
+      "guestLevel": "달인",
       "guestGender": "남"
     }
   },
@@ -31,13 +31,13 @@
     "isMatch": true,
     "status": 1,
     "courts": {},
-    "timeslot": "235959",
-    "host": {
-      "hostId": 3,
-      "hostName": "김수성",
-      "hostLevelImg": "/images/LevelOne.png",
-      "hostLevel": "입문",
-      "hostGender": "여"
+    "timeslot": "2023-04-03 21:00:00",
+    "guest": {
+      "guestId": 2,
+      "guestName": "김수정",
+      "guestLevelImg": "/images/LevelThree.png",
+      "guestLevel": "달인",
+      "guestGender": "여"
     }
   }
 ]
