@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import CardEstimate from "../../components/CardEstimate/CardEstimate";
+import ExpireReservationCard from "../ProfilePage/components/ExpireReservationCard";
 
 const ProfilePage = () => {
   return (
@@ -13,7 +13,7 @@ const ProfilePage = () => {
       </StatusFilterEstimate>
       <ReservationList>
         {TEST_DATA.map(item => (
-          <CardEstimate key={item} />
+          <ExpireReservationCard key={item} />
         ))}
       </ReservationList>
     </Container>

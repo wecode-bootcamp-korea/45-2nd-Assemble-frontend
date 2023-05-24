@@ -1,0 +1,58 @@
+[
+  {
+    "reservationId": 5,
+    "isMatch": true,
+    "status": 1,
+    "courts": {},
+    "timeslot": "2023-05-01 23:00:00",
+    "host": {
+      "hostId": 1,
+      "hostName": "김현아",
+      "hostLevelImg": "/images/LevelOne.png",
+      "hostLevel": "입문",
+      "hostGender": "여"
+    }
+  },
+  {
+    "reservationId": 6,
+    "isMatch": true,
+    "status": 1,
+    "courts": {},
+    "timeslot": "2023-05-01 23:00:00",
+    "host": {
+      "hostId": 2,
+      "hostName": "양진민",
+      "hostLevelImg": "/images/LevelOne.png",
+      "hostLevel": "입문",
+      "hostGender": "남"
+    }
+  },
+  {
+    "reservationId": 7,
+    "isMatch": true,
+    "status": 1,
+    "courts": {},
+    "timeslot": "2023-05-01 23:00:00",
+    "host": {
+      "hostId": 3,
+      "hostName": "하지현",
+      "hostLevelImg": "/images/LevelOne.png",
+      "hostLevel": "입문",
+      "hostGender": "여"
+    }
+  },
+  {
+    "reservationId": 8,
+    "isMatch": true,
+    "status": 1,
+    "courts": {},
+    "timeslot": "2023-05-01 23:00:00",
+    "host": {
+      "hostId": 4,
+      "hostName": "전승범",
+      "hostLevelImg": "/images/LevelOne.png",
+      "hostLevel": "입문",
+      "hostGender": "남"
+    }
+  }
+]
