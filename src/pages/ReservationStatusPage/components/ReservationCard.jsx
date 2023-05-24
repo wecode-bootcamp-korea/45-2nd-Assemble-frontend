@@ -5,7 +5,7 @@ import FilterMatching from "../components/FilterMatching";
 import ProfileBookBtn from "../../../components/ProfileBookBtn/ProfileBookBtn";
 
 const ReservationCard = ({ host, guest, court, reservation }) => {
-  const { name, address, price, id, courtImage } = court;
+  const { courtName, address, price, id, courtImage } = court;
   const { paymentStatus, isMatch, timeSlot } = reservation;
   const navigate = useNavigate();
 
@@ -38,14 +38,14 @@ const ReservationCard = ({ host, guest, court, reservation }) => {
           <LabelNomal>일반</LabelNomal>
         )}
         <CardImg src={courtImage} alt="테니스장사진" />
-        {isMatch === 1 && paymentStatus === "complete" ? (
+        {isMatch && paymentStatus === "completed" ? (
           <ProfileBookBtn host={host} guest={guest} />
         ) : (
           <div />
         )}
       </CardImgWrapper>
       <CardInfo>
-        <CardTitle>{name}</CardTitle>
+        <CardTitle>{courtName}</CardTitle>
         <CardLocation>{address}</CardLocation>
         <CardDate>{formattedDate}</CardDate>
       </CardInfo>

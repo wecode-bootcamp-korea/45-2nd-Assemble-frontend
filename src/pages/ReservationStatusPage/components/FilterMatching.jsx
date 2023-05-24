@@ -4,10 +4,12 @@ import styled from "styled-components";
 const FilterMatching = ({ paymentStatus, guest }) => {
   return (
     <div>
-      {paymentStatus === "complete" ? (
+      {paymentStatus === "completed" ? (
         <Label matching={paymentStatus}>
           {guest === undefined ? "조인완료" : "매칭완료"}
         </Label>
+      ) : paymentStatus === "pending" ? (
+        <Label>매칭대기</Label>
       ) : (
         <Label>매칭대기</Label>
       )}
@@ -30,5 +32,5 @@ const Label = styled.div`
   padding: 10px;
   text-align: center;
   background-color: ${props =>
-    props.matching === "complete" ? "black" : props.theme.gray};
+    props.matching === "completed" ? "black" : props.theme.gray};
 `;

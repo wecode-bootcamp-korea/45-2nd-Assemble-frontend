@@ -39,7 +39,6 @@ const ReservationStatusPage = () => {
         const matchGuestData = matchGuestRes.data;
 
         let typeSelect = [];
-
         if (currentTab === "일반") {
           typeSelect = normalData.data;
           searchParams.set("isExpired", "0");
@@ -91,7 +90,7 @@ const ReservationStatusPage = () => {
       </Tabs>
       <ReservationList>
         {reservationList.map(item => (
-          <ReservationCard key={item.reservation.id} {...item} />
+          <ReservationCard key={item.reservation.reservationId} {...item} />
         ))}
       </ReservationList>
     </Container>

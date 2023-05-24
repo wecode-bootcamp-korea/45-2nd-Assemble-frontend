@@ -35,7 +35,7 @@ const ProfilePage = () => {
       });
     }
   }, [profileValue]);
-  console.log(reservationList);
+
   useEffect(() => {
     const fetchData = async () => {
       const normalHostRes = await apiClient.get(
@@ -95,9 +95,9 @@ const ProfilePage = () => {
         <CompletionList>
           {reservationList.map(item => (
             <ExpireReservationCard
-              key={item.reservation.id}
-              courtId={item.court.id}
+              key={item.reservation.reservationId}
               timeSlot={item.reservation.timeSlot}
+              paymentStatus={item.reservation.paymentStatus}
               court={item.court}
             />
           ))}
@@ -111,8 +111,8 @@ export default ProfilePage;
 
 const PROFILE_INFO_DATA = [
   { id: 1, title: "이름", name: "nameValue" },
-  { id: 3, title: "성별", name: "genderValue" },
-  { id: 4, title: "실력", name: "levelValue" },
+  { id: 2, title: "성별", name: "genderValue" },
+  { id: 3, title: "실력", name: "levelValue" },
 ];
 
 const Container = styled.div`
@@ -152,20 +152,20 @@ const CompletionList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: 460px;
-  grid-gap: 16px;
+  grid-gap: 32px;
   @media screen and (max-width: 928px) {
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 460px;
-    grid-gap: 8px;
+    grid-gap: 16px;
   }
   @media screen and (max-width: 628px) {
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 460px;
-    grid-gap: 4px;
+    grid-gap: 8px;
   }
   @media screen and (max-width: 328px) {
     grid-template-columns: repeat(1, 1fr);
     grid-auto-rows: 460px;
-    grid-row-gap: 16px;
+    grid-row-gap: 4px;
   }
 `;

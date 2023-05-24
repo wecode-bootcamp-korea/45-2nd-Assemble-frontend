@@ -1,26 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import NiceModal from "@ebay/nice-modal-react";
 import styled from "styled-components";
-import ExpireReservationCard from "../ProfilePage/components/ExpireReservationCard";
+import CourtHostCard from "./components/CourtHostCard";
+import AddCourtModal from "./components/AddCourtModal";
 
-const ProfilePage = () => {
+const HostPage = () => {
+  const [courtHostList, setCourtHostList] = useState([]);
+  const openModal = () => {
+    NiceModal.show(AddCourtModal);
+    document.body.style.overflow = "hidden";
+  };
+
+  useEffect(() => {
+    fetch("/data/hostPageData/CourtHostData.json", {
+      method: "GET",
+    })
+      .then(res => res.json())
+      .then(data => {
+        setCourtHostList(data);
+      });
+  }, []);
+
   return (
     <Container>
       <Title>호스팅 내역</Title>
       <ButtonPositionBox>
-        <AddButton>등록하기</AddButton>
+        <AddButton onClick={openModal}>등록하기</AddButton>
       </ButtonPositionBox>
       <ReservationList>
-        {TEST_DATA.map(item => (
-          <ExpireReservationCard key={item} />
+        {courtHostList.map(item => (
+          <CourtHostCard
+            key={item.reservation.id}
+            courtId={item.court.id}
+            timeSlot={item.reservation.timeSlot}
+            court={item.court}
+          />
         ))}
       </ReservationList>
     </Container>
   );
 };
 
-export default ProfilePage;
-
-const TEST_DATA = [1, 2, 3, 4, 5];
+export default HostPage;
 
 const Container = styled.div`
   padding: 40px 0px;
@@ -54,21 +75,21 @@ const AddButton = styled.button`
 const ReservationList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 400px;
-  grid-gap: 16px;
+  grid-auto-rows: 350px;
+  /* grid-gap: 16px; */
   @media screen and (max-width: 1128px) {
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 400px;
-    grid-gap: 8px;
+    grid-auto-rows: 350px;
+    /* grid-gap: 8px; */
   }
   @media screen and (max-width: 842px) {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 400px;
-    grid-gap: 4px;
+    grid-auto-rows: 350px;
+    /* grid-gap: 4px; */
   }
   @media screen and (max-width: 556px) {
     grid-template-columns: repeat(1, 1fr);
-    grid-auto-rows: 400px;
-    grid-row-gap: 16px;
+    grid-auto-rows: 350px;
+    /* grid-row-gap: 16px; */
   }
 `;
