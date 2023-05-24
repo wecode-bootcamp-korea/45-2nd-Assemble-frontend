@@ -1,18 +1,26 @@
 import React from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
+import styled from "styled-components";
 import MatchingButton from "./components/MatchingButton";
 import ProfileBox from "../../components/ProfileBook/ProfileBox";
 import CardForModal from "../../components/Card/CardForModal";
-import styled from "styled-components";
+import useBodyOverflow from "../../hooks/useBodyOverflow";
+import { fadeIn, fadeOut } from "./components/animation";
 
 export default NiceModal.create(() => {
+  useBodyOverflow("hidden");
+
   const modal = useModal();
+
   const closedModal = () => {
     modal.remove();
-    document.body.style.overflow = "unset";
   };
+  const handleResolve = async () => {
+    modal.resolve();
+  };
+
   return (
-    <Container>
+    <Container visible={modal.visible}>
       <Content>
         <ClosedButton onClick={closedModal}>X</ClosedButton>
         <Title>조인하기</Title>
@@ -24,11 +32,16 @@ export default NiceModal.create(() => {
         <Location>
           <CardForModal />
         </Location>
-
-        <ConfirmButtons>
-          <MatchingButton color="white">취소</MatchingButton>
-          <MatchingButton color="#89B922">확인</MatchingButton>
-        </ConfirmButtons>
+        <ButtonArea>
+          <ConfirmButtons>
+            <MatchingButton onClick={closedModal} color="white">
+              취소
+            </MatchingButton>
+            <MatchingButton onClick={handleResolve} color="#89B922">
+              확인
+            </MatchingButton>
+          </ConfirmButtons>
+        </ButtonArea>
       </Content>
     </Container>
   );
@@ -40,10 +53,12 @@ const Container = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  /* transform: translate(0, 10%); */
+  display: ${props => (props.visible ? "flex" : "none")};
+  opacity: ${props => (props.visible ? 1 : 0)};
+
   background-color: rgba(40, 40, 40, 0.8);
-  transition: all 0.5s ease;
-  display: flex;
+  transition: opacity 0.5s ease;
+  animation: ${props => (props.visible ? fadeIn : fadeOut)} 0.5s ease;
   justify-content: center;
   align-items: center;
 `;
@@ -53,20 +68,20 @@ const Content = styled.div`
   flex-direction: column;
   gap: 12px;
   width: 500px;
-  height: 650px;
+  height: 700px;
   background-color: #f1f1f1;
   padding: 24px;
   border-radius: 16px;
 
   @media screen and (max-width: 550px) {
     width: 400px;
-    height: 500px;
+    height: 570px;
     padding: 16px;
   }
 
   @media screen and (max-width: 440px) {
-    width: 300px;
-    height: 460px;
+    width: 380px;
+    height: 480px;
     gap: 0;
   }
 `;
@@ -92,10 +107,10 @@ const Title = styled.div`
   font-size: ${props => props.theme["2xl"].fontSize};
   text-align: center;
   padding-bottom: 24px;
+  font-weight: 900;
 
   @media screen and (max-width: 550px) {
     font-size: ${props => props.theme.xl.fontSize};
-    padding-bottom: 8px;
   }
 `;
 
@@ -114,5 +129,14 @@ const Location = styled.div`
 const ConfirmButtons = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 16px;
+  flex: 1;
+`;
+
+const ButtonArea = styled.div`
+  flex: 0.4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

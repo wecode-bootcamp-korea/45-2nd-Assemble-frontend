@@ -12,6 +12,7 @@ a{
     box-sizing: border-box;
     word-break: keep-all;
 }
+
 input, textarea { 
   -moz-user-select: auto;
   -webkit-user-select: auto;
