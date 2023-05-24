@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import KakaoMap from "../KakaoMap";
 
 const ProductLocation = ({ courtData }) => {
   const { address, longitude, latitude } = courtData;
@@ -7,9 +8,7 @@ const ProductLocation = ({ courtData }) => {
   return (
     <Flex>
       <Title>지도보기</Title>
-      <Map longitude={longitude} latitude={latitude}>
-        지도영역
-      </Map>
+      <KakaoMap longitude={longitude} latitude={latitude} />
       <Location>{address}</Location>
     </Flex>
   );
@@ -19,6 +18,7 @@ export default ProductLocation;
 
 const Flex = styled.div`
   width: 100%;
+  height: 100%;
   margin-top: 50px;
 
   @media screen and (max-width: 1280px) {
