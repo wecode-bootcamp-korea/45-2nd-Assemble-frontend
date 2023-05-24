@@ -5,12 +5,12 @@ const ProductImages = ({ courtData }) => {
   if (!courtImage) return;
   return (
     <Flex>
-      <BigImage src={`${courtImage[0]}`} />
+      <BigImage src={courtImage[0]} />
       <Images>
-        <DetailImage src={`${courtImage[1]}`} />
-        <DetailImage src={`${courtImage[2]}`} radius="right-top" />
-        <DetailImage src={`${courtImage[3]}`} />
-        <DetailImage src={`${courtImage[4]}`} radius="bottom-right" />
+        <DetailImage src={courtImage[1]} />
+        <DetailImage src={courtImage[2]} radius="right-top" />
+        <DetailImage src={courtImage[3]} />
+        <DetailImage src={courtImage[4]} radius="bottom-right" />
       </Images>
     </Flex>
   );

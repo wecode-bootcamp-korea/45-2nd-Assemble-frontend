@@ -8,10 +8,29 @@ import ProductInfo from "./components/ProductInfo";
 import ProductLocation from "./components/ProductLocation";
 import ProductReserve from "./components/ProductReserve";
 
-const dataURL = "data/courtData.json";
-
 const ProductDetails = () => {
   const [courtData, setCourtData] = useState(null);
+  const dateFormat = date => {
+    if (!date) return;
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    month = month >= 10 ? month : "0" + month;
+    day = day >= 10 ? day : "0" + day;
+
+    return date.getFullYear() + "-" + month + "-" + day;
+  };
+  const [startDate, setStartDate] = useState(dateFormat(new Date()));
+
+  useEffect(() => {
+    axios.get(dataURL).then(response => {
+      if (response.data) {
+        setCourtData(response.data);
+      }
+    });
+  }, []);
+
+    const [courtData, setCourtData] = useState(null);
   const dateFormat = date => {
     if (!date) return;
     let month = date.getMonth() + 1;
@@ -30,8 +49,26 @@ const ProductDetails = () => {
         setCourtData(response.data);
       }
     });
-  }, []);
+      const [courtData, setCourtData] = useState(null);
 
+  const dateFormat = date => {
+    if (!date) return;
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    month = month >= 10 ? month : "0" + month;
+    day = day >= 10 ? day : "0" + day;
+
+    return date.getFullYear() + "-" + month + "-" + day;
+  };
+  const [startDate, setStartDate] = useState(dateFormat(new Date())); 
+
+  useEffect(() => {
+    axios.get(dataURL).then(response => {
+      if (response.data) {
+        setCourtData(response.data);
+      }});
+      
   if (!courtData) return;
 
   return (
@@ -52,7 +89,6 @@ const ProductDetails = () => {
     </Background>
   );
 };
-
 export default ProductDetails;
 
 const Background = styled.div`
