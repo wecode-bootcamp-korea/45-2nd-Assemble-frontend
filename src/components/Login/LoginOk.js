@@ -11,9 +11,9 @@ const LoginOk = () => {
       .get(
         `http://10.58.52.94:3000/users/kakaologin?code=${code}`
       )
-      .then(res => localStorage.setItem('TOKEN', res.accesstoken))
+      .then(res => localStorage.setItem('TOKEN', res.data.accessToken))
       .catch(err=>alert(err))
-  }, []);
+  }, [code]);
 
   // useEffect(() => {
   //   fetch(`https://kauth.kakao.com/oauth/token`, {
