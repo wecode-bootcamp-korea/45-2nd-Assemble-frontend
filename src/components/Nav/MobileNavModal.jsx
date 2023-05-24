@@ -1,16 +1,20 @@
 import React from "react";
 import { useEffect } from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
+import useBodyOverflow from "../../hooks/useBodyOverflow";
 import MatchingButton from "../../pages/Matching/components/MatchingButton";
 import styled from "styled-components";
 
 export default NiceModal.create(() => {
+  useBodyOverflow("hidden");
   const modal = useModal();
+
   const closedModal = () => {
     modal.remove();
-    document.body.style.overflow = "unset";
   };
-
+  const handleResolve = () => {
+    modal.resolve({ resolved: true });
+  };
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 550) {
@@ -47,7 +51,9 @@ export default NiceModal.create(() => {
         </DatePicker>
       </Wrapper>
       <Footer>
-        <MatchingButton color="#89B922">검색</MatchingButton>
+        <MatchingButton onClick={handleResolve} color="#89B922">
+          검색
+        </MatchingButton>
       </Footer>
     </Container>
   );

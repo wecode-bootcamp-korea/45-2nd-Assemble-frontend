@@ -9,12 +9,11 @@ import Matching from "./pages/Matching/Matching";
 import ReservationStatusPage from "./pages/ReservationStatusPage/ReservationStatusPage";
 import ProfilePage from "./pages/Mypage/ProfilePage";
 import HostPage from "./pages/HostPage/HostPage";
+import ModalPromise from "./components/Payment/ModalPromise";
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <Header />
-      <Nav />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/court" element={<ProductDetails />} />
@@ -25,6 +24,7 @@ const Router = () => {
         />
         <Route path="/profilepage" element={<ProfilePage />} />
         <Route path="/hostpage" element={<HostPage />} />
+        <Route path="/test" element={<ModalPromise />} />
       </Routes>
       <Footer />
     </BrowserRouter>
