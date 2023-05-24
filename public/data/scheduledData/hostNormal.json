@@ -1,0 +1,80 @@
+[
+  {
+    "reservation": {
+      "id": 4,
+      "courtId": 1,
+      "isMatch": 0,
+      "timeSlot": "2023-06-22 21:00:00.000000",
+      "paymentStatus": "complete",
+      "reservationNumber": "72ae6b64-122b-4eea-8512-d08680c3cdac"
+    },
+    "court": {
+      "id": 1,
+      "name": "name",
+      "price": 11000,
+      "region": "강북",
+      "address": "a",
+      "parking": "public parking",
+      "district": "종로구",
+      "latitude": "1",
+      "longitude": "1",
+      "description": "b",
+      "isExclusive": 0,
+      "rentalEquip": 0,
+      "hasAmenities": 1,
+      "showerFacility": 1
+    }
+  },
+  {
+    "reservation": {
+      "id": 5,
+      "courtId": 1,
+      "isMatch": 0,
+      "timeSlot": "2023-06-22 22:00:00.000000",
+      "paymentStatus": "complete",
+      "reservationNumber": "72ae6b64-122b-4eea-8512-d08680c3cdac"
+    },
+    "court": {
+      "id": 1,
+      "name": "name",
+      "price": 11000,
+      "region": "강북",
+      "address": "a",
+      "parking": "public parking",
+      "district": "종로구",
+      "latitude": "1",
+      "longitude": "1",
+      "description": "b",
+      "isExclusive": 0,
+      "rentalEquip": 0,
+      "hasAmenities": 1,
+      "showerFacility": 1
+    }
+  },
+  {
+    "reservation": {
+      "id": 6,
+      "courtId": 1,
+      "isMatch": 0,
+      "timeSlot": "2023-06-24 21:00:00.000000",
+      "paymentStatus": "complete",
+      "reservationNumber": "72ae6b64-122b-4eea-8512-d08680c3cdac"
+    },
+    "court": {
+      "id": 1,
+      "name": "name",
+      "price": 11000,
+      "region": "강북",
+      "address": "a",
+      "parking": "public parking",
+      "district": "종로구",
+      "latitude": "1",
+      "longitude": "1",
+      "description": "b",
+      "isExclusive": 0,
+      "rentalEquip": 0,
+      "hasAmenities": 1,
+      "showerFacility": 1
+    }
+  }
+]

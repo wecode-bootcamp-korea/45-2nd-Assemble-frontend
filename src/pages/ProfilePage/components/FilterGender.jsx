@@ -22,17 +22,17 @@ const FilterGender = ({ title, name, changeUserInfo }) => {
         </FlexBox>
       ) : (
         <FlexBox>
-          {LEVEL_DATA.map(({ id, inputId, value }) => {
+          {LEVEL_DATA.map(({ id }) => {
             return (
               <div key={id}>
                 <InfoInput
-                  id={inputId}
-                  value={value}
+                  id={id}
+                  value={id}
                   type="radio"
                   name={name}
                   onChange={changeUserInfo}
                 />
-                <InfoLabel htmlFor={inputId}>{value}</InfoLabel>
+                <InfoLabel htmlFor={id}>{id}</InfoLabel>
               </div>
             );
           })}
@@ -49,11 +49,7 @@ const GENDER_DATA = [
   { id: 2, inputId: "female", value: "여" },
 ];
 
-const LEVEL_DATA = [
-  { id: 3, inputId: "1", value: "1" },
-  { id: 4, inputId: "2", value: "2" },
-  { id: 5, inputId: "3", value: "3" },
-];
+const LEVEL_DATA = [{ id: 1 }, { id: 2 }, { id: 3 }];
 
 const FlexBox = styled.div`
   display: flex;

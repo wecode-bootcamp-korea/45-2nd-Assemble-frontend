@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "guestUserId": 1,
+    "matchStatus": "matched",
+    "reservation": {
+      "id": 7,
+      "courtId": 1,
+      "isMatch": 1,
+      "timeSlot": "2023-08-23 09:00:00.000000",
+      "paymentStatus": "complete",
+      "reservationNumber": "72ae6b64-122b-4eea-8512-d08680c3cdac"
+    },
+    "court": {
+      "id": 1,
+      "name": "name",
+      "price": 11000,
+      "region": "강북",
+      "address": "a",
+      "parking": "public parking",
+      "district": "종로구",
+      "latitude": "1",
+      "longitude": "1",
+      "description": "b",
+      "isExclusive": 0,
+      "rentalEquip": 0,
+      "hasAmenities": 1,
+      "showerFacility": 1
+    },
+    "host": {
+      "id": 1,
+      "name": "jinseok",
+      "level": 1,
+      "gender": "male",
+      "kakaoId": 43333333234234230
+    }
+  },
+  {
+    "id": 2,
+    "guestUserId": 1,
+    "matchStatus": "matched",
+    "reservation": {
+      "id": 8,
+      "courtId": 1,
+      "isMatch": 1,
+      "timeSlot": "2023-09-23 09:00:00.000000",
+      "paymentStatus": "complete",
+      "reservationNumber": "72ae6b64-122b-4eea-8512-d08680c3cdac"
+    },
+    "court": {
+      "id": 1,
+      "name": "name",
+      "price": 22000,
+      "region": "강북",
+      "address": "a",
+      "parking": "public parking",
+      "district": "종로구",
+      "latitude": "1",
+      "longitude": "1",
+      "description": "b",
+      "isExclusive": 0,
+      "rentalEquip": 0,
+      "hasAmenities": 1,
+      "showerFacility": 1
+    },
+    "host": {
+      "id": 1,
+      "name": "지현",
+      "level": 1,
+      "gender": "여",
+      "kakaoId": 43333333234234230
+    }
+  },
+  {
+    "id": 3,
+    "guestUserId": 1,
+    "matchStatus": "matched",
+    "reservation": {
+      "id": 9,
+      "courtId": 1,
+      "isMatch": 1,
+      "timeSlot": "2023-08-23 10:00:00.000000",
+      "paymentStatus": "complete",
+      "reservationNumber": "72ae6b64-122b-4eea-8512-d08680c3cdac"
+    },
+    "court": {
+      "id": 1,
+      "name": "name",
+      "price": 33000,
+      "region": "강북",
+      "address": "a",
+      "parking": "public parking",
+      "district": "종로구",
+      "latitude": "1",
+      "longitude": "1",
+      "description": "b",
+      "isExclusive": 0,
+      "rentalEquip": 0,
+      "hasAmenities": 1,
+      "showerFacility": 1
+    },
+    "host": {
+      "id": 1,
+      "name": "희연",
+      "level": 1,
+      "gender": "여",
+      "kakaoId": 43333333234234230
+    }
+  }
+]
