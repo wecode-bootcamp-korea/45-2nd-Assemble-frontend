@@ -7,7 +7,7 @@ import Main from "./pages/Main/Main";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Matching from "./pages/Matching/Matching";
 import ReservationStatusPage from "./pages/ReservationStatusPage/ReservationStatusPage";
-import ProfilePage from "./pages/Mypage/ProfilePage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import HostPage from "./pages/HostPage/HostPage";
 
 const Router = () => {
