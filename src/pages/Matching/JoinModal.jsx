@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
 import MatchingButton from "./components/MatchingButton";
