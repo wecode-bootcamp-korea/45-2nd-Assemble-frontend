@@ -1,0 +1,94 @@
+[
+  {
+    "reservation": {
+      "id": 1,
+      "courtId": 1,
+      "isMatch": 1,
+      "timeSlot": "2023-05-22 09:00:00.000000",
+      "paymentStatus": "pending",
+      "reservationNumber": "72ae6b64-122b-4eea-8512-d08680c3cdac"
+    },
+    "court": {
+      "id": 1,
+      "name": "name",
+      "price": 11000,
+      "region": "강북",
+      "address": "a",
+      "parking": "public parking",
+      "district": "종로구",
+      "latitude": "1",
+      "longitude": "1",
+      "description": "b",
+      "isExclusive": 0,
+      "rentalEquip": 0,
+      "hasAmenities": 1,
+      "showerFacility": 1
+    }
+  },
+  {
+    "reservation": {
+      "id": 2,
+      "courtId": 1,
+      "isMatch": 1,
+      "timeSlot": "2023-07-22 09:00:00.000000",
+      "paymentStatus": "complete",
+      "reservationNumber": "72ae6b64-122b-4eea-8512-d08680c3cdac"
+    },
+    "court": {
+      "id": 1,
+      "name": "name",
+      "price": 11000,
+      "region": "강북",
+      "address": "a",
+      "parking": "public parking",
+      "district": "종로구",
+      "latitude": "1",
+      "longitude": "1",
+      "description": "b",
+      "isExclusive": 0,
+      "rentalEquip": 0,
+      "hasAmenities": 1,
+      "showerFacility": 1
+    },
+    "guest": {
+      "id": 1,
+      "name": "승범",
+      "level": 1,
+      "gender": "male",
+      "kakaoId": 43333333234234230
+    }
+  },
+  {
+    "reservation": {
+      "id": 3,
+      "courtId": 1,
+      "isMatch": 1,
+      "timeSlot": "2023-07-22 10:00:00.000000",
+      "paymentStatus": "complete",
+      "reservationNumber": "72ae6b64-122b-4eea-8512-d08680c3cdac"
+    },
+    "court": {
+      "id": 1,
+      "name": "name",
+      "price": 22000,
+      "region": "강북",
+      "address": "a",
+      "parking": "public parking",
+      "district": "종로구",
+      "latitude": "1",
+      "longitude": "1",
+      "description": "b",
+      "isExclusive": 0,
+      "rentalEquip": 0,
+      "hasAmenities": 1,
+      "showerFacility": 1
+    },
+    "guest": {
+      "id": 1,
+      "name": "진민",
+      "level": 1,
+      "gender": "male",
+      "kakaoId": 43333333234234230
+    }
+  }
+]

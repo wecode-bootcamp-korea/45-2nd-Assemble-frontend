@@ -89,11 +89,11 @@ const ModifyBtn = styled.button`
   width: 70px;
   height: 40px;
   border-radius: 30px;
-  background-color: #89b922;
+  background-color: ${props => props.theme.green};
   color: white;
   font-size: 18px;
   &:hover {
-    background-color: #a1db26;
+    background-color: ${props => props.theme.lightGreen};
   }
 `;
 
@@ -109,7 +109,7 @@ const LevelBox = styled.div`
 `;
 
 const LevelImg = styled.img`
-  border: 1px solid #d9d9d9;
+  border: 1px solid ${props => props.theme.lightGray};
   border-radius: 50%;
   width: 64px;
   height: 64px;

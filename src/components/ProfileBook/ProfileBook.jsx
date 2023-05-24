@@ -2,37 +2,63 @@ import React from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
 
-export default NiceModal.create(() => {
+export default NiceModal.create(CourtHost => {
+  const {
+    CourtHost: { host },
+  } = CourtHost;
+  const {
+    CourtHost: { guest },
+  } = CourtHost;
   const modal = useModal();
+
   const closedModal = () => {
     modal.remove();
+    document.body.style.overflow = "unset";
   };
-
+  const currentHost = host?.level ? host : guest;
   return (
     <Container>
-      <CloseBtn onClick={closedModal}>X</CloseBtn>
-      <ProfileBox>
-        <ProfileRight>
-          <LevelImg src="/images/LevelTwo.png" alt="실력을 나타내는 이미지" />
-          <Name>하지현</Name>
-        </ProfileRight>
-        <ProfileLeft>
-          <FirstInfoKeyValue>여</FirstInfoKeyValue>
-          <InfoKeyName>성별</InfoKeyName>
-          <SecondInfoKeyValue>숙련</SecondInfoKeyValue>
-          <InfoKeyName>실력</InfoKeyName>
-        </ProfileLeft>
-      </ProfileBox>
+      <Content>
+        <CloseBtn onClick={closedModal}>X</CloseBtn>
+        <ProfileBox>
+          <ProfileLeft>
+            <LevelImg
+              src={`/images/Level${currentHost.level}.png`}
+              alt="실력을 나타내는 이미지"
+            />
+            <Name>{currentHost.name}</Name>
+          </ProfileLeft>
+          <ProfileRight>
+            <FirstInfoKeyValue>{currentHost.gender}</FirstInfoKeyValue>
+            <InfoKeyName>성별</InfoKeyName>
+            <SecondInfoKeyValue>LV.{currentHost.level}</SecondInfoKeyValue>
+            <InfoKeyName>실력</InfoKeyName>
+          </ProfileRight>
+        </ProfileBox>
+      </Content>
     </Container>
   );
 });
 
 const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(40, 40, 40, 0.8);
+  transition: all 0.5s ease;
+`;
+const Content = styled.div`
   position: absolute;
+  z-index: 9999;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 9999;
   padding: 14px 24px 24px 24px;
   border: 1px solid ${props => props.theme.lightGray};
   border-radius: 5%;
@@ -58,7 +84,7 @@ const ProfileBox = styled.div`
   box-shadow: 0 0 20px gray;
 `;
 
-const ProfileRight = styled.span`
+const ProfileLeft = styled.span`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -77,12 +103,12 @@ const LevelImg = styled.img`
 
 const Name = styled.div`
   width: 104px;
+  text-align: center;
   margin-top: 15px;
   font-size: 32px;
-  text-align: center;
 `;
 
-const ProfileLeft = styled.span`
+const ProfileRight = styled.span`
   display: flex;
   flex-direction: column;
   justify-content: center;

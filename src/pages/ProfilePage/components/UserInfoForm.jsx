@@ -36,7 +36,7 @@ const UserInfoForm = ({ type, title, name, profileValue, setProfileValue }) => {
 export default UserInfoForm;
 
 const InfoInput = styled.input`
-  border: 1px solid #d9d9d9;
+  border: 1px solid ${props => props.theme.lightGray};
   border-radius: 10px;
   height: 30px;
   padding: 0 5px;

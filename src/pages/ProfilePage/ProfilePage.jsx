@@ -26,7 +26,7 @@ const ProfilePage = () => {
       const matchGuestData = await matchGuestRes.json();
       const matchData = [...matchHostData, ...matchGuestData];
       const sortedData = matchData.sort(
-        (a, b) => new Date(b.timeslot) - new Date(a.timeslot)
+        (a, b) => new Date(a.timeslot) - new Date(b.timeslot)
       );
       setReservationList(sortedData);
     };

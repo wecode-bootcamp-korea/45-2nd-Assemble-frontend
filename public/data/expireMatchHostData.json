@@ -22,7 +22,7 @@
       "guestId": 1,
       "guestName": "오진석",
       "guestLevelImg": "/images/LevelThree.png",
-      "guestLevel": "달인",
+      "guestLevel": "3",
       "guestGender": "남"
     }
   },
@@ -36,7 +36,7 @@
       "guestId": 2,
       "guestName": "김수정",
       "guestLevelImg": "/images/LevelThree.png",
-      "guestLevel": "달인",
+      "guestLevel": "3",
       "guestGender": "여"
     }
   }
