@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ProfileInfoCard from "./components/ProfileInfoCard";
 import CardEstimate from "../../components/CardEstimate/CardEstimate";
 
 const ProfilePage = () => {
+  const [profileValue, setProfileValue] = useState({
+    nameValue: "하지현",
+    genderValue: "여",
+    levelValue: 2,
+  });
+
   return (
     <Container>
       <section>
         <FirstTitle>개인정보</FirstTitle>
         <ProfileInfoBox>
-          {PROFILE_INFO_DATA.map(item => (
-            <ProfileInfoCard key={item.id} {...item} />
-          ))}
+          {PROFILE_INFO_DATA.map(({ id, title, name }) => {
+            return (
+              <ProfileInfoCard
+                key={id}
+                name={name}
+                title={title}
+                value={profileValue[name]}
+                setProfileValue={setProfileValue}
+                profileValue={profileValue}
+              />
+            );
+          })}
         </ProfileInfoBox>
       </section>
       <section>
@@ -28,14 +43,13 @@ const ProfilePage = () => {
 
 export default ProfilePage;
 
-const TEST_DATA = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 const PROFILE_INFO_DATA = [
-  { id: 1, title: "이름", value: "하지현" },
-  { id: 2, title: "이메일", value: "hajihyun@gmail.com" },
-  { id: 3, title: "성별", value: "여" },
-  { id: 4, title: "실력", value: 2 },
+  { id: 1, title: "이름", name: "nameValue" },
+  { id: 3, title: "성별", name: "genderValue" },
+  { id: 4, title: "실력", name: "levelValue" },
 ];
+
+const TEST_DATA = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Container = styled.div`
   padding: 40px 0px;
@@ -53,6 +67,7 @@ const ProfileInfoBox = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: 150px;
   grid-gap: 16px;
+
   @media screen and (max-width: 1128px) {
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 150px;
@@ -82,7 +97,7 @@ const CompletionList = styled.div`
   grid-gap: 16px;
   @media screen and (max-width: 1128px) {
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 3000px;
+    grid-auto-rows: 300px;
     grid-gap: 8px;
   }
   @media screen and (max-width: 842px) {
