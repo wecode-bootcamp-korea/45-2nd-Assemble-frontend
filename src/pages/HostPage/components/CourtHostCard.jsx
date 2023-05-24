@@ -2,25 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const ExpireReservationCard = ({ timeSlot, court, paymentStatus }) => {
-  const { courtName, address, price, courtImage, courtId } = court;
+const ExpireReservationCard = ({ courtId, timeSlot, court }) => {
+  const { courtName, address, price, courtImage } = court;
   const navigate = useNavigate();
-
-  const date = new Date(timeSlot);
-  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const dayOfWeek = weekdays[date.getDay()];
-  const formattedDate = `${year}년 ${month}월 ${day}일 ${dayOfWeek}요일`;
-
-  const startTime = timeSlot.slice(11, 16);
-  const endTime = new Date(timeSlot);
-  endTime.setHours(endTime.getHours() + 1);
-  const formattedTime = `${startTime} ~ ${endTime
-    .getHours()
-    .toString()
-    .padStart(2, "0")}:00`;
 
   const goToCourt = () => {
     navigate(`/court/courtId${courtId}`);
@@ -29,17 +13,14 @@ const ExpireReservationCard = ({ timeSlot, court, paymentStatus }) => {
   return (
     <Container onClick={goToCourt}>
       <CardImgWrapper>
-        <CardImg src={courtImage} alt="테니스장사진" />
-        {paymentStatus === "canceled" ? <LabelNomal>취소</LabelNomal> : <div />}
+        <CardImg src="./images/tennis.png" alt="테니스장사진" />
       </CardImgWrapper>
       <CardInfo>
         <CardTitle>{courtName}</CardTitle>
         <CardLocation>{address}</CardLocation>
-        <CardDate>{formattedDate}</CardDate>
       </CardInfo>
       <CardDescription>
         <CardTimeInfo>
-          <CardTime>{formattedTime}</CardTime>
           <CardPrice>{price.toLocaleString()} 원/시간</CardPrice>
         </CardTimeInfo>
       </CardDescription>
@@ -51,7 +32,7 @@ export default ExpireReservationCard;
 
 const CardImg = styled.img`
   width: 100%;
-  height: 100%;
+  height: 200px;
   border-radius: 5%;
 `;
 
@@ -61,8 +42,6 @@ const Container = styled.div`
   padding: 16px;
   filter: brightness(0.8);
   border-radius: 30px;
-  background-color: ${props => props.theme.lightGray};
-
   &:hover {
     cursor: pointer;
     ${CardImg} {
@@ -102,36 +81,9 @@ const CardTitle = styled.p`
 const CardTimeInfo = styled.div`
   flex: 1;
 `;
-const CardDate = styled.p`
-  font-size: ${props => props.theme.sm.fontSize};
-  line-height: ${props => props.theme.sm.lineHeight};
-  color: ${props => props.theme.grey};
-`;
-const CardTime = styled.p`
-  font-size: ${props => props.theme.sm.fontSize};
-  line-height: ${props => props.theme.sm.lineHeight};
-  color: ${props => props.theme.grey};
-`;
+
 const CardPrice = styled.p`
   font-size: ${props => props.theme.base.fontSize};
   line-height: ${props => props.theme.base.lineHeight};
   font-weight: 700;
-`;
-
-const LabelBase = styled.div`
-  z-index: 9999;
-  font-size: 20px;
-  width: 100px;
-  height: 40px;
-  border: 1px solid black;
-  color: white;
-  position: absolute;
-  top: 10px;
-  left: -15px;
-  padding: 10px;
-  text-align: center;
-`;
-
-const LabelNomal = styled(LabelBase)`
-  background-color: black;
 `;
