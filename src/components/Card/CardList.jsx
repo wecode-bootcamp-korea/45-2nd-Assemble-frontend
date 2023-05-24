@@ -1,23 +1,71 @@
-import React from "react";
+import React, { useRef, useCallback } from "react";
+import { useInfiniteQuery } from "react-query";
+import { getMatchData } from "../../api/axios";
 import styled from "styled-components";
 import Card from "./Card";
 
 const CardList = () => {
+  const {
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    data,
+    status,
+    error,
+  } = useInfiniteQuery(
+    "/posts",
+    ({ pageParam = 1 }) => getMatchData(pageParam),
+    {
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.length ? allPages.length + 1 : undefined;
+      },
+    }
+  );
+
+  const intObserver = useRef();
+  const lastCardRef = useCallback(
+    card => {
+      if (isFetchingNextPage) return;
+
+      if (intObserver.current) intObserver.current.disconnect();
+
+      intObserver.current = new IntersectionObserver(cards => {
+        if (cards[0].isIntersecting && hasNextPage) {
+          console.log("We are near the last post!");
+          fetchNextPage();
+        }
+      });
+
+      if (card) intObserver.current.observe(card);
+    },
+    [isFetchingNextPage, fetchNextPage, hasNextPage]
+  );
+
+  if (status === "error")
+    return <p className="center">Error: {error.message}</p>;
+
+  const card = data?.pages.map(page => {
+    return page.map((item, i) => {
+      if (page.length === i + 1) {
+        return <Card ref={lastCardRef} key={item.id} item={item} />;
+      }
+      return <Card key={item.id} item={item} />;
+    });
+  });
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <Wrapper>
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-    </Wrapper>
+    <div>
+      <Top className="#top" />
+      <Wrapper>{card}</Wrapper>
+      {isFetchingNextPage && <p className="center">Loading More Posts...</p>}
+      <p className="center">
+        <button onClick={scrollToTop}>top</button>
+      </p>
+    </div>
   );
 };
 
@@ -42,4 +90,8 @@ const Wrapper = styled.div`
     grid-template-columns: 100%;
     padding: 24px;
   }
+`;
+
+const Top = styled.div`
+  display: none;
 `;

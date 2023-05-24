@@ -47,7 +47,7 @@ const ProfileRight = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  flex: 0.5;
+  flex: 0.4;
   @media screen and (max-width: 550px) {
     flex: 0.6;
     align-items: flex-start;
@@ -72,6 +72,9 @@ const ProfileInfo = styled.div`
 const ImgWrapper = styled.div`
   width: 120px;
   flex: 1;
+  @media screen and (max-width: 550px) {
+    width: 100px;
+  }
 `;
 
 const LevelImg = styled.img`
@@ -95,7 +98,7 @@ const Name = styled.div`
 `;
 
 const ProfileLeft = styled.div`
-  flex: 0.5;
+  flex: 0.6;
   display: flex;
   flex-direction: column;
   justify-content: center;

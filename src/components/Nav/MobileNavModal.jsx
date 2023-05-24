@@ -1,11 +1,13 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { debounce } from "lodash";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import useBodyOverflow from "../../hooks/useBodyOverflow";
 import MatchingButton from "../../pages/Matching/components/MatchingButton";
 import styled from "styled-components";
 
 export default NiceModal.create(() => {
+  const [width, setWidth] = useState();
   useBodyOverflow("hidden");
   const modal = useModal();
 
@@ -16,20 +18,21 @@ export default NiceModal.create(() => {
     modal.resolve({ resolved: true });
   };
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 550) {
-        closedModal();
-      }
-    };
-    handleResize();
+    const handleResize = debounce(() => setWidth(window.innerWidth), 100);
+
     window.addEventListener("resize", handleResize);
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
+  useEffect(() => {
+    width > 550 && modal.remove();
+  }, [width]);
+
   return (
-    <Container>
+    <Container width={width}>
       <Header>
         <ClosedButton onClick={closedModal}>X</ClosedButton>
       </Header>

@@ -5,13 +5,18 @@ import Router from "./Router";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/GlobalStyle";
 import theme from "./styles/theme";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ThemeProvider theme={theme}>
     <GlobalStyle />
     <NiceModal.Provider>
-      <Router />
+      <QueryClientProvider client={queryClient}>
+        <Router />
+      </QueryClientProvider>
     </NiceModal.Provider>
   </ThemeProvider>
 );

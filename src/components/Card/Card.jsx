@@ -1,42 +1,45 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import MatchingButton from "../../pages/Matching/components/MatchingButton";
 import styled from "styled-components";
+import MatchingButton from "../../pages/Matching/components/MatchingButton";
 import { usePaymentProcess } from "../Payment/usePaymentProcess";
 
-const Card = () => {
+const Card = React.forwardRef(({ item }, ref) => {
   const navigate = useNavigate();
   const { paymentProcess } = usePaymentProcess();
+
   const goToCourt = () => {
     navigate("/main");
   };
 
   return (
-    <Container>
-      <CardImgWrapper>
-        <CardImg src="/images/tennis.png" alt="테니스장사진" />
-      </CardImgWrapper>
-      <CardInfo>
-        <CardTitle onClick={goToCourt}>그리너리</CardTitle>
-        <CardLocation>
-          서울시 강남구 테헤란로 427 위워크 선릉 2호점 10층
-        </CardLocation>
-        <CardDate>2023년 5월 22일 월요일</CardDate>
-      </CardInfo>
-      <CardDescription>
-        <CardTimeInfo>
-          <CardTime>17:00 ~ 19:00</CardTime>
-          <CardPrice>20,000 원/시간</CardPrice>
-        </CardTimeInfo>
-        <JoinButton>
-          <MatchingButton onClick={paymentProcess} color="#89B922">
-            조인하기
-          </MatchingButton>
-        </JoinButton>
-      </CardDescription>
-    </Container>
+    <article ref={ref && ref}>
+      <Container>
+        <CardImgWrapper>
+          <CardImg src="/images/tennis.png" alt="테니스장사진" />
+        </CardImgWrapper>
+        <CardInfo>
+          <CardTitle onClick={goToCourt}>그리너리캠핑장</CardTitle>
+          <CardLocation>
+            서울시 강남구 테헤란로 427 위워크 타워 선릉 2호점 10층
+          </CardLocation>
+        </CardInfo>
+        <CardDescription>
+          <CardTimeInfo>
+            <CardDate>2022년 5월 22일 월요일</CardDate>
+            <CardTime>17:00 - 18:00</CardTime>
+            <CardPrice>20,000원/시간</CardPrice>
+          </CardTimeInfo>
+          <JoinButton>
+            <MatchingButton onClick={paymentProcess} color="#89B922">
+              조인하기
+            </MatchingButton>
+          </JoinButton>
+        </CardDescription>
+      </Container>
+    </article>
   );
-};
+});
 
 export default Card;
 
@@ -49,6 +52,7 @@ const CardImg = styled.img`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
   &:hover {
     ${CardImg} {
       filter: brightness(150%);
@@ -89,6 +93,7 @@ const CardTitle = styled.p`
 
 const CardTimeInfo = styled.div`
   flex: 1;
+  align-self: flex-end;
 `;
 const CardDate = styled.p`
   font-size: ${props => props.theme.sm.fontSize};
