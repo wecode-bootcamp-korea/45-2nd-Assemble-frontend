@@ -9,8 +9,8 @@ const ReservationStatusPage = () => {
   const [reservationList, setReservationList] = useState([]);
   const [currentTab, setCurrentTab] = useState("전체");
   const [searchParams, setSearchParams] = useSearchParams();
-
   const token = localStorage.getItem("accessToken");
+  const [isToken, setIsToken] = useState(token);
   const config = {
     headers: {
       Authorization: `${token}`,
@@ -72,8 +72,9 @@ const ReservationStatusPage = () => {
       }
     };
     fetchData();
-  }, [currentTab]);
-
+    console.log("이펙트");
+  }, [currentTab, token, isToken]);
+  console.log("컴포넌트");
   return (
     <Container>
       <Title>예약현황</Title>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
+// import AWS from "aws-sdk";
+import { apiClient } from "../../../utils";
 
 export default NiceModal.create(() => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -15,15 +17,59 @@ export default NiceModal.create(() => {
   const handleFileChange = event => {
     const files = event.target.files;
     setSelectedFile(files);
-
     const reader = new FileReader();
     reader.readAsDataURL(files[0]);
     reader.onloadend = () => {
       setPreviewFile(reader.result);
     };
   };
+  const addCourt = async () => {
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    formData.append("name", selectedFile.name);
 
-  const addCourt = () => {
+    try {
+      await apiClient.post(`http://10.58.52.234:3000/courts`, {
+        formData: formData,
+        name: "a",
+        address: "a",
+        price: "a",
+      });
+    } catch (error) {
+      console.error("PATCH 요청 실패:", error);
+    }
+
+    // const addCourt = async file => {
+    // const formData = new FormData();
+    // formData.append("file", file);
+    // formData.append("name", file.name);
+
+    // const S3_BUCKET = "court-img-upload";
+    // const REGION = "ap-northeast-2";
+    // const ACCESS_KEY_ID = "AKIA3AH5NN4HX7Y4Y6A7";
+    // const SECRET_ACCESS_KEY = "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";
+
+    // AWS.config.update({
+    //   region: REGION,
+    //   accessKeyId: ACCESS_KEY_ID,
+    //   secretAccessKey: SECRET_ACCESS_KEY,
+    // });
+
+    // const s3 = new AWS.S3();
+
+    // try {
+    //   const params = {
+    //     Bucket: S3_BUCKET,
+    //     Key: `upload/${file.name}`,
+    //     Body: formData.get("file"),
+    //     ACL: "public-read",
+    //   };
+
+    //   const response = await s3.upload(params).promise();
+    //   console.log("File uploaded successfully:", response.Location);
+    // } catch (error) {
+    //   console.error("Error uploading file:", error);
+    // }
     modal.remove();
     document.body.style.overflow = "unset";
   };
@@ -34,7 +80,7 @@ export default NiceModal.create(() => {
         <ClosedButton onClick={closedModal}>X</ClosedButton>
         <Content>
           <Title>등록하기</Title>
-          <ImgPreview src={previewFile} alt="프로필 이미지" />
+          <ImgPreview src={previewFile} alt="코트장 이미지" />
           <UploadInput
             type="file"
             accept="image/*"
@@ -116,9 +162,11 @@ export default NiceModal.create(() => {
           </OptionArea>
           <LongTextInput type="text" placeholder="기타편의시설" />
           <DescriptionInput type="text" placeholder="설명" />
+          {/* <AddButton onClick={() => addCourt(selectedFile[0])}> */}
           <AddButton onClick={addCourt}>등록하기</AddButton>
         </Content>
       </ModalSection>
+      {/* <img src="https://court-img-upload.s3.ap-northeast-2.amazonaws.com/upload/Level1.jpeg" /> */}
     </Container>
   );
 });
@@ -178,7 +226,7 @@ const Title = styled.div`
 const ImgPreview = styled.img`
   /* width: 450px; */
   /* height: 300px; */
-  border: 1px solid black;
+  /* border: 1px solid black; */
 `;
 
 const UploadInput = styled.input`
@@ -200,6 +248,7 @@ const TextInput = styled.input`
   height: 40px;
   border-radius: 10px;
   padding-left: 10px;
+  border: 1px solid black;
 `;
 
 const LongTextInput = styled(TextInput)`
@@ -257,6 +306,7 @@ const DescriptionInput = styled.input`
   margin-bottom: 20px;
   padding-left: 10px;
   padding-bottom: 50px;
+  border: 1px solid black;
 `;
 
 const AddButton = styled.button`

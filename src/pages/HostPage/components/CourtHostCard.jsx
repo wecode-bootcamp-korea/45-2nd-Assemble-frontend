@@ -2,8 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const ExpireReservationCard = ({ courtId, timeSlot, court }) => {
-  const { courtName, address, price, courtImage } = court;
+const ExpireReservationCard = ({ courtId, court }) => {
+  const { name, address, price, district, region } = court;
   const navigate = useNavigate();
 
   const goToCourt = () => {
@@ -16,7 +16,7 @@ const ExpireReservationCard = ({ courtId, timeSlot, court }) => {
         <CardImg src="./images/tennis.png" alt="테니스장사진" />
       </CardImgWrapper>
       <CardInfo>
-        <CardTitle>{courtName}</CardTitle>
+        <CardTitle>{name}</CardTitle>
         <CardLocation>{address}</CardLocation>
       </CardInfo>
       <CardDescription>
@@ -61,12 +61,14 @@ const CardInfo = styled.div`
   flex-direction: column;
   padding: 0 16px;
 `;
+
 const CardDescription = styled.div`
   flex: 1;
   padding: 0 16px;
   display: flex;
   justify-content: space-between;
 `;
+
 const CardLocation = styled.p`
   font-size: ${props => props.theme.sm.fontSize};
   line-height: ${props => props.theme.sm.lineHeight};
