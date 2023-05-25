@@ -5,8 +5,8 @@ import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer";
 import Main from "./pages/Main/Main";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
-import Login from "./components/Login/Login";
-import LoginOk from "./components/Login/LoginOk";
+import Login from "./components/Login/kakaoLogin";
+import KakaoLogin from "./components/Login/KakaoLoginGetToken";
 import Matching from "./pages/Matching/Matching";
 import ReservationStatusPage from "./pages/ReservationStatusPage/ReservationStatusPage";
 import ProfilePage from "./pages/Mypage/ProfilePage";
@@ -21,7 +21,7 @@ const Router = () => {
         <Route path="/" element={<Main />} />
         <Route path="/court" element={<ProductDetails />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/login-ok" element={<LoginOk />} />
+        <Route path="/kakao-login" element={<KakaoLogin />} />
         <Route path="/matching" element={<Matching />} />
         <Route path="/profilepage" element={<ProfilePage />} />
         <Route
