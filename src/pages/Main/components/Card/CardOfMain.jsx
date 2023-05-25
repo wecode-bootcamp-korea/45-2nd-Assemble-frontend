@@ -1,20 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import NiceModal from "@ebay/nice-modal-react";
-import JoinModal from "../../pages/Matching/JoinModal";
-import ProfileBook from "../ProfileBook/ProfileBook";
-import MatchingButton from "../../pages/Matching/components/MatchingButton";
 import styled from "styled-components";
 
 const Card = () => {
   const navigate = useNavigate();
   const goToCourt = () => {
     navigate("/main");
-  };
-
-  const showJoinModal = () => {
-    NiceModal.show(JoinModal);
-    document.body.style.overflow = "hidden";
   };
 
   return (
@@ -27,19 +18,7 @@ const Card = () => {
         <CardLocation>
           서울시 강남구 테헤란로 427 위워크 선릉 2호점 10층
         </CardLocation>
-        <CardDate>2023년 5월 22일 월요일</CardDate>
       </CardInfo>
-      <CardDescription>
-        <CardTimeInfo>
-          <CardTime>17:00 ~ 19:00</CardTime>
-          <CardPrice>20,000 원/시간</CardPrice>
-        </CardTimeInfo>
-        <JoinButton>
-          <MatchingButton onClick={showJoinModal} color="#89B922">
-            조인하기
-          </MatchingButton>
-        </JoinButton>
-      </CardDescription>
     </Container>
   );
 };
@@ -107,9 +86,9 @@ const CardTime = styled.p`
   color: ${props => props.theme.grey};
 `;
 const CardPrice = styled.p`
-  font-size: ${props => props.theme.base.fontSize};
-  line-height: ${props => props.theme.base.lineHeight};
-  font-weight: 700;
+  font-size: ${props => props.theme.sm.fontSize};
+  line-height: ${props => props.theme.sm.lineHeight};
+  font-weight: 900;
 `;
 
 const JoinButton = styled.div`

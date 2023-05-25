@@ -10,6 +10,7 @@ import LoginOk from "./components/Login/LoginOk";
 import Matching from "./pages/Matching/Matching";
 import ReservationStatusPage from "./pages/ReservationStatusPage/ReservationStatusPage";
 import ProfilePage from "./pages/Mypage/ProfilePage";
+import HostPage from "./pages/HostPage/HostPage";
 
 const Router = () => {
   return (
@@ -27,7 +28,12 @@ const Router = () => {
           path="/reservationstatuspage"
           element={<ReservationStatusPage />}
         />
+<<<<<<< HEAD
         <Route path="*" element="없는 페이지~" />
+=======
+        <Route path="/profilepage" element={<ProfilePage />} />
+        <Route path="/hostpage" element={<HostPage />} />
+>>>>>>> main
       </Routes>
       <Footer />
     </BrowserRouter>
