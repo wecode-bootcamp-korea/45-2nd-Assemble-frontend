@@ -28,12 +28,9 @@ const Router = () => {
           path="/reservationstatuspage"
           element={<ReservationStatusPage />}
         />
-<<<<<<< HEAD
-        <Route path="*" element="없는 페이지~" />
-=======
         <Route path="/profilepage" element={<ProfilePage />} />
         <Route path="/hostpage" element={<HostPage />} />
->>>>>>> main
+        <Route path="*" element="없는 페이지~" />
       </Routes>
       <Footer />
     </BrowserRouter>
