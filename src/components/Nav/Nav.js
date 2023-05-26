@@ -1,45 +1,74 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import NavModal from "./NavModal";
+
 const Nav = () => {
   const [isBorder, setIsBorder] = useState("on");
-
+  const [showModal, setShowModal] = useState(false);
+  const [buttonOn, setButtonOn] = useState(false);
   return (
     <NavFlex>
       <ButtonBackground>
-        <NavButtonLeft
-          onMouseEnter={() => setIsBorder("LeftOff")}
-          onMouseLeave={() => setIsBorder("on")}
-        >
-          <p>장소</p>
-          <p>선택한 장소</p>
-        </NavButtonLeft>
+        <NavButtonBox>
+          <NavButtonLeft
+            buttonOn={buttonOn}
+            onClick={() => {
+              setShowModal("showLocationModal");
+              setButtonOn("leftButton");
+            }}
+            onMouseEnter={() => setIsBorder("LeftOff")}
+            onMouseLeave={() => setIsBorder("on")}
+          >
+            <p>장소</p>
+            <p>선택한 장소</p>
+          </NavButtonLeft>
+          <NavModalWrapper>
+            {showModal === "showLocationModal" && <NavModal />}
+          </NavModalWrapper>
+        </NavButtonBox>
         <BorderLineA border={isBorder} />
-        <NavButton
-          onMouseEnter={() => {
-            setIsBorder("CenterOff");
-          }}
-          onMouseLeave={() => {
-            setIsBorder("on");
-          }}
-        >
-          <p>날짜</p>
-          <p>선택한 날짜</p>
-        </NavButton>
-        <BorderLineB border={isBorder} />
-        <NavButtonRight>
+        <NavButtonBox>
           <NavButton
+            buttonOn={buttonOn}
+            onClick={() => {
+              setShowModal("showDateModal");
+              setButtonOn("centerButton");
+            }}
             onMouseEnter={() => {
-              setIsBorder("RightOff");
+              setIsBorder("CenterOff");
             }}
             onMouseLeave={() => {
               setIsBorder("on");
             }}
           >
-            <p>시간</p>
-            <p>선택한 시간</p>
+            <p>날짜</p>
+            <p>선택한 날짜</p>
           </NavButton>
-          <SearchIcon />
-        </NavButtonRight>
+          {showModal === "showDateModal" && <div>calendar</div>}
+        </NavButtonBox>
+        <BorderLineB border={isBorder} />
+        <NavButtonBox>
+          <NavButtonRight>
+            <NavButton
+              buttonOn={buttonOn}
+              onClick={() => {
+                setShowModal("showTimeModal");
+                setButtonOn("rightButton");
+              }}
+              onMouseEnter={() => {
+                setIsBorder("RightOff");
+              }}
+              onMouseLeave={() => {
+                setIsBorder("on");
+              }}
+            >
+              <p>시간</p>
+              <p>선택한 시간</p>
+            </NavButton>
+            <SearchIcon />
+          </NavButtonRight>
+          {showModal === "showTimeModal" && <div>timeslot</div>}
+        </NavButtonBox>
       </ButtonBackground>
       <Filterbutton>필터</Filterbutton>
     </NavFlex>
@@ -66,22 +95,24 @@ const ButtonBackground = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background-color: white;
 `;
 
 const NavButton = styled.div`
-  font-size: 12px;
-  width: 280px;
-  height: 64px;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  width: 280px;
+  height: 64px;
   padding: 20px;
-  position: relative;
+  border-radius: 40px;
+  font-size: 12px;
 
   &:hover {
     background-color: ${props => props.theme.lightGray};
-    border-radius: 40px;
+    background-color: ${props => props.buttonOn && "white"};
   }
 
   p:first-child {
@@ -90,8 +121,18 @@ const NavButton = styled.div`
   }
 `;
 
+const NavButtonBox = styled.div`
+  position: relative;
+`;
 const NavButtonLeft = styled(NavButton)`
   padding-left: 30px;
+`;
+
+const NavModalWrapper = styled.div`
+  position: absolute;
+  top: 70px;
+  left: 0px;
+  width: 100%;
 `;
 
 const NavButtonRight = styled(NavButton)`
