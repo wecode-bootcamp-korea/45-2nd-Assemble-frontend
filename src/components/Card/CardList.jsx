@@ -1,6 +1,7 @@
 import React, { useRef, useCallback } from "react";
-import { useInfiniteQuery } from "react-query";
-import { getMatchData } from "../../api/axios";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useScroll, QUERY_KEY_INFINITE } from "../../service/query/useScroll";
+import { getMatches } from "../../service/apis/getMatches";
 import styled from "styled-components";
 import Card from "./Card";
 
@@ -12,15 +13,14 @@ const CardList = () => {
     data,
     status,
     error,
-  } = useInfiniteQuery(
-    "/posts",
-    ({ pageParam = 1 }) => getMatchData(pageParam),
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        return lastPage.length ? allPages.length + 1 : undefined;
-      },
-    }
-  );
+  } = useInfiniteQuery({
+    queryKey: [QUERY_KEY_INFINITE],
+    queryFn: ({ pageParam = 1 }) => getMatches(pageParam),
+
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.length ? allPages.length + 1 : undefined;
+    },
+  });
 
   const intObserver = useRef();
   const lastCardRef = useCallback(

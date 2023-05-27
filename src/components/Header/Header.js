@@ -1,28 +1,44 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import ProfileButton from "./ProfileButton";
+import styled from "styled-components";
+import { kakaoLogin } from "../Login/kakaoLogin";
+import { useAuth } from "../../hooks/useAuth";
 
 const Header = () => {
-  const token = true;
+  const { user, clearUser, isInitialized, isAuthenticated } = useAuth();
+  const logout = () => {
+    clearUser();
+    alert(`로그아웃 되었습니다.`);
+  };
 
   return (
     <HeaderFlex>
-      <Link to="/">
-        <Logo src="/images/logo2.png" />
-      </Link>
-      <CategoryFlex>
-        <CategoryName>
-          <Link to="/">예약하기</Link>
-        </CategoryName>
-        <CategoryName>
-          <Link to="Matching">매칭하기</Link>
-        </CategoryName>
-      </CategoryFlex>
-      <CategoryFlex>
-        <LoginButton>{!token ? "로그인 및 회원가입" : "로그아웃"}</LoginButton>
-        {token && <ProfileButton></ProfileButton>}
-      </CategoryFlex>
+      {isInitialized && (
+        <>
+          <Link to="/">
+            <Logo src="/images/logo2.png" />
+          </Link>
+          <CategoryFlex>
+            <CategoryName>
+              <Link to="/">예약하기</Link>
+            </CategoryName>
+            <CategoryName>
+              <Link to="Matching">매칭하기</Link>
+            </CategoryName>
+          </CategoryFlex>
+          <CategoryFlex>
+            {!isAuthenticated ? (
+              <LoginButton onClick={kakaoLogin}>로그인 및 회원가입</LoginButton>
+            ) : (
+              <>
+                <LoginButton onClick={logout}>로그아웃</LoginButton>
+                <ProfileButton />
+              </>
+            )}
+          </CategoryFlex>
+        </>
+      )}
     </HeaderFlex>
   );
 };
@@ -30,6 +46,9 @@ const Header = () => {
 export default Header;
 
 const HeaderFlex = styled.div`
+  padding: 0 40px;
+  max-width: 1280px;
+  height: 80px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

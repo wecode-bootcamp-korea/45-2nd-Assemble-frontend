@@ -10,6 +10,7 @@ import ReservationStatusPage from "./pages/ReservationStatusPage/ReservationStat
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import HostPage from "./pages/HostPage/HostPage";
 import ModalPromise from "./components/Payment/ModalPromise";
+import Login from "./components/Login/Login";
 
 const Router = () => {
   return (
@@ -26,6 +27,7 @@ const Router = () => {
         <Route path="/profilepage" element={<ProfilePage />} />
         <Route path="/hostpage" element={<HostPage />} />
         <Route path="/test" element={<ModalPromise />} />
+        <Route path="/kakao-login" element={<Login />} />
       </Routes>
       <Footer />
     </BrowserRouter>
