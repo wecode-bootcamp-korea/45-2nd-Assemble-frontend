@@ -7,7 +7,7 @@ const ProfileBox = () => {
       <ProfileRight>
         <ProfileInfo>
           <ImgWrapper>
-            <LevelImg src="/images/LevelTwo.png" alt="실력을 나타내는 이미지" />
+            <LevelImg src="/images/Level2.png" alt="실력을 나타내는 이미지" />
           </ImgWrapper>
           <Name>하지현</Name>
         </ProfileInfo>

@@ -1,40 +1,50 @@
-import { loadTossPayments } from "@tosspayments/payment-sdk";
 import { useModal } from "@ebay/nice-modal-react";
 import JoinModal from "../../pages/Matching/JoinModal";
 import PaymentModal from "../../pages/Matching/PaymentModal";
-const clientKey = process.env.REACT_APP_CLIENTKEY;
+import LoginModal from "../Login/LoginModal";
+import UserInfoModal from "../Login/UserInfoModal";
+import { useAuth } from "../../hooks/useAuth";
 
 export const usePaymentProcess = () => {
+  const { isAuthenticated, user } = useAuth();
   const joinModal = useModal(JoinModal);
   const paymentModal = useModal(PaymentModal);
+  const loginModal = useModal(LoginModal);
+  const userInfoModal = useModal(UserInfoModal);
+
+  const checkUserInfo = () => {
+    const { gender, name, level } = user;
+
+    if (!gender || !name || !level) {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   const paymentProcess = async () => {
     try {
-      await joinModal.show();
-      await joinModal.remove();
-      await paymentModal.show();
+      if (!isAuthenticated) {
+        await loginModal.show();
+        await joinModal.show();
+        await joinModal.remove();
+        await paymentModal.show();
+      } else {
+        if (checkUserInfo()) {
+          await joinModal.show();
+          await joinModal.remove();
+          await paymentModal.show();
+        } else {
+          await userInfoModal.show();
+          await joinModal.show();
+          await userInfoModal.remove();
+          await joinModal.remove();
+          await paymentModal.show();
+        }
+      }
     } catch (e) {
       console.error(e);
     }
-
-    await loadTossPayments(clientKey).then(tossPayments => {
-      tossPayments
-        .requestPayment("카드", {
-          amount: 15000,
-          orderId: "ZCTNklr4W7gWvaxV6pEy5",
-          orderName: "토스 티셔츠 외 2건",
-          customerName: "박토스",
-          successUrl: "http://localhost:8080/success",
-          failUrl: "http://localhost:8080/fail",
-          flowMode: "DIRECT",
-          easyPay: "토스페이",
-        })
-        .catch(function (error) {
-          if (error.code === "USER_CANCEL") {
-          } else if (error.code === "INVALID_CARD_COMPANY") {
-          }
-        });
-    });
   };
 
   return { paymentProcess };

@@ -1,21 +1,51 @@
 import React from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import useBodyOverflow from "../../hooks/useBodyOverflow";
 import MatchingButton from "./components/MatchingButton";
 import CardForModal from "../../components/Card/CardForModal";
 import ChargeInfo from "../../components/Payment/ChargeInfo";
 import { fadeIn, fadeOut } from "./components/animation";
+import { paymentAtom } from "../../components/Payment/paymentAtom";
+import { loadTossPayments } from "@tosspayments/payment-sdk";
+
+const clientKey = process.env.REACT_APP_CLIENTKEY;
 
 export default NiceModal.create(() => {
   useBodyOverflow("hidden");
   const modal = useModal();
+  const [paymentMethod, setPaymentMethod] = useRecoilState(paymentAtom);
+  const { amount, orderId, orderName, customerName, easyPay } = paymentMethod;
 
   const closedModal = () => {
     modal.remove();
   };
   const handleResolve = () => {
     modal.resolve();
+    loadTossPayments(clientKey).then(tossPayments => {
+      tossPayments
+        .requestPayment("카드", {
+          amount: amount,
+          orderId: orderId,
+          orderName: orderName,
+          customerName: customerName,
+          successUrl: "http://localhost:8080/success",
+          failUrl: "http://localhost:8080/fail",
+          flowMode: "DIRECT",
+          easyPay: easyPay,
+        })
+        .catch(function (error) {
+          if (error.code === "USER_CANCEL") {
+          } else if (error.code === "INVALID_CARD_COMPANY") {
+          }
+        });
+    });
+  };
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setPaymentMethod(prev => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -33,10 +63,9 @@ export default NiceModal.create(() => {
             <PaymentMethod>
               <PaymentMethodRadio
                 type="radio"
-                name="card"
-                readOnly
-                value="toss"
-                checked
+                name="easyPay"
+                value="토스페이"
+                onChange={handleChange}
               />
               토스페이
             </PaymentMethod>
@@ -44,8 +73,9 @@ export default NiceModal.create(() => {
               <PaymentMethodRadio
                 type="radio"
                 readOnly
-                name="cash"
-                value="account"
+                name="easyPay"
+                value="가상계좌"
+                onChange={handleChange}
               />
               가상계좌
             </PaymentMethod>
