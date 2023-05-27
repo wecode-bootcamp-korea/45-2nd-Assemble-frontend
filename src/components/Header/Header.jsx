@@ -8,7 +8,7 @@ import { loginAtom } from "../../pages/Recoil/loginAtom";
 const Header = () => {
   // const [token, setToken] = useState(localStorage.getItem(`TOKEN`));
   const [token, setToken] = useRecoilState(loginAtom);
-  console.log(`token1`, token);
+  console.log(`token`, token);
 
   const logout = () => {
     setToken(localStorage.removeItem(`TOKEN`));
@@ -19,15 +19,12 @@ const Header = () => {
     window.addEventListener(
       "message",
       e => {
-        if (e.origin !== window.location.origin) {
-          return;
-        }
         const { code } = e.data;
-        setToken(code);
+        if (code) setToken(code);
       },
       false
     );
-  }, [setToken]);
+  }, [token, setToken]);
 
   return (
     <HeaderFlex>
