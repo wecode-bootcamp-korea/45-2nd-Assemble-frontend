@@ -2,27 +2,44 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const ExpireReservationCard = () => {
+const ExpireReservationCard = ({ courtId, timeSlot, court }) => {
+  const { courtName, address, price, courtImage } = court;
   const navigate = useNavigate();
+
+  const date = new Date(timeSlot);
+  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const dayOfWeek = weekdays[date.getDay()];
+  const formattedDate = `${year}년 ${month}월 ${day}일 ${dayOfWeek}요일`;
+
+  const startTime = timeSlot.slice(11, 16);
+  const endTime = new Date(timeSlot);
+  endTime.setHours(endTime.getHours() + 1);
+  const formattedTime = `${startTime} ~ ${endTime
+    .getHours()
+    .toString()
+    .padStart(2, "0")}:00`;
+
   const goToCourt = () => {
-    navigate("/main");
+    navigate(`/court/courtId${courtId}`);
   };
+
   return (
     <Container onClick={goToCourt}>
       <CardImgWrapper>
-        <CardImg src="/images/tennis.png" alt="테니스장사진" />
+        <CardImg src={courtImage} alt="테니스장사진" />
       </CardImgWrapper>
       <CardInfo>
-        <CardTitle>그리너리</CardTitle>
-        <CardLocation>
-          서울시 강남구 테헤란로 427 위워크 선릉 2호점 10층
-        </CardLocation>
-        <CardDate>2023년 5월 22일 월요일</CardDate>
+        <CardTitle>{courtName}</CardTitle>
+        <CardLocation>{address}</CardLocation>
+        <CardDate>{formattedDate}</CardDate>
       </CardInfo>
       <CardDescription>
         <CardTimeInfo>
-          <CardTime>17:00 ~ 19:00</CardTime>
-          <CardPrice>20,000 원/시간</CardPrice>
+          <CardTime>{formattedTime}</CardTime>
+          <CardPrice>{price.toLocaleString()} 원/시간</CardPrice>
         </CardTimeInfo>
       </CardDescription>
     </Container>
