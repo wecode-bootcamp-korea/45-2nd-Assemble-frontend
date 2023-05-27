@@ -3,7 +3,16 @@ const kakaoLogin = () => {
   const REDIRECT_URI = `http://localhost:3000/kakao-login`;
   const url = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`;
 
-  window.open(url, "window_name", "width=430, height=500");
+  const width = 450;
+  const height = 700;
+  const left = window.screen.width / 2 - width / 2;
+  const tops = window.screen.height / 2 - height / 2 - 50;
+
+  window.open(
+    url,
+    "kakao-login",
+    `width=${width}, height=${height}, left=${left}, top=${tops}`
+  );
 };
 
 export default kakaoLogin;

@@ -2,16 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import kakaoLogin from "../Login/kakaoLogin";
-import { useRecoilState } from "recoil";
-import { loginAtom } from "../../pages/Recoil/loginAtom";
 
 const Header = () => {
-  // const [token, setToken] = useState(localStorage.getItem(`TOKEN`));
-  const [token, setToken] = useRecoilState(loginAtom);
-  console.log(`token`, token);
+  const [token, setToken] = useState(localStorage.getItem(`TOKEN`));
 
   const logout = () => {
-    setToken(localStorage.removeItem(`TOKEN`));
+    localStorage.removeItem(`TOKEN`);
+    setToken(localStorage.getItem(`TOKEN`));
     alert(`로그아웃 되었습니다.`);
   };
 
@@ -19,12 +16,12 @@ const Header = () => {
     window.addEventListener(
       "message",
       e => {
-        const { code } = e.data;
-        if (code) setToken(code);
+        const { token } = e.data;
+        if (token) setToken(token);
       },
       false
     );
-  }, [token, setToken]);
+  }, []);
 
   return (
     <HeaderFlex>
@@ -50,7 +47,7 @@ const Header = () => {
             </ProfileButton>
           </>
         ) : (
-          <LoginButton onClick={() => logout()}>로그아웃</LoginButton>
+          <LoginButton onClick={logout}>로그아웃</LoginButton>
         )}
       </CategoryFlex>
     </HeaderFlex>
