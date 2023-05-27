@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const ProfileBox = () => {
+const CONVERT_LEVEL = { 1: "LV.1", 2: "LV.2", 3: "LV.3" };
+const CONVERT_GENDER = { male: "남성", female: "여성" };
+
+const ProfileBox = ({ hostInfo }) => {
+  const { gender, levelId, name } = hostInfo;
   return (
     <Container>
       <ProfileRight>
@@ -9,16 +13,16 @@ const ProfileBox = () => {
           <ImgWrapper>
             <LevelImg src="/images/Level2.png" alt="실력을 나타내는 이미지" />
           </ImgWrapper>
-          <Name>하지현</Name>
+          <Name>{name}</Name>
         </ProfileInfo>
       </ProfileRight>
       <ProfileLeft>
         <Filter>
-          <FirstInfoKeyValue>여</FirstInfoKeyValue>
+          <FirstInfoKeyValue>{CONVERT_GENDER[gender]}</FirstInfoKeyValue>
           <InfoKeyName>성별</InfoKeyName>
         </Filter>
         <Filter>
-          <SecondInfoKeyValue>숙련</SecondInfoKeyValue>
+          <SecondInfoKeyValue>{CONVERT_LEVEL[levelId]}</SecondInfoKeyValue>
           <InfoKeyNameSecond>실력</InfoKeyNameSecond>
         </Filter>
       </ProfileLeft>

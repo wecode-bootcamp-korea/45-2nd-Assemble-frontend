@@ -1,14 +1,18 @@
 import React, { useEffect } from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
 import MatchingButton from "./components/MatchingButton";
 import ProfileBox from "../../components/ProfileBook/ProfileBox";
 import CardForModal from "../../components/Card/CardForModal";
 import useBodyOverflow from "../../hooks/useBodyOverflow";
 import { fadeIn, fadeOut } from "./components/animation";
+import { matchingAtom } from "../Matching/matchingAtom";
 
 export default NiceModal.create(() => {
   useBodyOverflow("hidden");
+  const [courtInfomation, setCourtInfomation] = useRecoilState(matchingAtom);
+  const { courtInfo, hostInfo, timeSlot } = courtInfomation;
 
   const modal = useModal();
 
@@ -26,7 +30,7 @@ export default NiceModal.create(() => {
         <Title>조인하기</Title>
         <UserInfo>
           <UserBook>
-            <ProfileBox />
+            <ProfileBox hostInfo={hostInfo} />
           </UserBook>
         </UserInfo>
         <Location>

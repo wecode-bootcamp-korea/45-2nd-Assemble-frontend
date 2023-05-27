@@ -1,19 +1,26 @@
 import styled from "styled-components";
+import { matchingAtom } from "../../pages/Matching/matchingAtom";
+import { useRecoilState } from "recoil";
+import { useTimeSlot } from "../../hooks/useTime";
 
 const CardForModal = () => {
+  const [courtInfomation, setCourtInfomation] = useRecoilState(matchingAtom);
+  const { courtInfo, hostInfo, timeSlot } = courtInfomation;
+
+  const { address, price, courtName } = courtInfo;
+  const [formattedTime, formattedDate] = useTimeSlot(timeSlot);
+
   return (
     <Container>
       <CardImgWrapper>
         <CardImg src="/images/tennis.png" alt="테니스장사진" />
       </CardImgWrapper>
       <CardInfo>
-        <CardTitle>그리너리</CardTitle>
-        <CardLocation>
-          서울시 강남구 테헤란로 427 위워크 선릉 2호점 10층
-        </CardLocation>
-        <CardDate>2023년 5월 22일 월요일</CardDate>
-        <CardTime>17:00 ~ 19:00</CardTime>
-        <CardPrice>20,000 원/시간</CardPrice>
+        <CardTitle>{courtName}</CardTitle>
+        <CardLocation>{address}</CardLocation>
+        <CardDate>{formattedDate}</CardDate>
+        <CardTime>{formattedTime}</CardTime>
+        <CardPrice>{`${price} 원/시간`}</CardPrice>
       </CardInfo>
     </Container>
   );

@@ -1,6 +1,6 @@
 import React, { useRef, useCallback } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useScroll, QUERY_KEY_INFINITE } from "../../service/query/useScroll";
+import { QUERY_KEY_INFINITE } from "../../service/query/useScroll";
 import { getMatches } from "../../service/apis/getMatches";
 import styled from "styled-components";
 import Card from "./Card";
@@ -9,6 +9,7 @@ const CardList = () => {
   const {
     fetchNextPage,
     hasNextPage,
+
     isFetchingNextPage,
     data,
     status,
@@ -32,6 +33,7 @@ const CardList = () => {
       intObserver.current = new IntersectionObserver(cards => {
         if (cards[0].isIntersecting && hasNextPage) {
           console.log("We are near the last post!");
+
           fetchNextPage();
         }
       });

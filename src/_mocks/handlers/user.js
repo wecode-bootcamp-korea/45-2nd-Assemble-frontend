@@ -8,24 +8,20 @@ const me = {
   level: 1,
 };
 export const handlers = [
-  rest.post("/api/login", (req, res, ctx) => {
-    sessionStorage.setItem("is-authenticated", "true");
-
+  rest.post("/users/kakaologin", (req, res, ctx) => {
     return res(
       // Respond with a 200 status code
       ctx.status(200),
       ctx.json({
-        token: "1234",
+        accessToken: "1234",
       })
     );
   }),
 
-  rest.get("/api/me", (req, res, ctx) => {
-    const isAuthenticated = sessionStorage.getItem("is-authenticated");
-
+  rest.get("/users", (req, res, ctx) => {
     const token = req.headers.get("Authorization") || "";
 
-    if (token || isAuthenticated) {
+    if (token === "1234") {
       return res(
         ctx.status(200),
         ctx.json({
@@ -37,7 +33,7 @@ export const handlers = [
     return res(
       ctx.status(403),
       ctx.json({
-        errorMessage: "Not authorized",
+        errorMessage: "Not authorizeddd",
       })
     );
   }),

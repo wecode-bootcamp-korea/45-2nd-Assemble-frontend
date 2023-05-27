@@ -13,14 +13,15 @@ const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <QueryClientProvider client={queryClient}>
-    <RecoilRoot>
-      <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
+    <QueryClientProvider client={queryClient}>
+      <RecoilRoot>
         <GlobalStyle />
         <NiceModal.Provider>
           <Router />
         </NiceModal.Provider>
-      </ThemeProvider>
-    </RecoilRoot>
-  </QueryClientProvider>
+      </RecoilRoot>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  </ThemeProvider>
 );

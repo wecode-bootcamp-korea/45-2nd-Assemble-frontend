@@ -11,13 +11,12 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import HostPage from "./pages/HostPage/HostPage";
 import ModalPromise from "./components/Payment/ModalPromise";
 import Login from "./components/Login/Login";
-import PaymentSuccess from "./components/Payment/PaymentSuccess";
+import PaymentInProgress from "./components/Payment/PaymentInProgress";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Header />
-      <Nav />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/court" element={<ProductDetails />} />
@@ -30,7 +29,7 @@ const Router = () => {
         <Route path="/hostpage" element={<HostPage />} />
         <Route path="/test" element={<ModalPromise />} />
         <Route path="/kakao-login" element={<Login />} />
-        <Route path="/paymentSuccess" element={<PaymentSuccess />} />
+        <Route path="/success" element={<PaymentInProgress />} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -2,17 +2,26 @@ import React from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
 import { useAuth } from "../../hooks/useAuth";
-import MatchingButton from "../../pages/Matching/components/MatchingButton";
 import useBodyOverflow from "../../hooks/useBodyOverflow";
 import { kakaoLogin } from "./kakaoLogin";
 import { fadeIn, fadeOut } from "../../pages/Matching/components/animation";
+import UserInfoModal from "./UserInfoModal";
 
 export default NiceModal.create(() => {
   useBodyOverflow("hidden");
-  const { isAuthenticated } = useAuth();
-
   const modal = useModal();
 
+  const userInfoModal = useModal(UserInfoModal);
+  const { isAuthenticated, user } = useAuth();
+  const checkUserInfo = () => {
+    const { gender, name, level } = user;
+
+    if (!gender || !name || !level) {
+      return false;
+    } else {
+      return true;
+    }
+  };
   const closedModal = () => {
     modal.remove();
   };
@@ -20,7 +29,12 @@ export default NiceModal.create(() => {
     kakaoLogin();
   };
   const handleResolve = () => {
-    modal.resolve();
+    if (checkUserInfo()) {
+      modal.resolve();
+    } else {
+      userInfoModal.show();
+      modal.resolve();
+    }
     modal.remove();
   };
 
@@ -34,7 +48,7 @@ export default NiceModal.create(() => {
         <Location>
           <KaKaoBtnWrapper>
             {!isAuthenticated ? (
-              <KaKaoImg onClick={goTologin} src="/images/kakaoLogin.png" />
+              <KaKaoImg onClick={goTologin} src="/images/kakaologin.png" />
             ) : (
               <LoginSuccessWrapper>
                 <LoginImg src="/images/kakaosimbol.png" />
@@ -80,21 +94,20 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 500px;
-  height: 700px;
+  width: 400px;
+  height: 500px;
   background-color: #f1f1f1;
   padding: 40px;
   border-radius: 16px;
 
   @media screen and (max-width: 550px) {
     width: 400px;
-    height: 570px;
-    padding: 16px;
+    height: 500px;
   }
 
   @media screen and (max-width: 440px) {
-    width: 380px;
-    height: 480px;
+    width: 330px;
+    height: 400px;
     gap: 0;
   }
 `;
@@ -104,14 +117,15 @@ const ButtonWrapper = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 36px;
+  font-size: 24px;
   text-align: center;
-  padding-top: 60px;
+  padding-top: 40px;
   padding-bottom: 24px;
   font-weight: 700;
 
   @media screen and (max-width: 550px) {
     font-size: 24px;
+    padding-bottom: 12px;
   }
 `;
 
@@ -123,28 +137,36 @@ const Location = styled.div`
 `;
 
 const KaKaoBtnWrapper = styled.div`
-  width: 380px;
-  height: 100px;
+  width: 260px;
+  height: 70px;
   display: flex;
   justify-content: center;
   @media screen and (max-width: 550px) {
-    width: 320px;
-    height: 80px;
+    width: 260px;
+    height: 70px;
+  }
+  @media screen and (max-width: 440px) {
+    width: 220px;
+    height: 60px;
+    gap: 0;
   }
 `;
 const LoginSuccessWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 380px;
-  height: 100px;
+  width: 260px;
+  height: 70px;
   background-color: #fee500;
   border-radius: 12px;
+  padding-right: 20px;
   @media screen and (max-width: 550px) {
-    width: 320px;
-    height: 80px;
-    gap: 12px;
     padding-right: 20px;
+  }
+  @media screen and (max-width: 440px) {
+    padding-right: 12px;
+    width: 220px;
+    height: 60px;
   }
 `;
 const KaKaoImg = styled.img`
@@ -154,12 +176,17 @@ const KaKaoImg = styled.img`
 `;
 const LoginSuccess = styled.div`
   color: #000000;
-  font-size: 24px;
-  @media screen and (max-width: 550px) {
-    font-size: ${props => props.theme.xl.fontSize};
+  font-size: 18px;
+  @media screen and (max-width: 440px) {
+    font-size: 16px;
   }
 `;
-const LoginImg = styled.img``;
+const LoginImg = styled.img`
+  @media screen and (max-width: 440px) {
+    width: 50px;
+    height: 50px;
+  }
+`;
 const ConfirmButtons = styled.div`
   display: flex;
   justify-content: center;
@@ -173,12 +200,15 @@ const ButtonArea = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 550px) {
+    flex: 0.4;
+  }
 `;
 
 const LoginBtn = styled.button`
   width: 100%;
-  max-width: 280px;
-  padding: 20px;
+  max-width: 240px;
+  padding: 16px;
   border-radius: 8px;
   font-size: 12px;
   color: ${props => (props.color === "#89B922" ? "white" : "black")};
@@ -190,6 +220,8 @@ const LoginBtn = styled.button`
 
   @media screen and (max-width: 550px) {
     max-width: 200px;
-    padding: 16px;
+  }
+  @media screen and (max-width: 440px) {
+    padding: 12px;
   }
 `;

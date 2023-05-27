@@ -1,22 +1,29 @@
 import React from "react";
 import styled from "styled-components";
+import { matchingAtom } from "../../pages/Matching/matchingAtom";
+import { useRecoilState } from "recoil";
 
-const ChargeInfo = successPage => {
+const ChargeInfo = () => {
+  const [courtInfomation, setCourtInfomation] = useRecoilState(matchingAtom);
+  const { courtInfo } = courtInfomation;
+  const { price } = courtInfo;
+  const SERVICE_FEE = price * 0.14;
+  const SUBTOTAL = price + SERVICE_FEE;
   return (
     <PaymentInfo>
       <PaymentInfoTitle successPage>요금 세부정보</PaymentInfoTitle>
       <ChargeFee>
         <PaymentDetail>
-          <div>20,000원 x 2시간</div>
-          <div>40,000원</div>
+          <div>{`${price.toLocaleString()} 원 x 1 시간`}</div>
+          <div>{`${price.toLocaleString()} 원`}</div>
         </PaymentDetail>
         <PaymentDetail>
           <div>프레너미 서비스 수수료</div>
-          <div>5,600원</div>
+          <div>{`${SERVICE_FEE.toLocaleString()} 원`}</div>
         </PaymentDetail>
         <PaymentDetail>
           <div>총 합계</div>
-          <div>45,600원</div>
+          <div>{`${SUBTOTAL.toLocaleString()} 원`}</div>
         </PaymentDetail>
       </ChargeFee>
     </PaymentInfo>
