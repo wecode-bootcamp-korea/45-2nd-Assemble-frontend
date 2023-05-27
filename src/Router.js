@@ -10,6 +10,7 @@ import ReservationStatusPage from "./pages/ReservationStatusPage/ReservationStat
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import HostPage from "./pages/HostPage/HostPage";
 import ModalPromise from "./components/Payment/ModalPromise";
+import PaymentSuccess from "./components/Payment/PaymentSuccess";
 
 const Router = () => {
   return (
@@ -25,6 +26,7 @@ const Router = () => {
         <Route path="/profilepage" element={<ProfilePage />} />
         <Route path="/hostpage" element={<HostPage />} />
         <Route path="/test" element={<ModalPromise />} />
+        <Route path="/paymentSuccess" element={<PaymentSuccess />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>
