@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import ProfileInfoCard from "./components/ProfileInfoCard";
 import ExpireReservationCard from "./components/ExpireReservationCard";
+import { apiClient } from "../../utils";
+import { API } from "../../config";
 
 const ProfilePage = () => {
   const [profileValue, setProfileValue] = useState({
@@ -11,25 +13,61 @@ const ProfilePage = () => {
   });
   const [reservationList, setReservationList] = useState([]);
 
+  const token = localStorage.getItem("accessToken");
+  const config = {
+    headers: {
+      Authorization: `${token}`,
+    },
+  };
+
+  const profileGetData = useCallback(async () => {
+    const profileRes = await apiClient.get(`${API.GET_USER_API}`, config);
+    const profileData = profileRes.data;
+    if (
+      profileData.name !== profileValue.nameValue ||
+      profileData.gender !== profileValue.genderValue ||
+      profileData.level !== profileValue.levelValue
+    ) {
+      setProfileValue({
+        nameValue: profileData.name,
+        genderValue: profileData.gender,
+        levelValue: profileData.level,
+      });
+    }
+  }, [profileValue]);
+  console.log(reservationList);
   useEffect(() => {
     const fetchData = async () => {
-      const profileRes = await fetch("/data/profileData.json");
-      const profileData = await profileRes.json();
-      setProfileValue({
-        nameValue: profileData[0].userName,
-        genderValue: profileData[0].userGender,
-        levelValue: profileData[0].userLevel,
-      });
-      const matchHostRes = await fetch("/data/expireMatchHostData.json");
-      const matchHostData = await matchHostRes.json();
-      const matchGuestRes = await fetch("/data/expireMatchGuestData.json");
-      const matchGuestData = await matchGuestRes.json();
-      const matchData = [...matchHostData, ...matchGuestData];
+      const normalHostRes = await apiClient.get(
+        `${API.GET_RESERVATION_API}?isExpired=1&isMatch=0`,
+        config
+      );
+
+      const normalHostData = normalHostRes.data;
+      const matchHostRes = await apiClient.get(
+        `${API.GET_RESERVATION_API}?isExpired=1&isMatch=1`,
+        config
+      );
+      const matchHostData = matchHostRes.data;
+
+      const matchGuestRes = await apiClient.get(
+        `${API.GET_MATCH_API}?isExpired=1`,
+        config
+      );
+      const matchGuestData = matchGuestRes.data;
+
+      const matchData = [
+        ...normalHostData.data,
+        ...matchHostData.data,
+        ...matchGuestData.data,
+      ];
       const sortedData = matchData.sort(
-        (a, b) => new Date(a.timeslot) - new Date(b.timeslot)
+        (a, b) =>
+          new Date(b.reservation.timeSlot) - new Date(a.reservation.timeSlot)
       );
       setReservationList(sortedData);
     };
+    profileGetData();
     fetchData();
   }, []);
 
@@ -56,7 +94,12 @@ const ProfilePage = () => {
         <SecondTitle>완료내역</SecondTitle>
         <CompletionList>
           {reservationList.map(item => (
-            <ExpireReservationCard key={item.reservationId} />
+            <ExpireReservationCard
+              key={item.reservation.id}
+              courtId={item.court.id}
+              timeSlot={item.reservation.timeSlot}
+              court={item.court}
+            />
           ))}
         </CompletionList>
       </section>

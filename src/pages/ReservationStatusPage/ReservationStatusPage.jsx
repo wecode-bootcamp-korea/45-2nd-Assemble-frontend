@@ -1,58 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import axios from "axios";
 import styled from "styled-components";
 import ReservationCard from "./components/ReservationCard";
+import { apiClient } from "../../utils";
+import { API } from "../../config";
 
 const ReservationStatusPage = () => {
   const [reservationList, setReservationList] = useState([]);
   const [currentTab, setCurrentTab] = useState("전체");
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const setParams = () => {
-    if (currentTab === "전체") {
-      searchParams.delete("isExpired");
-      searchParams.delete("isMatch");
-    } else if (currentTab === "일반") {
-      searchParams.set("isExpired", "0");
-      searchParams.set("isMatch", "0");
-    } else if (currentTab === "매치(Host)") {
-      searchParams.set("isExpired", "0");
-      searchParams.set("isMatch", "1");
-    } else if (currentTab === "매치(Guest)") {
-      searchParams.delete("isMatch");
-      searchParams.set("isExpired", "0");
-    }
-    setSearchParams(searchParams);
-  };
-
-  const token = localStorage.getItem("TOKEN");
+  const token = localStorage.getItem("accessToken");
   const config = {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `${token}`,
     },
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const normalRes = await axios.get(
-          // "/data/scheduledData/hostNormal.json",
-          "http://10.58.52.234:3000/reservations/host?isExpired=0&isMatch=0",
+        const normalRes = await apiClient.get(
+          `${API.GET_RESERVATION_API}?isExpired=0&isMatch=0`,
           config
         );
         const normalData = normalRes.data;
 
-        const matchHostRes = await axios.get(
-          // "/data/scheduledData/hostMatching.json",
-          "http://10.58.52.234:3000/reservations/host?isExpired=0&isMatch=1",
+        const matchHostRes = await apiClient.get(
+          `${API.GET_RESERVATION_API}?isExpired=0&isMatch=1`,
           config
         );
         const matchHostData = matchHostRes.data;
 
-        const matchGuestRes = await axios.get(
-          // "/data/scheduledData/guest.json",
-          "http://10.58.52.234:3000/matches/guest?isExpired=0",
+        const matchGuestRes = await apiClient.get(
+          `${API.GET_MATCH_API}?isExpired=0`,
           config
         );
         const matchGuestData = matchGuestRes.data;
@@ -61,13 +42,16 @@ const ReservationStatusPage = () => {
 
         if (currentTab === "일반") {
           typeSelect = normalData.data;
-          setParams();
+          searchParams.set("isExpired", "0");
+          searchParams.set("isMatch", "0");
         } else if (currentTab === "매치(Host)") {
           typeSelect = matchHostData.data;
-          setParams();
+          searchParams.set("isExpired", "0");
+          searchParams.set("isMatch", "1");
         } else if (currentTab === "매치(Guest)") {
-          setParams();
           typeSelect = matchGuestData.data;
+          searchParams.delete("isMatch");
+          searchParams.set("isExpired", "0");
         } else if (currentTab === "전체") {
           const matchData = [
             ...normalData.data,
@@ -79,15 +63,15 @@ const ReservationStatusPage = () => {
               new Date(a.reservation.timeSlot) -
               new Date(b.reservation.timeSlot)
           );
-          setParams();
+          searchParams.delete("isExpired");
+          searchParams.delete("isMatch");
         }
-
         setReservationList(typeSelect);
+        setSearchParams(searchParams);
       } catch (error) {
         console.error(error);
       }
     };
-
     fetchData();
   }, [currentTab]);
 

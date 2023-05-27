@@ -9,6 +9,7 @@ const UserInfoForm = ({ type, title, name, profileValue, setProfileValue }) => {
       setProfileValue({ ...profileValue, [name]: value });
     }
   };
+
   const filterGenderList = {
     성별: (
       <FilterGender title={title} name={name} changeUserInfo={changeUserInfo} />
@@ -17,6 +18,7 @@ const UserInfoForm = ({ type, title, name, profileValue, setProfileValue }) => {
       <FilterGender title={title} name={name} changeUserInfo={changeUserInfo} />
     ),
   };
+
   return (
     <div>
       {type === "text" ? (

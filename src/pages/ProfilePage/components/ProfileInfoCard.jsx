@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import UserInfoForm from "./UserInfoForm";
+import { apiClient } from "../../../utils";
+import { API } from "../../../config";
 
-const ProfileInfoCard = ({
-  title,
-  value,
-  name,
-  profileValue,
-  setProfileValue,
-}) => {
+const ProfileInfoCard = props => {
+  const { title, value, name, profileValue, setProfileValue } = props;
   const [modifyBtnState, setModifyBtnState] = useState(true);
-  const handleModifyBtn = () => {
-    setModifyBtnState(prev => !prev);
-  };
 
   const userInfoList = {
     이름: (
@@ -43,6 +37,23 @@ const ProfileInfoCard = ({
     ),
   };
 
+  const handleModifyBtn = async () => {
+    if (!modifyBtnState) {
+      try {
+        await apiClient.patch(`${API.GET_USER_API}`, {
+          name: profileValue.nameValue,
+          gender: profileValue.genderValue,
+          level: LEVEL_RELAY_DATA[profileValue.levelValue],
+        });
+        setModifyBtnState(prev => !prev);
+      } catch (error) {
+        console.error("PATCH 요청 실패:", error);
+      }
+    } else {
+      setModifyBtnState(prev => !prev);
+    }
+  };
+
   return (
     <InfoCard>
       <InfoCardTopArea>
@@ -68,6 +79,12 @@ const ProfileInfoCard = ({
 };
 
 export default ProfileInfoCard;
+
+const LEVEL_RELAY_DATA = {
+  1: "ONE",
+  2: "TWO",
+  3: "THREE",
+};
 
 const InfoCard = styled.div`
   border: 1px solid #d9d9d9;

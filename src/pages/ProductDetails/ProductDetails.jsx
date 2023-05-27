@@ -85,6 +85,7 @@ const ProductDetails = () => {
     </Background>
   );
 };
+
 export default ProductDetails;
 
 const Background = styled.div`

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 const FilterGender = ({ title, name, changeUserInfo }) => {
   return (
     <div>
@@ -7,16 +8,16 @@ const FilterGender = ({ title, name, changeUserInfo }) => {
         <FlexBox>
           {GENDER_DATA.map(({ id, inputId, value }) => {
             return (
-              <div key={id}>
-                <InfoInput
+              <Box key={id}>
+                <input
                   id={inputId}
                   value={value}
                   type="radio"
                   name={name}
                   onChange={changeUserInfo}
                 />
-                <InfoLabel htmlFor={inputId}>{value}</InfoLabel>
-              </div>
+                <label htmlFor={inputId}>{value}</label>
+              </Box>
             );
           })}
         </FlexBox>
@@ -24,16 +25,16 @@ const FilterGender = ({ title, name, changeUserInfo }) => {
         <FlexBox>
           {LEVEL_DATA.map(({ id }) => {
             return (
-              <div key={id}>
-                <InfoInput
+              <Box key={id}>
+                <input
                   id={id}
                   value={id}
                   type="radio"
                   name={name}
                   onChange={changeUserInfo}
                 />
-                <InfoLabel htmlFor={id}>{id}</InfoLabel>
-              </div>
+                <label htmlFor={id}>LV.{id}</label>
+              </Box>
             );
           })}
         </FlexBox>
@@ -45,8 +46,8 @@ const FilterGender = ({ title, name, changeUserInfo }) => {
 export default FilterGender;
 
 const GENDER_DATA = [
-  { id: 1, inputId: "male", value: "남" },
-  { id: 2, inputId: "female", value: "여" },
+  { id: 1, inputId: "male", value: "male" },
+  { id: 2, inputId: "female", value: "female" },
 ];
 
 const LEVEL_DATA = [{ id: 1 }, { id: 2 }, { id: 3 }];
@@ -55,11 +56,28 @@ const FlexBox = styled.div`
   display: flex;
 `;
 
-const InfoInput = styled.input`
-  border: 1px solid #d9d9d9;
-  border-radius: 10px;
-  height: 30px;
-  padding: 0 5px;
-`;
+const Box = styled.div`
+  display: flex;
+  align-items: center;
 
-const InfoLabel = styled.label``;
+  [type="radio"] {
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    background-image: url("/images/CheckBox/unChecked.png");
+    cursor: pointer;
+    &:checked {
+      background-image: url("/images/CheckBox/checked.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+
+  label {
+    margin-top: 3px;
+    margin-left: 5px;
+    font-size: 28px;
+    cursor: pointer;
+  }
+`;
