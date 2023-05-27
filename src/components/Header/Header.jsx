@@ -13,15 +13,8 @@ const Header = () => {
   };
 
   useEffect(() => {
-    window.addEventListener(
-      "message",
-      e => {
-        const { token } = e.data;
-        if (token) setToken(token);
-      },
-      false
-    );
-  }, []);
+    window.addEventListener("message", e => token && setToken(e.data), false);
+  }, [token]);
 
   return (
     <HeaderFlex>
@@ -38,9 +31,7 @@ const Header = () => {
       <CategoryFlex>
         {!token ? (
           <>
-            <LoginButton onClick={() => kakaoLogin()}>
-              로그인 및 회원가입
-            </LoginButton>
+            <LoginButton onClick={kakaoLogin}>로그인 및 회원가입</LoginButton>
             <ProfileButton>
               <MenuIcon src="images/Nav/menu_FILL0_wght400_GRAD0_opsz48.png" />
               <ProfileImg />
