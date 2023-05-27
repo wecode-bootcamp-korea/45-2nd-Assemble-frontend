@@ -1,0 +1,89 @@
+{
+  "match": {
+    "id": 8,
+    "reservationNumber": "72ae6b64-122b-4eea-8512-d08680c3cdac",
+    "timeSlot": "2023-05-31T01:00:00.000Z",
+    "isMatch": 1,
+    "paymentStatus": "completed",
+    "hostUserId": 1,
+    "court": {
+      "name": "행복가득",
+      "price": 11000,
+      "region": "강북",
+      "address": "a",
+      "courtId": 1,
+      "parking": "공용주차장",
+      "district": "종로구",
+      "latitude": "",
+      "longitude": "",
+      "courtImages": [
+        {
+          "courtImage": "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/adam-seckel-caIuSRJEnyE-unsplash.jpg?raw=true"
+        },
+        {
+          "courtImage": "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/chris-chondrogiannis-oN_rL__KiiU-unsplash.jpg?raw=true"
+        },
+        {
+          "courtImage": "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/chuttersnap-aRKAzRlRe98-unsplash.jpg?raw=true"
+        },
+        {
+          "courtImage": "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/chuttersnap-g7wJBNkGIfY-unsplash.jpg?raw=true"
+        },
+        {
+          "courtImage": "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/gonzalo-facello-_oPHZk_uYXM-unsplash.jpg?raw=true"
+        }
+      ],
+      "description": "나는 지지않아 짜식아 ",
+      "isExclusive": 0,
+      "rentalEquip": 0,
+      "hasAmenities": 1,
+      "showerFacility": 1
+    },
+    "paymentInfo": {
+      "mId": "tvivarepublica",
+      "vat": 1140,
+      "card": null,
+      "type": "NORMAL",
+      "method": "간편결제",
+      "secret": "ps_jExPeJWYVQb6B2LkRvYjr49R5gvN",
+      "status": "DONE",
+      "cancels": null,
+      "country": "KR",
+      "easyPay": {
+        "amount": 11187,
+        "provider": "토스페이",
+        "discountAmount": 1353
+      },
+      "failure": null,
+      "orderId": "ae08e02a-abbb-4ab7-9f6d-bb0188b2b772",
+      "receipt": {
+        "url": "https://dashboard.tosspayments.com/receipt/redirection?transactionId=tviva20230530160637watN5&ref=PX"
+      },
+      "version": "2022-11-16",
+      "checkout": {
+        "url": "https://api.tosspayments.com/v1/payments/mvbBAMKdpoeqRGgYO1r5EWNYqbADnWrQnN2Eyazx0596wLj4/checkout"
+      },
+      "currency": "KRW",
+      "discount": null,
+      "transfer": null,
+      "orderName": "테스트",
+      "useEscrow": false,
+      "approvedAt": "2023-05-30T16:06:54+09:00",
+      "paymentKey": "mvbBAMKdpoeqRGgYO1r5EWNYqbADnWrQnN2Eyazx0596wLj4",
+      "cashReceipt": null,
+      "mobilePhone": null,
+      "requestedAt": "2023-05-30T16:06:35+09:00",
+      "totalAmount": 12540,
+      "cashReceipts": null,
+      "balanceAmount": 12540,
+      "taxFreeAmount": 0,
+      "cultureExpense": false,
+      "suppliedAmount": 11400,
+      "virtualAccount": null,
+      "giftCertificate": null,
+      "lastTransactionKey": "BD67F6F1C9EAF3B2A45FAC375AA162BD",
+      "taxExemptionAmount": 0,
+      "isPartialCancelable": true
+    }
+  }
+}

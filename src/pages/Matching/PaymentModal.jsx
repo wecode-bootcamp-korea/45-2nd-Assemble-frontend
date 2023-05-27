@@ -9,38 +9,55 @@ import ChargeInfo from "../../components/Payment/ChargeInfo";
 import { fadeIn, fadeOut } from "./components/animation";
 import { paymentAtom } from "../../components/Payment/paymentAtom";
 import { loadTossPayments } from "@tosspayments/payment-sdk";
+import { matchingAtom } from "./matchingAtom";
+const { v4: uuidv4 } = require("uuid");
 
 const clientKey = process.env.REACT_APP_CLIENTKEY;
 
 export default NiceModal.create(() => {
   useBodyOverflow("hidden");
   const modal = useModal();
+
   const [paymentMethod, setPaymentMethod] = useRecoilState(paymentAtom);
-  const { amount, orderId, orderName, customerName, easyPay } = paymentMethod;
+  const [courtInfomation, setCourtInfomation] = useRecoilState(matchingAtom);
+
+  const { matchId, courtInfo, hostInfo, reservationId, timeSlot, isMatch } =
+    courtInfomation;
+
+  const { amount, orderName, customerName, easyPay } = paymentMethod;
 
   const closedModal = () => {
     modal.remove();
   };
+  const totalAmount = Math.ceil(courtInfo.price * 1.14);
+  const orderId = uuidv4();
+
+  const paymentInformation = {
+    amount: totalAmount,
+    orderId: orderId,
+    courtId: courtInfo.courtId,
+    orderName: "테스트",
+    successUrl: `http://localhost:3000/success?matchId=${matchId}`,
+    failUrl: "http://localhost:3000/fail",
+    flowMode: "DIRECT",
+    easyPay: easyPay,
+    timeSlot: timeSlot,
+    isMatch: isMatch,
+  };
+
   const handleResolve = () => {
     modal.resolve();
+
     loadTossPayments(clientKey).then(tossPayments => {
       tossPayments
-        .requestPayment("카드", {
-          amount: amount,
-          orderId: orderId,
-          orderName: orderName,
-          customerName: customerName,
-          successUrl: "http://localhost:8080/success",
-          failUrl: "http://localhost:8080/fail",
-          flowMode: "DIRECT",
-          easyPay: easyPay,
-        })
+        .requestPayment("카드", paymentInformation)
         .catch(function (error) {
           if (error.code === "USER_CANCEL") {
           } else if (error.code === "INVALID_CARD_COMPANY") {
           }
         });
     });
+    setPaymentMethod(paymentInformation);
   };
 
   const handleChange = e => {

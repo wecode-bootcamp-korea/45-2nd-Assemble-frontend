@@ -1,12 +1,10 @@
 import { useState } from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
-import { useAuth } from "../../hooks/useAuth";
 import { useMutateMe } from "../../service//mutation/useMutateMe";
 import { fadeIn, fadeOut } from "../../pages/Matching/components/animation";
 
 export default NiceModal.create(() => {
-  const { user } = useAuth();
   const { mutate } = useMutateMe();
 
   const [updateInfo, setUpdateInfo] = useState({
@@ -90,7 +88,7 @@ export default NiceModal.create(() => {
                 <input
                   type="radio"
                   name="level"
-                  value={1}
+                  value="ONE"
                   onChange={handleChange}
                 />
                 1
@@ -99,7 +97,7 @@ export default NiceModal.create(() => {
                 <input
                   type="radio"
                   name="level"
-                  value={2}
+                  value="TWO"
                   onChange={handleChange}
                 />
                 2
@@ -108,7 +106,7 @@ export default NiceModal.create(() => {
                 <input
                   type="radio"
                   name="level"
-                  value={3}
+                  value="THREE"
                   onChange={handleChange}
                 />
                 3
