@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import NiceModal from "@ebay/nice-modal-react";
+import React from "react";
+import { useModal } from "@ebay/nice-modal-react";
 import MobileNavModal from "./MobileNavModal";
 import styled from "styled-components";
 
 const MobileNav = () => {
+  const mobileNavModal = useModal(MobileNavModal);
   const showMNavModal = () => {
-    NiceModal.show(MobileNavModal);
-    document.body.style.overflow = "hidden";
+    mobileNavModal.show();
   };
+
   return (
     <MNavContainer>
       <MNavWrapper>

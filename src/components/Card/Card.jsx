@@ -1,20 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import NiceModal from "@ebay/nice-modal-react";
-import JoinModal from "../../pages/Matching/JoinModal";
-import ProfileBook from "../ProfileBook/ProfileBook";
 import MatchingButton from "../../pages/Matching/components/MatchingButton";
 import styled from "styled-components";
+import { usePaymentProcess } from "../Payment/usePaymentProcess";
 
 const Card = () => {
   const navigate = useNavigate();
+  const { paymentProcess } = usePaymentProcess();
   const goToCourt = () => {
     navigate("/main");
-  };
-
-  const showJoinModal = () => {
-    NiceModal.show(JoinModal);
-    document.body.style.overflow = "hidden";
   };
 
   return (
@@ -35,7 +29,7 @@ const Card = () => {
           <CardPrice>20,000 원/시간</CardPrice>
         </CardTimeInfo>
         <JoinButton>
-          <MatchingButton onClick={showJoinModal} color="#89B922">
+          <MatchingButton onClick={paymentProcess} color="#89B922">
             조인하기
           </MatchingButton>
         </JoinButton>

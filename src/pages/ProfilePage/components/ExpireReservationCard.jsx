@@ -1,8 +1,14 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const CardForModal = () => {
+const ExpireReservationCard = () => {
+  const navigate = useNavigate();
+  const goToCourt = () => {
+    navigate("/main");
+  };
   return (
-    <Container>
+    <Container onClick={goToCourt}>
       <CardImgWrapper>
         <CardImg src="/images/tennis.png" alt="테니스장사진" />
       </CardImgWrapper>
@@ -12,14 +18,18 @@ const CardForModal = () => {
           서울시 강남구 테헤란로 427 위워크 선릉 2호점 10층
         </CardLocation>
         <CardDate>2023년 5월 22일 월요일</CardDate>
-        <CardTime>17:00 ~ 19:00</CardTime>
-        <CardPrice>20,000 원/시간</CardPrice>
       </CardInfo>
+      <CardDescription>
+        <CardTimeInfo>
+          <CardTime>17:00 ~ 19:00</CardTime>
+          <CardPrice>20,000 원/시간</CardPrice>
+        </CardTimeInfo>
+      </CardDescription>
     </Container>
   );
 };
 
-export default CardForModal;
+export default ExpireReservationCard;
 
 const CardImg = styled.img`
   width: 100%;
@@ -29,38 +39,37 @@ const CardImg = styled.img`
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  gap: 20px;
-  @media screen and (max-width: 440px) {
-    flex-direction: column;
+  flex-direction: column;
+  padding: 16px;
+  filter: brightness(0.8);
+  border-radius: 30px;
+  background-color: ${props => props.theme.lightGray};
+
+  &:hover {
+    cursor: pointer;
+    ${CardImg} {
+      filter: brightness(150%);
+    }
   }
 `;
 
 const CardImgWrapper = styled.div`
   width: 100%;
-  flex: 0.7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @media screen and (max-width: 440px) {
-    display: none;
-  }
+  flex: 1.2;
+  padding-bottom: 16px;
 `;
 
 const CardInfo = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex;
-  gap: 4px;
-  flex: 1;
-  @media screen and (max-width: 440px) {
-    padding: 0 0 0 12px;
-    gap: 2px;
-  }
+  padding: 0 16px;
 `;
-
+const CardDescription = styled.div`
+  flex: 1;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+`;
 const CardLocation = styled.p`
   font-size: ${props => props.theme.sm.fontSize};
   line-height: ${props => props.theme.sm.lineHeight};
@@ -69,20 +78,12 @@ const CardLocation = styled.p`
 const CardTitle = styled.p`
   font-size: ${props => props.theme.xl.fontSize};
   line-height: ${props => props.theme.xl.lineHeight};
-  font-weight: 700;
-  &:hover {
-    cursor: pointer;
-  }
-  @media screen and (max-width: 550px) {
-    font-size: ${props => props.theme.lg.fontSize};
-    line-height: ${props => props.theme.lg.lineHeight};
-  }
-
-  @media screen and (max-width: 440px) {
-    font-size: ${props => props.theme.base.fontSize};
-  }
+  font-weight: 900;
 `;
 
+const CardTimeInfo = styled.div`
+  flex: 1;
+`;
 const CardDate = styled.p`
   font-size: ${props => props.theme.sm.fontSize};
   line-height: ${props => props.theme.sm.lineHeight};
@@ -94,10 +95,7 @@ const CardTime = styled.p`
   color: ${props => props.theme.grey};
 `;
 const CardPrice = styled.p`
-  font-size: ${props => props.theme.sm.fontSize};
-  line-height: ${props => props.theme.sm.lineHeight};
+  font-size: ${props => props.theme.base.fontSize};
+  line-height: ${props => props.theme.base.lineHeight};
   font-weight: 700;
-  @media screen and (max-width: 440px) {
-    font-weight: 500;
-  }
 `;
