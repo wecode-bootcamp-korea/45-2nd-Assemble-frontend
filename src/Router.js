@@ -1,32 +1,31 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./components/Header/Header";
-import Nav from "./components/Nav/Nav";
-import Footer from "./components/Footer/Footer";
+import Container from "./components/Container/Container";
 import Main from "./pages/Main/Main";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
+import Reservation from "./pages/ReservationStatusPage/ReservationStatusPage";
 import Matching from "./pages/Matching/Matching";
-import ReservationStatusPage from "./pages/ReservationStatusPage/ReservationStatusPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import HostPage from "./pages/HostPage/HostPage";
 import ModalPromise from "./components/Payment/ModalPromise";
+import KakaoLogin from "./components/Login/KakaoLoginGetToken";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/court" element={<ProductDetails />} />
-        <Route path="/matching" element={<Matching />} />
-        <Route
-          path="/reservationstatuspage"
-          element={<ReservationStatusPage />}
-        />
-        <Route path="/profilepage" element={<ProfilePage />} />
-        <Route path="/hostpage" element={<HostPage />} />
-        <Route path="/test" element={<ModalPromise />} />
+        <Route element={<Container />}>
+          <Route path="/" element={<Main />} />
+          <Route path="/court" element={<ProductDetails />} />
+          <Route path="/reservationstatuspage" element={<Reservation />} />
+          <Route path="/matching" element={<Matching />} />
+          <Route path="/profilepage" element={<ProfilePage />} />
+          <Route path="/hostpage" element={<HostPage />} />
+          <Route path="/test" element={<ModalPromise />} />
+        </Route>
+        <Route path="/kakao-login" element={<KakaoLogin />} />
+        <Route path="*" element="없는 페이지" />
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 };

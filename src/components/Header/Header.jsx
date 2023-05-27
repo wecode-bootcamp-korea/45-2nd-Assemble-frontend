@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import kakaoLogin from "../Login/kakaoLogin";
 import styled from "styled-components";
 
 const Header = () => {
-  const token = true;
+  const [token, setToken] = useState(localStorage.getItem(`TOKEN`));
+
+  const logout = () => {
+    localStorage.removeItem(`TOKEN`);
+    setToken(localStorage.getItem(`TOKEN`));
+    alert(`로그아웃 되었습니다.`);
+  };
+
+  useEffect(() => {
+    window.addEventListener("message", e => token && setToken(e.data), false);
+  }, [token]);
 
   return (
     <HeaderFlex>
@@ -17,12 +28,16 @@ const Header = () => {
         </CategoryName>
       </CategoryFlex>
       <CategoryFlex>
-        <LoginButton>{!token ? "로그인 및 회원가입" : "로그아웃"}</LoginButton>
-        {token && (
-          <ProfileButton>
-            <MenuIcon src="images/Nav/menu_FILL0_wght400_GRAD0_opsz48.png"></MenuIcon>
-            <ProfileImg />
-          </ProfileButton>
+        {!token ? (
+          <>
+            <LoginButton onClick={kakaoLogin}>로그인 및 회원가입</LoginButton>
+            <ProfileButton>
+              <MenuIcon src="images/Nav/menu_FILL0_wght400_GRAD0_opsz48.png" />
+              <ProfileImg />
+            </ProfileButton>
+          </>
+        ) : (
+          <LoginButton onClick={logout}>로그아웃</LoginButton>
         )}
       </CategoryFlex>
     </HeaderFlex>
