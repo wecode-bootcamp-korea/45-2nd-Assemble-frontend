@@ -9,12 +9,19 @@
   },
   "css.validate": false,
   "scss.validate": false,
-  "stylelint.validate": ["css", "scss", ".module.scss"],
+  "stylelint.validate": [
+    "css",
+    "scss",
+    ".module.scss"
+  ],
   "stylelint.enable": true,
   "javascript.format.enable": false,
   "eslint.alwaysShowStatus": true,
   "files.autoSave": "onFocusChange",
   "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

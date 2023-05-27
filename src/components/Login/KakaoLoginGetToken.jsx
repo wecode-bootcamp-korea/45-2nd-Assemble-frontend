@@ -16,7 +16,12 @@ const KakaoLoginGetToken = () => {
     //     window.close();
     //   })
     //   .catch(err=>alert(err))
-      localStorage.setItem('TOKEN', `임시 토큰`)
+    // localStorage.setItem('TOKEN', `임시 토큰`)
+    // window.opener.setToken(`z`);
+
+    window.opener.postMessage({ code }, window.location.origin);
+
+    // window.opener.location.reload();
   }, [code]);
 
   return <div />;

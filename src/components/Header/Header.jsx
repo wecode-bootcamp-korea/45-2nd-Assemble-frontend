@@ -1,17 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import kakaoLogin from "../Login/kakaoLogin";
+import { useRecoilState } from "recoil";
+import { loginAtom } from "../../pages/Recoil/loginAtom";
 
 const Header = () => {
-  const [token, setToken] = useState(localStorage.getItem(`TOKEN`));
+  // const [token, setToken] = useState(localStorage.getItem(`TOKEN`));
+  const [token, setToken] = useRecoilState(loginAtom);
+  console.log(`token1`, token);
+
   const logout = () => {
     setToken(localStorage.removeItem(`TOKEN`));
     alert(`로그아웃 되었습니다.`);
   };
 
+  useEffect(() => {
+    window.addEventListener(
+      "message",
+      e => {
+        if (e.origin !== window.location.origin) {
+          return;
+        }
+        const { code } = e.data;
+        setToken(code);
+      },
+      false
+    );
+  }, [setToken]);
+
   return (
     <HeaderFlex>
+      <div id="hi" />
       <Link to="/">LOGO</Link>
       <CategoryFlex>
         <CategoryName>
