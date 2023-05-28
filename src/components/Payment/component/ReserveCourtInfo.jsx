@@ -8,15 +8,15 @@ const ReserveCourtInfo = () => {
       <ReserveCourtInfoBox>
         <CourtImage src="/images/ProductDetail/image1.jpg"></CourtImage>
         <CourtName>
-          <p>예약장소</p>
+          <SubTitle>예약장소</SubTitle>
           <p>그리너리 테니스장</p>
         </CourtName>
         <Location>
-          <p>상세 주소</p>
+          <SubTitle>상세 주소</SubTitle>
           <p>서울시 강남구 테헤란로 427 위워크 타워(위워크 선릉 2호점)</p>
         </Location>
         <ReserveTime>
-          <p>예약 시간</p>
+          <SubTitle>예약 시간</SubTitle>
           <p>2023년 05월 22일 15:00 - 16:00</p>
         </ReserveTime>
       </ReserveCourtInfoBox>
@@ -26,33 +26,39 @@ const ReserveCourtInfo = () => {
 export default ReserveCourtInfo;
 
 const BackgroundBox = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
+  width: 100%;
   margin-top: 10px;
 `;
 const ReserveCourtInfoBox = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  width: 100%;
   margin: 10px 0;
   box-sizing: border-box;
 `;
 const CourtImage = styled.img`
   width: 50%;
-  height: 100%;
+  height: 80%;
+  margin-bottom: 15px;
 `;
 const Title = styled.p`
   font-size: ${props => props.theme.lg.fontSize};
 `;
 const CourtName = styled.div`
   font-size: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 const Location = styled(CourtName)``;
 
 const ReserveTime = styled.div`
   font-size: 12px;
+`;
+
+const SubTitle = styled.p`
+  font-size: ${props => props.theme.sm.fontSize};
+  margin-bottom: 10px;
 `;

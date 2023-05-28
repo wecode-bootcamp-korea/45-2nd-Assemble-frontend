@@ -46,14 +46,13 @@ const ButtonLayout = styled.div`
 
 const IsMatching = styled.p`
   text-align: center;
-  margin: 15px;
+  margin: 10px;
   font-size: ${props => props.theme.xs.fontSize};
 `;
 
 const GoToMain = styled.button`
-  width: 120px;
-  height: 40px;
-  /* border: 1px solid lightGray; */
+  width: 100px;
+  height: 30px;
   color: white;
   font-size: 12px;
   border-radius: 20px;

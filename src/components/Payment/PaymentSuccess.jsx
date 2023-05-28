@@ -12,7 +12,7 @@ const PaymentSuccess = () => {
         <Title>결제가 완료되었습니다.</Title>
         <Thanks>이용해 주셔서 감사합니다.</Thanks>
         <ReserveCourtInfoBox />
-        <ChargeInfo />
+        <ChargeInfo successPage={true} />
         <SuccessPageButton isMatched={isMatched} />
       </PaymentSuccessInfo>
     </PageBackground>
@@ -22,7 +22,6 @@ export default PaymentSuccess;
 
 const PageBackground = styled.div`
   width: 100%;
-  height: 85vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,17 +30,29 @@ const PageBackground = styled.div`
 `;
 
 const PaymentSuccessInfo = styled.div`
-  width: 20%;
+  width: 40%;
   height: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+
+  @media screen and (max-width: 800px) {
+    width: 50%;
+  }
+
+  @media screen and (max-width: 550px) {
+    width: 60%;
+  }
+
+  @media screen and (max-width: 360px) {
+    width: 70%;
+  }
 `;
 
 const Title = styled.h2`
   font-size: ${props => props.theme.xl.fontSize};
-  margin: 1%;
+  margin: 2%;
 `;
 
 const Thanks = styled.p`
