@@ -34,6 +34,7 @@ const PaymentInfo = styled.div`
   gap: 16px;
   border-top: 1px solid ${props => props.theme.lightGray};
   border-bottom: 1px solid ${props => props.theme.lightGray};
+
   @media screen and (max-width: 550px) {
     padding: 10px 0;
   }
@@ -46,6 +47,7 @@ const PaymentInfo = styled.div`
 const PaymentInfoTitle = styled.div`
   font-size: ${props =>
     props.successPage ? props.theme.base.fontSize : props.theme.xl.fontSize};
+
   @media screen and (max-width: 440px) {
     font-size: ${props => props.theme.base.fontSize};
     line-height: ${props => props.theme.base.lineHeight};
@@ -59,9 +61,11 @@ const ChargeFee = styled.div`
   gap: 16px;
   font-size: ${props => props.theme.sm.fontSize};
   line-height: ${props => props.theme.sm.lineHeight};
+
   @media screen and (max-width: 550px) {
     gap: 8px;
   }
+
   @media screen and (max-width: 440px) {
     gap: 2px;
   }
