@@ -1,13 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import ProfileButton from "./ProfileButton";
 
 const Header = () => {
   const token = true;
 
   return (
     <HeaderFlex>
-      <Link to="/">LOGO</Link>
+      <Link to="/">
+        <Logo src="/images/logo2.png" />
+      </Link>
       <CategoryFlex>
         <CategoryName>
           <Link to="/">예약하기</Link>
@@ -18,12 +21,7 @@ const Header = () => {
       </CategoryFlex>
       <CategoryFlex>
         <LoginButton>{!token ? "로그인 및 회원가입" : "로그아웃"}</LoginButton>
-        {token && (
-          <ProfileButton>
-            <MenuIcon src="images/Nav/menu_FILL0_wght400_GRAD0_opsz48.png"></MenuIcon>
-            <ProfileImg />
-          </ProfileButton>
-        )}
+        {token && <ProfileButton></ProfileButton>}
       </CategoryFlex>
     </HeaderFlex>
   );
@@ -32,13 +30,13 @@ const Header = () => {
 export default Header;
 
 const HeaderFlex = styled.div`
-  padding: 0 40px;
-  width: 1280px;
-  height: 80px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 1280px;
+  height: 80px;
+  padding: 0 40px;
   box-sizing: border-box;
 `;
 
@@ -48,40 +46,23 @@ const CategoryFlex = styled.div`
 `;
 
 const CategoryName = styled.span`
-  font-size: 16px;
-  padding: 10px;
   position: relative;
+  padding: 10px;
+  font-size: 16px;
 
   &:hover:after {
+    position: absolute;
+    left: 7px;
+    bottom: 0;
     content: "";
     width: 64px;
     height: 2px;
     background-color: black;
-    position: absolute;
-    left: 10px;
-    bottom: 0;
   }
 `;
 
 const LoginButton = styled.button`
   padding: 10px 20px;
-  &:hover {
-    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
-    border-radius: 50px;
-  }
-`;
-
-const ProfileButton = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  width: 75px;
-  height: 40px;
-  border: 1px solid #d9d9d9;
-  border-radius: 50px;
-  box-sizing: border-box;
-  margin-left: 20px;
 
   &:hover {
     box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
@@ -89,15 +70,6 @@ const ProfileButton = styled.div`
   }
 `;
 
-const MenuIcon = styled.img`
-  width: 18px;
-  height: 18px;
-  margin-left: 5px;
-`;
-
-const ProfileImg = styled.div`
-  width: 30px;
-  height: 30px;
-  background-color: burlywood;
-  border-radius: 100%;
+const Logo = styled.img`
+  width: 80px;
 `;

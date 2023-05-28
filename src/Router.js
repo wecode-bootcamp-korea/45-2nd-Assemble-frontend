@@ -14,6 +14,7 @@ import ModalPromise from "./components/Payment/ModalPromise";
 const Router = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/court" element={<ProductDetails />} />
