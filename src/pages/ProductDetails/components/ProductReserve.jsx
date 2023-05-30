@@ -3,18 +3,29 @@ import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import { addDays } from "date-fns";
 import { ko } from "date-fns/esm/locale";
+import { kakaoLogin } from "../../../components/Login/kakaoLogin";
+import { useAuth } from "../../../hooks/useAuth";
+import { useProductPaymentProcess } from "../../../components/Payment/useProductPaymentProcess";
 
 import TimeTable from "./TimeTable";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./datePicker.css";
 
-const ProductReserve = ({ courtData, startDate, setStartDate }) => {
+const ProductReserve = ({
+  courtData,
+  startDate,
+  setStartDate,
+  reserveData,
+  setReserveData,
+}) => {
+  const { detailPaymentProcess } = useProductPaymentProcess();
+  const { isAuthenticated, user } = useAuth();
   const { price, timeSlots } = courtData;
   const [isDate, setIsDate] = useState(false);
   const [isTime, setIsTime] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(""); // 유저가 선택한 날짜 (startDate값으로 초기세팅 후 유저가 새로운 날짜를 선택하면 바뀌도록 )
-  const [selectedTime, setSelectedTime] = useState(""); // 유저가 선택한 시간 (메인에서 들어온 시간 데이터가 있을 경우 selectedTime값으로 넣어주기 )
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
   const [inputValues, setInputValues] = useState("");
 
   const handleInput = e => {
@@ -22,22 +33,23 @@ const ProductReserve = ({ courtData, startDate, setStartDate }) => {
     setInputValues({ [id]: value });
   };
 
-  const matching = inputValues.matching === "on" ? 1 : 0; //서버로 보낼 isMatch 값
-
-  const taxPrice = (price / 100) * 14 + price;
+  const matching = inputValues.matching ? 1 : 0;
+  console.log("price", typeof price);
+  const taxPrice = price + (price / 100) * 14;
   const totalPrice = () => {
     return inputValues.matching ? taxPrice / 2 : taxPrice;
   };
 
-  //서버로 보내는 데이터들 /merge후  해당 데이터 전역 상태 관리 예정
-  const reservationsData = {
-    timeSlot: selectedTime,
-    isMatch: matching,
-    amount: totalPrice(),
-  };
+  const doReserve = () => {
+    setReserveData({
+      ...reserveData,
+      timeSlot: selectedTime,
+      isMatch: matching,
+      amount: totalPrice(),
+    });
 
-  //예약하기 클릭 시 전역 상태 관리로 reservationsData 보내는 함수 //merge 후 연결 예정
-  const doReserve = () => {};
+    !isAuthenticated ? detailPaymentProcess() : console.log("no");
+  };
 
   const dateButton = e => {
     setIsTime(false);
@@ -110,7 +122,7 @@ const ProductReserve = ({ courtData, startDate, setStartDate }) => {
         <TimeButton onClick={timeButton}>
           <span>예약 시간</span>
 
-          {endTime == "Invalid Date" ? (
+          {!startTime ? (
             <TimeSelectNotice>시간을 선택해주세요</TimeSelectNotice>
           ) : (
             <span> {formattedTime}</span>
@@ -145,7 +157,7 @@ const ProductReserve = ({ courtData, startDate, setStartDate }) => {
           </Box>
         </MatchButton>
       </SelectBox>
-      <ReserveButton onClick={doReserve} disabled={selectedTime === ""}>
+      <ReserveButton onClick={doReserve} disabled={!selectedTime}>
         예약하기
       </ReserveButton>
       <Notice>매칭을 희망하신 경우 이용 금액의 절반이 결제됩니다.</Notice>
@@ -202,9 +214,9 @@ const CourtPrice = styled.p`
 `;
 
 const SelectBox = styled.div`
-  width: 300px;
   display: flex;
   flex-wrap: wrap;
+  width: 300px;
   margin-top: 20px;
 
   @media screen and (max-width: 1280px) {

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import KakaoMap from "../KakaoMap";
+import KakaoMap from "./KakaoMap";
 
 const ProductLocation = ({ courtData }) => {
   const { address, longitude, latitude } = courtData;
