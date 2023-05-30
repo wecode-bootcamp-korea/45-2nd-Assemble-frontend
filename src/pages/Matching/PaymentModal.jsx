@@ -9,22 +9,19 @@ import ChargeInfo from "../../components/Payment/ChargeInfo";
 import { fadeIn, fadeOut } from "./components/animation";
 import { paymentAtom } from "../../components/Payment/paymentAtom";
 import { loadTossPayments } from "@tosspayments/payment-sdk";
-import { matchingAtom } from "./matchingAtom";
 const { v4: uuidv4 } = require("uuid");
 
 const clientKey = process.env.REACT_APP_CLIENTKEY;
 
-export default NiceModal.create(() => {
+export default NiceModal.create(({ data }) => {
   useBodyOverflow("hidden");
   const modal = useModal();
 
   const [paymentMethod, setPaymentMethod] = useRecoilState(paymentAtom);
-  const [courtInfomation, setCourtInfomation] = useRecoilState(matchingAtom);
 
-  const { matchId, courtInfo, hostInfo, reservationId, timeSlot, isMatch } =
-    courtInfomation;
-
-  const { amount, orderName, customerName, easyPay } = paymentMethod;
+  const { matchId, courtInfo, timeSlot } = data;
+  console.log(typeof courtInfo.price);
+  const { easyPay } = paymentMethod;
 
   const closedModal = () => {
     modal.remove();
@@ -36,13 +33,11 @@ export default NiceModal.create(() => {
     amount: totalAmount,
     orderId: orderId,
     courtId: courtInfo.courtId,
-    orderName: "테스트",
+    orderName: courtInfo.courtName,
     successUrl: `http://localhost:3000/success?matchId=${matchId}`,
     failUrl: "http://localhost:3000/fail",
     flowMode: "DIRECT",
     easyPay: easyPay,
-    timeSlot: timeSlot,
-    isMatch: isMatch,
   };
 
   const handleResolve = () => {
@@ -71,9 +66,9 @@ export default NiceModal.create(() => {
         <PrevButton onClick={closedModal}>X</PrevButton>
         <Title>확인 및 결제</Title>
         <Location>
-          <CardForModal />
+          <CardForModal courtInfo={courtInfo} timeSlot={timeSlot} />
         </Location>
-        <ChargeInfo />
+        <ChargeInfo price={courtInfo.price} />
         <PaymentMethodContainer>
           <PaymentMethodTitle>결제 수단</PaymentMethodTitle>
           <PaymentMethods>

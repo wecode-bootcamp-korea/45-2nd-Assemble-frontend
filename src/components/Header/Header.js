@@ -54,10 +54,9 @@ const HeaderFlex = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 1280px;
-  height: 80px;
   padding: 0 40px;
   box-sizing: border-box;
+  margin: auto;
 `;
 
 const CategoryFlex = styled.div`

@@ -1,12 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { matchingAtom } from "../../pages/Matching/matchingAtom";
-import { useRecoilState } from "recoil";
 
-const ChargeInfo = () => {
-  const [courtInfomation, setCourtInfomation] = useRecoilState(matchingAtom);
-  const { courtInfo } = courtInfomation;
-  const { price } = courtInfo;
+const ChargeInfo = ({ price }) => {
   const SERVICE_FEE = price * 0.14;
   const SUBTOTAL = price + SERVICE_FEE;
   return (
