@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const ReserveCourtInfo = ({ courtData }) => {
+const ReserveCourtInfo = ({ courtData, timeSlot }) => {
   const { courtName, address, courtImage } = courtData;
   return (
     <BackgroundBox>
@@ -18,7 +18,7 @@ const ReserveCourtInfo = ({ courtData }) => {
         </Location>
         <ReserveTime>
           <SubTitle>예약 시간</SubTitle>
-          <p>2023년 05월 22일 15:00 - 16:00</p>
+          <p>{timeSlot}</p>
         </ReserveTime>
       </ReserveCourtInfoBox>
     </BackgroundBox>

@@ -1,4 +1,7 @@
 .react-datepicker {
+  width: 280px;
+  height: 318px;
+  box-sizing: border-box;
   background-color: white;
   padding: 15px 25px 20px;
   border: 1px solid lightgray;
@@ -18,7 +21,8 @@
 }
 
 .react-datepicker__navigation {
-  display: none;
+  margin: 10px;
+  /* display: none; */
 }
 
 .react-datepicker__current-month {
@@ -79,6 +83,11 @@
   line-height: 17px;
   color: gray;
 }
+
+/* .react-datepicker__week {
+  height: 31px;
+  box-sizing: border-box;
+} */
 
 .react-datepicker--time-only {
   width: 100%;

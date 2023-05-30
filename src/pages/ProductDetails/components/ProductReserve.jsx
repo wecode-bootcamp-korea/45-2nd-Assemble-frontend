@@ -3,8 +3,6 @@ import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import { addDays } from "date-fns";
 import { ko } from "date-fns/esm/locale";
-import { kakaoLogin } from "../../../components/Login/kakaoLogin";
-import { useAuth } from "../../../hooks/useAuth";
 import { useProductPaymentProcess } from "../../../components/Payment/useProductPaymentProcess";
 
 import TimeTable from "./TimeTable";
@@ -12,43 +10,48 @@ import TimeTable from "./TimeTable";
 import "react-datepicker/dist/react-datepicker.css";
 import "./datePicker.css";
 
-const ProductReserve = ({
-  courtData,
-  startDate,
-  setStartDate,
-  reserveData,
-  setReserveData,
-}) => {
+const ProductReserve = ({ courtData, startDate, setStartDate }) => {
   const { detailPaymentProcess } = useProductPaymentProcess();
-  const { isAuthenticated, user } = useAuth();
-  const { price, timeSlots } = courtData;
+  const { price, timeSlots, courtName, courtId } = courtData;
   const [isDate, setIsDate] = useState(false);
   const [isTime, setIsTime] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [inputValues, setInputValues] = useState("");
+  const [reserveData, setReserveData] = useState({
+    courtId: "",
+    price: "",
+    courtName: "",
+    timeSlot: "",
+    isMatch: "",
+    amount: "",
+  });
 
   const handleInput = e => {
     const { id, value } = e.target;
     setInputValues({ [id]: value });
   };
 
-  const matching = inputValues.matching ? 1 : 0;
-  console.log("price", typeof price);
-  const taxPrice = price + (price / 100) * 14;
+  const matching = inputValues.matching;
+  const isMatch = matching ? 1 : 0;
+  const taxPrice = Math.ceil(Number(price) * 1.14);
   const totalPrice = () => {
-    return inputValues.matching ? taxPrice / 2 : taxPrice;
+    return matching ? taxPrice / 2 : taxPrice;
   };
 
-  const doReserve = () => {
+  useEffect(() => {
     setReserveData({
-      ...reserveData,
+      courtId: courtId,
+      price: price,
+      courtName: courtName,
       timeSlot: selectedTime,
-      isMatch: matching,
+      isMatch: isMatch,
       amount: totalPrice(),
     });
+  }, [selectedTime, isMatch]);
 
-    !isAuthenticated ? detailPaymentProcess() : console.log("no");
+  const doReserve = () => {
+    detailPaymentProcess(matching, reserveData, courtData);
   };
 
   const dateButton = e => {
@@ -87,6 +90,7 @@ const ProductReserve = ({
 
   useEffect(() => {
     setStartDate(changeDate());
+    setIsDate(false);
   }, [selectedDate]);
 
   return (
@@ -95,9 +99,11 @@ const ProductReserve = ({
         {price}원 /<span>시간당</span>
       </CourtPrice>
       <SelectBox>
-        <DateButton onClick={dateButton}>
-          <span>예약 날짜</span>
-          <span>{changeDate()}</span>
+        <DateBox>
+          <DateButton onClick={dateButton}>
+            <span>예약 날짜</span>
+            <span>{changeDate()}</span>
+          </DateButton>
           {isDate && (
             <DatePickerWrapper>
               <DatePicker
@@ -106,7 +112,6 @@ const ProductReserve = ({
                 selected={selectedDate}
                 minDate={new Date()}
                 maxDate={addDays(new Date(), 6)}
-                showDisabledMonthNavigation
                 onChange={date => setSelectedDate(date)}
                 inline
               >
@@ -117,23 +122,24 @@ const ProductReserve = ({
               </DatePicker>
             </DatePickerWrapper>
           )}
-        </DateButton>
+        </DateBox>
+        <DateBox>
+          <TimeButton onClick={timeButton}>
+            <span>예약 시간</span>
 
-        <TimeButton onClick={timeButton}>
-          <span>예약 시간</span>
+            {!startTime ? (
+              <TimeSelectNotice>시간을 선택해주세요</TimeSelectNotice>
+            ) : (
+              <span> {formattedTime}</span>
+            )}
 
-          {!startTime ? (
-            <TimeSelectNotice>시간을 선택해주세요</TimeSelectNotice>
-          ) : (
-            <span> {formattedTime}</span>
-          )}
-
-          {isTime && (
-            <TimeTableWapper>
-              <TimeTable time={timeSlots} setSelectedTime={setSelectedTime} />
-            </TimeTableWapper>
-          )}
-        </TimeButton>
+            {isTime && (
+              <TimeTableWrapper>
+                <TimeTable time={timeSlots} setSelectedTime={setSelectedTime} />
+              </TimeTableWrapper>
+            )}
+          </TimeButton>
+        </DateBox>
         <MatchButton>
           <Title>파트너 매칭 희망 여부</Title>
           <Box>
@@ -223,9 +229,11 @@ const SelectBox = styled.div`
     width: 90%;
   }
 `;
+const DateBox = styled.div`
+  position: relative;
+`;
 
 const DateButton = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   width: 150px;
@@ -244,7 +252,7 @@ const DateButton = styled.div`
   }
 
   @media screen and (max-width: 1280px) {
-    width: 50%;
+    width: 125px;
     padding: 10px 0 10px 10px;
     font-size: 14px;
   }
@@ -255,11 +263,18 @@ const DateButton = styled.div`
 `;
 
 const DatePickerWrapper = styled.div`
-  width: 280px;
   position: absolute;
   top: 90px;
   left: 10px;
+  width: 280px;
+  height: 318px;
+  box-sizing: border-box;
   z-index: 1;
+
+  @media screen and (max-width: 1280px) {
+    top: 65px;
+    left: -15px;
+  }
 `;
 
 const TimeButton = styled.div`
@@ -268,6 +283,7 @@ const TimeButton = styled.div`
   flex-direction: column;
   width: 150px;
   padding: 20px;
+  box-sizing: border-box;
   border: 1px solid ${props => props.theme.lightGray};
   border-top-right-radius: 10px;
   cursor: pointer;
@@ -282,7 +298,7 @@ const TimeButton = styled.div`
   }
 
   @media screen and (max-width: 1280px) {
-    width: 50%;
+    width: 125px;
     padding: 10px 0 10px 10px;
     font-size: 14px;
   }
@@ -292,34 +308,39 @@ const TimeButton = styled.div`
   }
 `;
 
-const TimeTableWapper = styled.div`
-  width: 280px;
-  height: 317px;
+const TimeTableWrapper = styled.div`
   position: absolute;
-  padding: 15px;
-  box-sizing: border-box;
   top: 90px;
   right: 10px;
-  z-index: 1;
-  background-color: white;
-  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 280px;
+  height: 317px;
+  padding: 15px;
+  background-color: white;
+  overflow-y: scroll;
   border: 1px solid ${props => props.theme.lightGray};
   border-radius: 20px;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  box-sizing: border-box;
+  z-index: 1;
   cursor: default;
 
   &::-webkit-scrollbar {
     width: 8px;
-    height: 8px;
     border-radius: 6px;
     background: white;
   }
+
   &::-webkit-scrollbar-thumb {
     background: ${props => props.theme.lightGray};
     border-radius: 6px;
+  }
+
+  @media screen and (max-width: 1280px) {
+    top: 65px;
+    right: -15px;
   }
 `;
 
@@ -412,6 +433,7 @@ const ReserveButton = styled.button`
 `;
 
 const Notice = styled.p`
+  text-align: center;
   margin-bottom: 30px;
   font-size: 12px;
   color: ${props => props.theme.gray};
@@ -468,7 +490,7 @@ const PayInfo = styled.span`
     position: absolute;
     top: -65px;
     left: -120px;
-    content: "총 결제 금액은 시설 이용 금액과 자사의 예약 서비스 이용 수수료가 포함된 최종 가격입니다.";
+    content: "총 결제 금액은 시설 이용 금액과 자사의 예약 서비스 이용 수수료 14%가 포함된 최종 가격입니다.";
     width: 350px;
     height: 50px;
     padding: 10px;

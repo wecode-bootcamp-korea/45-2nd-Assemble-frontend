@@ -1,14 +1,12 @@
 import { useModal } from "@ebay/nice-modal-react";
-import JoinModal from "../../pages/Matching/JoinModal";
-import PaymentModal from "../../pages/Matching/PaymentModal";
+import ProductDetailPaymentModal from "../../pages/ProductDetails/components/ProductDetailPaymentModal";
 import LoginModal from "../Login/LoginModal";
 import UserInfoModal from "../Login/UserInfoModal";
 import { useAuth } from "../../hooks/useAuth";
 
 export const useProductPaymentProcess = () => {
   const { isAuthenticated, user } = useAuth();
-  const joinModal = useModal(JoinModal);
-  const paymentModal = useModal(PaymentModal);
+  const paymentModal = useModal(ProductDetailPaymentModal);
   const loginModal = useModal(LoginModal);
   const userInfoModal = useModal(UserInfoModal);
 
@@ -22,22 +20,39 @@ export const useProductPaymentProcess = () => {
     }
   };
 
-  const detailPaymentProcess = async () => {
+  const detailPaymentProcess = async (matching, reserveData, courtData) => {
     try {
       if (!isAuthenticated) {
-        await loginModal.show();
-        await paymentModal.show();
+        //로그인 안했을 때
+        await loginModal.show({ reserveData: reserveData, matching: matching });
+        await paymentModal.show({
+          reserveData: reserveData,
+          courtData: courtData,
+        });
+        await userInfoModal.remove();
+        // }
       } else {
-        if (checkUserInfo()) {
-          await joinModal.show();
-          await joinModal.remove();
-          await paymentModal.show();
+        //로그인 했을 때
+        if (!matching) {
+          //매칭 미선택
+          await paymentModal.show({ reserveData: reserveData });
         } else {
-          await userInfoModal.show();
-          await joinModal.show();
-          await userInfoModal.remove();
-          await joinModal.remove();
-          await paymentModal.show();
+          //매칭 선택
+          if (checkUserInfo()) {
+            // 회원정보 있을 때
+            await paymentModal.show({
+              reserveData: reserveData,
+              courtData: courtData,
+            });
+          } else {
+            //회원정보 없을 때
+            await userInfoModal.show();
+            await userInfoModal.remove();
+            await paymentModal.show({
+              reserveData: reserveData,
+              courtData: courtData,
+            });
+          }
         }
       }
     } catch (e) {

@@ -19,7 +19,7 @@ export default ProductLocation;
 const Flex = styled.div`
   width: 100%;
   height: 100%;
-  margin-top: 50px;
+  margin-top: 150px;
 
   @media screen and (max-width: 1280px) {
     width: 70%;

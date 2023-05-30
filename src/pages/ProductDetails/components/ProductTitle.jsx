@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 const ProductTitle = ({ courtData }) => {
-  const { exclusive, courtName, address } = courtData;
+  const { isExclusive, courtName, address } = courtData;
 
   return (
     <Flex>
       <TitleFlex>
         <Title>{courtName}</Title>
-        {exclusive === 1 && <Exclusive>독점 예약</Exclusive>}
+        {isExclusive === 1 && <Exclusive>독점 예약</Exclusive>}
       </TitleFlex>
       <p>{address}</p>
     </Flex>
