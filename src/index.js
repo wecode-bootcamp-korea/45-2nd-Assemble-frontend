@@ -8,25 +8,21 @@ import Router from "./Router";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/GlobalStyle";
 import theme from "./styles/theme";
+import { RecoilRoot } from "recoil";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
 
-// if (process.env.NODE_ENV === "development") {
-//   const { worker } = require("./_mocks/browser");
-//   worker.start();
-// }
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <ThemeProvider theme={theme}>
-    <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
-        <GlobalStyle />
-        <NiceModal.Provider>
+  <RecoilRoot>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <NiceModal.Provider>
+        <QueryClientProvider client={queryClient}>
           <Router />
-        </NiceModal.Provider>
-      </RecoilRoot>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
-  </ThemeProvider>
+        </QueryClientProvider>
+      </NiceModal.Provider>
+    </ThemeProvider>
+  </RecoilRoot>
 );

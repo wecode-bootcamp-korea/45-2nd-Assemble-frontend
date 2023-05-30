@@ -1,48 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import Card from "./CardOfMain";
+import { useRecoilValue } from "recoil";
+import CardOfMain from "./CardOfMain";
+import { mainCourtListAtom } from "../../../../recoil/mainCourtListAtom";
 
 const CardList = () => {
+  const courtList = useRecoilValue(mainCourtListAtom);
+
   return (
     <Wrapper>
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+      {courtList.map(item => (
+        <CardOfMain key={item.id} item={item} />
+      ))}
     </Wrapper>
   );
 };

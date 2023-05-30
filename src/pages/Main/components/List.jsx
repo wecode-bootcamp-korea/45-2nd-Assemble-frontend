@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import CardList from "./Card/CardListOfMain";
 import MobileNav from "../../../components/Nav/MobileNav";
+import CardListOfMain from "./Card/CardListOfMain";
 
 const List = () => {
   return (
     <MainList>
       <MobileNav />
-      <CardList />
+      <CardListOfMain />
     </MainList>
   );
 };

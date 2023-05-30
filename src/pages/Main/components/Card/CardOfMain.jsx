@@ -1,29 +1,24 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Card = () => {
-  const navigate = useNavigate();
-  const goToCourt = () => {
-    navigate("/main");
-  };
-
+const CardOfMain = ({ item: { address, courtImage, description } }) => {
   return (
     <Container>
-      <CardImgWrapper>
-        <CardImg src="/images/tennis.png" alt="테니스장사진" />
-      </CardImgWrapper>
-      <CardInfo>
-        <CardTitle onClick={goToCourt}>그리너리</CardTitle>
-        <CardLocation>
-          서울시 강남구 테헤란로 427 위워크 선릉 2호점 10층
-        </CardLocation>
-      </CardInfo>
+      <CourtLink to="/court" target="_blank">
+        <CardImgWrapper>
+          <CardImg src={courtImage[0]} alt="테니스장 사진" />
+        </CardImgWrapper>
+        <CardInfo>
+          <CardTitle>{description}</CardTitle>
+          <CardLocation>{address}</CardLocation>
+        </CardInfo>
+      </CourtLink>
     </Container>
   );
 };
 
-export default Card;
+export default CardOfMain;
 
 const CardImg = styled.img`
   width: 100%;
@@ -32,6 +27,8 @@ const CardImg = styled.img`
 `;
 
 const Container = styled.div`
+  max-width: 280px;
+  max-height: 430px;
   display: flex;
   flex-direction: column;
   &:hover {
@@ -43,8 +40,22 @@ const Container = styled.div`
 
 const CardImgWrapper = styled.div`
   width: 100%;
+  max-height: 300px;
   flex: 1.2;
   padding-bottom: 16px;
+`;
+
+const CourtLink = styled(Link)`
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  &:hover {
+    ${CardImg} {
+      filter: brightness(150%);
+    }
+    cursor: pointer;
+  }
 `;
 
 const CardInfo = styled.div`
@@ -52,47 +63,14 @@ const CardInfo = styled.div`
   flex-direction: column;
   padding: 0 16px;
 `;
-const CardDescription = styled.div`
-  flex: 1;
-  padding: 0 16px;
-  display: flex;
-  justify-content: space-between;
-`;
-const CardLocation = styled.p`
-  font-size: ${props => props.theme.sm.fontSize};
-  line-height: ${props => props.theme.sm.lineHeight};
-`;
 
 const CardTitle = styled.p`
   font-size: ${props => props.theme.xl.fontSize};
   line-height: ${props => props.theme.xl.lineHeight};
   font-weight: 900;
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
-const CardTimeInfo = styled.div`
-  flex: 1;
-`;
-const CardDate = styled.p`
+const CardLocation = styled.p`
   font-size: ${props => props.theme.sm.fontSize};
   line-height: ${props => props.theme.sm.lineHeight};
-  color: ${props => props.theme.grey};
-`;
-const CardTime = styled.p`
-  font-size: ${props => props.theme.sm.fontSize};
-  line-height: ${props => props.theme.sm.lineHeight};
-  color: ${props => props.theme.grey};
-`;
-const CardPrice = styled.p`
-  font-size: ${props => props.theme.sm.fontSize};
-  line-height: ${props => props.theme.sm.lineHeight};
-  font-weight: 900;
-`;
-
-const JoinButton = styled.div`
-  align-self: flex-end;
-  flex: 0.5;
-  text-align: right;
 `;

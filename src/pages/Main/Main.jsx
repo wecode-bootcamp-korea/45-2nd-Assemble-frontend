@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import axios from "axios";
+import styled from "styled-components";
+import { useSetRecoilState } from "recoil";
 import List from "./components/List";
 import Map from "./components/Map";
-import styled from "styled-components";
+import { mainCourtListAtom } from "../../recoil/mainCourtListAtom";
 
 const Main = () => {
+  const setCourtList = useSetRecoilState(mainCourtListAtom);
   const [searchParams, setSearchParams] = useSearchParams();
   const mapPage = searchParams.get(`page`) === `map`;
 
@@ -12,6 +16,12 @@ const Main = () => {
     searchParams.set(`page`, mapPage ? `list` : `map`);
     setSearchParams(searchParams);
   };
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/data/main-court-list.json`)
+      .then(res => setCourtList(res.data));
+  }, [setCourtList]);
 
   return (
     <div>
