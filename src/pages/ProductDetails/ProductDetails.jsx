@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -8,8 +9,21 @@ import ProductInfo from "./components/ProductInfo";
 import ProductLocation from "./components/ProductLocation";
 import ProductReserve from "./components/ProductReserve";
 
+const dataURL = "http://10.58.52.232:3000";
+// const dataURL = "data/courtData.json";
+
 const ProductDetails = () => {
-  const [courtData, setCourtData] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [courtData, setCourtData] = useState({});
+  const [userData, setUserData] = useState({});
+
+  const courtId = 1;
+  const getDate = "2023-05-30";
+
+  // const courtId = searchParams.get("courtId");
+  // const getDate = searchParams.get("date");
+  const getTime = searchParams.get("time");
+
   const dateFormat = date => {
     if (!date) return;
     let month = date.getMonth() + 1;
@@ -20,32 +34,53 @@ const ProductDetails = () => {
 
     return date.getFullYear() + "-" + month + "-" + day;
   };
+
   const [startDate, setStartDate] = useState(dateFormat(new Date()));
 
-  useEffect(() => {
-    axios.get(dataURL).then(response => {
-      if (response.data) {
-        setCourtData(response.data);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get(dataURL).then(response => {
+  //     if (response.data) {
+  //       setCourtData(response.data);
+  //     }
+  //   });
+  // });
 
-  if (!courtData) return;
+  // 메인에서 court 데이터 받아올 때
+
+  useEffect(() => {
+    // getDate && setStartDate(getDate);
+    axios
+      .get(`${dataURL}/courts?courtId=${courtId}&dateForCourt=${getDate}`)
+      .then(response => {
+        setCourtData(response.data);
+      });
+  }, [startDate]);
+
+  const [reserveData, setReserveData] = useState({
+    courtId: courtId,
+    timeSlot: "",
+    isMatch: "",
+    amount: "",
+  });
+
+  if (!courtData.type) return;
 
   return (
     <Background>
       <ProductWrapper>
-        <ProductTitle courtData={courtData} />
-        <ProductImages courtData={courtData} />
+        <ProductTitle courtData={courtData[0]} />
+        <ProductImages courtData={courtData[0]} />
         <ContentsFlex>
-          <ProductInfo courtData={courtData} />
+          <ProductInfo courtData={courtData[0]} />
           <ProductReserve
-            courtData={courtData}
+            courtData={courtData[0]}
             startDate={startDate}
             setStartDate={setStartDate}
+            setReserveData={setReserveData}
+            reserveData={reserveData}
           />
         </ContentsFlex>
-        <ProductLocation courtData={courtData} />
+        <ProductLocation courtData={courtData[0]} />
       </ProductWrapper>
     </Background>
   );

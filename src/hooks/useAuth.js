@@ -22,6 +22,7 @@ export const useAuth = () => {
       }
     },
     retry: false,
+    refetchOnMount: false,
   });
 
   const updateUser = newUser => {
