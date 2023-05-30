@@ -3,17 +3,14 @@ import { matchingAtom } from "../../pages/Matching/matchingAtom";
 import { useRecoilState } from "recoil";
 import { useTimeSlot } from "../../hooks/useTime";
 
-const CardForModal = () => {
-  const [courtInfomation, setCourtInfomation] = useRecoilState(matchingAtom);
-  const { courtInfo, hostInfo, timeSlot } = courtInfomation;
-
-  const { address, price, courtName } = courtInfo;
+const CardForModal = ({ courtInfo, timeSlot }) => {
+  const { address, price, courtName, courtImage } = courtInfo;
   const [formattedTime, formattedDate] = useTimeSlot(timeSlot);
 
   return (
     <Container>
       <CardImgWrapper>
-        <CardImg src="/images/tennis.png" alt="테니스장사진" />
+        <CardImg src={courtImage} alt="테니스장사진" />
       </CardImgWrapper>
       <CardInfo>
         <CardTitle>{courtName}</CardTitle>

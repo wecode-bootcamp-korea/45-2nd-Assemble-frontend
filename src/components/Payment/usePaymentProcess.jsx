@@ -22,24 +22,24 @@ export const usePaymentProcess = () => {
     }
   };
 
-  const paymentProcess = async () => {
+  const paymentProcess = async data => {
     try {
       if (!isAuthenticated) {
         await loginModal.show();
-        await joinModal.show();
+        await joinModal.show({ data: data });
         await joinModal.remove();
-        await paymentModal.show();
+        await paymentModal.show({ data: data });
       } else {
         if (checkUserInfo()) {
-          await joinModal.show();
+          await joinModal.show({ data: data });
           await joinModal.remove();
-          await paymentModal.show();
+          await paymentModal.show({ data: data });
         } else {
           await userInfoModal.show();
-          await joinModal.show();
+          await joinModal.show({ data: data });
           await userInfoModal.remove();
           await joinModal.remove();
-          await paymentModal.show();
+          await paymentModal.show({ data: data });
         }
       }
     } catch (e) {

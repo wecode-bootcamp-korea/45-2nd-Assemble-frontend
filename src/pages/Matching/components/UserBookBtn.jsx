@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const UserBookBtn = () => {
+const UserBookBtn = ({ onClick }) => {
   return (
     <ButtonContainer>
-      <BookBtn />
+      <BookBtn onClick={onClick} />
     </ButtonContainer>
   );
 };

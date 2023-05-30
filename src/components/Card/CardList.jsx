@@ -58,7 +58,7 @@ const CardList = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
+  if (!card) return;
   return (
     <div>
       <Top className="#top" />

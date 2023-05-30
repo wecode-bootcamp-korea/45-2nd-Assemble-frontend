@@ -9,11 +9,12 @@ import useBodyOverflow from "../../hooks/useBodyOverflow";
 import { fadeIn, fadeOut } from "./components/animation";
 import { matchingAtom } from "../Matching/matchingAtom";
 
-export default NiceModal.create(() => {
+export default NiceModal.create(({ data }) => {
   useBodyOverflow("hidden");
-  const [courtInfomation, setCourtInfomation] = useRecoilState(matchingAtom);
-  const { courtInfo, hostInfo, timeSlot } = courtInfomation;
 
+  const { courtInfo, hostInfo, timeSlot } = data;
+
+  console.log(data);
   const modal = useModal();
 
   const closedModal = () => {
@@ -34,7 +35,7 @@ export default NiceModal.create(() => {
           </UserBook>
         </UserInfo>
         <Location>
-          <CardForModal />
+          <CardForModal courtInfo={courtInfo} timeSlot={timeSlot} />
         </Location>
         <ButtonArea>
           <ConfirmButtons>

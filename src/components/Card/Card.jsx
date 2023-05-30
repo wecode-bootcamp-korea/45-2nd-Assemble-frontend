@@ -1,41 +1,44 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
 import UserBookBtn from "../../pages/Matching/components/UserBookBtn";
 import MatchingButton from "../../pages/Matching/components/MatchingButton";
-import { useRecoilState } from "recoil";
 import { usePaymentProcess } from "../Payment/usePaymentProcess";
 import { useTimeSlot } from "../../hooks/useTime";
-import { matchingAtom } from "../../pages/Matching/matchingAtom";
-
+import HostInfoModal from "../../pages/Matching/components/HostInfoModal";
 const Card = React.forwardRef(({ item }, ref) => {
   const navigate = useNavigate();
   const { paymentProcess } = usePaymentProcess();
+  const hostInfoModal = useModal(HostInfoModal);
   const { courtInfo, timeSlot } = item;
-  const { address, price, name } = courtInfo;
+  const { address, price, courtName, courtImage } = courtInfo;
   const [formattedTime, formattedDate] = useTimeSlot(timeSlot);
-  const [courtInfomation, setCourtInfomation] = useRecoilState(matchingAtom);
 
   const goToCourt = () => {
     navigate("/main");
   };
 
   const goToJoin = () => {
-    setCourtInfomation(item);
-    paymentProcess();
+    paymentProcess(item);
   };
+
+  const handleOpenHostModal = () => {
+    hostInfoModal.show({ data: item });
+  };
+
   return (
     <article ref={ref && ref}>
       <Container>
         <CardImgWrapper>
-          <CardImg src="/images/tennis.png" alt="테니스장사진" />
+          <CardImg src={courtImage} alt="테니스장사진" />
           <UserBtnWrapper>
-            <UserBookBtn />
+            <UserBookBtn onClick={handleOpenHostModal} />
             <Message>상대방을 확인하세요</Message>
           </UserBtnWrapper>
         </CardImgWrapper>
         <CardInfo>
-          <CardTitle onClick={goToCourt}>{name}</CardTitle>
+          <CardTitle onClick={goToCourt}>{courtName}</CardTitle>
           <CardLocation>{address}</CardLocation>
           <CardDate>{formattedDate}</CardDate>
         </CardInfo>
@@ -69,7 +72,7 @@ const Container = styled.div`
   height: 100%;
   &:hover {
     ${CardImg} {
-      filter: brightness(150%);
+      filter: brightness(70%);
     }
   }
 `;
