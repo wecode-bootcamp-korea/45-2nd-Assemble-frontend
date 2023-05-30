@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 import { useTimeSlot } from "../../hooks/useTime";
 
 const CardForModal = ({ courtInfo, timeSlot }) => {
+  console.log("courtInfo", courtInfo);
   const { address, price, courtName, courtImage } = courtInfo;
   const [formattedTime, formattedDate] = useTimeSlot(timeSlot);
 

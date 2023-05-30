@@ -9,7 +9,7 @@ import Matching from "./pages/Matching/Matching";
 import ReservationStatusPage from "./pages/ReservationStatusPage/ReservationStatusPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import HostPage from "./pages/HostPage/HostPage";
-import ModalPromise from "./components/Payment/ModalPromise";
+import PaymentSuccess from "./components/Payment/PaymentSuccess";
 import Login from "./components/Login/Login";
 import PaymentInProgress from "./components/Payment/PaymentInProgress";
 import Empty from "./pages/Empty/Empty";
@@ -29,10 +29,10 @@ const Router = () => {
         />
         <Route path="/profilepage" element={<ProfilePage />} />
         <Route path="/hostpage" element={<HostPage />} />
-        <Route path="/test" element={<ModalPromise />} />
+
         <Route path="/kakao-login" element={<Login />} />
         <Route path="/success" element={<PaymentInProgress />} />
-        <Route path="*" element={<Empty />} />
+        <Route path="/paymentSuccess" element={<PaymentSuccess />} />
       </Routes>
       <Footer />
     </BrowserRouter>

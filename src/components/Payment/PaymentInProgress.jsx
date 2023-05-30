@@ -1,5 +1,6 @@
 import { useSearchParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 import { useEffect } from "react";
 import { useToken } from "../../service/query/useToken";
 import { useMutatePayment } from "../../service/mutation/useMutatePayment";
@@ -25,9 +26,25 @@ const PaymentInProgress = () => {
       paymentKey: paymentKey,
       orderId: orderId,
     };
+
+    const paymentReserveDetails = {
+      courtId: courtId,
+      amount: amount,
+      isMatch: isMatch,
+      paymentKey: paymentKey,
+      orderId: orderId,
+      timeSlot: "2023-05-23 11:00:00",
+    };
+
+    const Token = localStorage.getItem("accessToken");
     const completePayment = async () => {
-      const res = await mutateAsync(paymentDetails);
-      // navigate("/", { state: res });
+      // const res = await mutateAsync(paymentDetails);
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/reservations`,
+        paymentReserveDetails,
+        { headers: { Authorization: Token } }
+      );
+      // navigate("/paymentSuccess", { state: paymentReserveDetails });
     };
     completePayment();
   }, [accessToken, mutateAsync]);

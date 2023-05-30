@@ -9,6 +9,7 @@ const ProductInfo = ({ courtData }) => {
     amenities,
     type,
     description,
+    isIndoor,
   } = courtData;
 
   const arr = [];
@@ -32,16 +33,16 @@ const ProductInfo = ({ courtData }) => {
         <BoxFlex>
           <Point>
             <img src="/images/ProductDetail/실외 코트.png" />
-            <span>{{ type } > 3 ? "실내" : "실외"} 코트</span>
+            <span>{isIndoor === 1 ? "실내" : "실외"} 코트</span>
           </Point>
           <Point>
             <img src="/images/ProductDetail/클레이 코트.png" />
-            <span>{COURT_TYPE_DATA[`${type}`]}</span>
+            <span>{type}</span>
           </Point>
           {parking !== 3 && (
             <Point>
               <img src="/images/ProductDetail/주차장.png" />
-              <span>{PARKING_DATA[`${parking}`]}</span>
+              <span>{parking}</span>
             </Point>
           )}
         </BoxFlex>
@@ -65,18 +66,6 @@ const ProductInfo = ({ courtData }) => {
 };
 
 export default ProductInfo;
-
-const COURT_TYPE_DATA = [
-  "",
-  "클레이 코트",
-  "하드 코트",
-  "잔디 코트",
-  "카펫 코트",
-  "고무 코트",
-  "우드 코트",
-];
-
-const PARKING_DATA = ["", "공용 주차장", "전용 주차장", ""];
 
 const Flex = styled.div`
   display: flex;

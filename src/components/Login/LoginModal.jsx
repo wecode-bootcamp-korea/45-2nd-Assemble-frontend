@@ -7,7 +7,7 @@ import { kakaoLogin } from "./kakaoLogin";
 import { fadeIn, fadeOut } from "../../pages/Matching/components/animation";
 import UserInfoModal from "./UserInfoModal";
 
-export default NiceModal.create(() => {
+export default NiceModal.create(({ reserveData, matching }) => {
   useBodyOverflow("hidden");
   const modal = useModal();
 
@@ -29,10 +29,13 @@ export default NiceModal.create(() => {
     kakaoLogin();
   };
   const handleResolve = () => {
-    if (checkUserInfo()) {
-      modal.resolve();
+    if (matching) {
+      if (checkUserInfo()) {
+        modal.resolve();
+      } else {
+        userInfoModal.show({ reserveData: reserveData });
+      }
     } else {
-      userInfoModal.show();
       modal.resolve();
     }
     modal.remove();
@@ -88,6 +91,7 @@ const Container = styled.div`
   animation: ${props => (props.visible ? fadeIn : fadeOut)} 0.5s ease;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 `;
 
 const Content = styled.div`

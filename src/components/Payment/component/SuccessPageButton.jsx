@@ -1,19 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-const SuccessPageButton = ({ isMatched, setPostButtonOn }) => {
+const SuccessPageButton = ({ isMatch, setPostButtonOn }) => {
   const matched = SUCCESS_PAGE_BUTTON[0];
   const unMatched = SUCCESS_PAGE_BUTTON[1];
 
   return (
     <ButtonLayout>
-      <IsMatching>{isMatched ? matched.message : unMatched.message}</IsMatching>
+      <IsMatching>{isMatch ? matched.message : unMatched.message}</IsMatching>
       <GoToMain
         onClick={() => {
           setPostButtonOn(prev => !prev);
         }}
       >
-        {isMatched ? matched.buttonName : unMatched.buttonName}
+        {isMatch ? matched.buttonName : unMatched.buttonName}
       </GoToMain>
     </ButtonLayout>
   );

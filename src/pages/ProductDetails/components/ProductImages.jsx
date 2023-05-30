@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+
 const ProductImages = ({ courtData }) => {
   const { courtImage } = courtData;
+
   if (!courtImage) return;
   return (
     <Flex>
@@ -98,6 +100,7 @@ const DetailImage = styled.img`
 
   @media screen and (max-width: 800px) {
     width: 24%;
+    height: 100%;
     margin-top: 10px;
     border-radius: 20px;
   }

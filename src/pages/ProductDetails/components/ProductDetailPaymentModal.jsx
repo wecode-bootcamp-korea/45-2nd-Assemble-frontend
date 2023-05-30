@@ -1,39 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import useBodyOverflow from "../../hooks/useBodyOverflow";
-import MatchingButton from "./components/MatchingButton";
-import CardForModal from "../../components/Card/CardForModal";
-import ChargeInfo from "../../components/Payment/ChargeInfo";
-import { fadeIn, fadeOut } from "./components/animation";
-import { paymentAtom } from "../../components/Payment/paymentAtom";
+import useBodyOverflow from "../../../hooks/useBodyOverflow";
+import MatchingButton from "../../Matching/components/MatchingButton";
+import CardForModal from "../../../components/Card/CardForModal";
+import ChargeInfo from "../../../components/Payment/ChargeInfo";
+import { fadeIn, fadeOut } from "../../Matching/components/animation";
 import { loadTossPayments } from "@tosspayments/payment-sdk";
+
 const { v4: uuidv4 } = require("uuid");
 
 const clientKey = process.env.REACT_APP_CLIENTKEY;
 
-export default NiceModal.create(({ data }) => {
+export default NiceModal.create(({ reserveData, courtData }) => {
   useBodyOverflow("hidden");
   const modal = useModal();
-
-  const [paymentMethod, setPaymentMethod] = useRecoilState(paymentAtom);
-
-  const { matchId, courtInfo, timeSlot } = data;
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const { price, timeSlot, isMatch, courtName, courtId } = reserveData;
   const { easyPay } = paymentMethod;
 
   const closedModal = () => {
     modal.remove();
   };
-  const totalAmount = Math.ceil(courtInfo.price * 1.14);
+  const totalAmount = Math.ceil(Number(price) * 1.14);
   const orderId = uuidv4();
 
   const paymentInformation = {
     amount: totalAmount,
     orderId: orderId,
-    courtId: courtInfo.courtId,
-    orderName: courtInfo.courtName,
-    successUrl: `http://localhost:3000/success?matchId=${matchId}`,
+    orderName: courtName,
+    successUrl: `http://localhost:3000/success?courtId=${courtId}&isMatch=${isMatch}&timeSlot=${encodeURIComponent(
+      JSON.stringify(timeSlot)
+    )}`,
     failUrl: "http://localhost:3000/fail",
     flowMode: "DIRECT",
     easyPay: easyPay,
@@ -51,13 +49,13 @@ export default NiceModal.create(({ data }) => {
         .requestPayment("카드", paymentInformation)
         .catch(function (error) {
           if (error.code === "USER_CANCEL") {
+            console.log("USER_CANCEL");
           } else if (error.code === "INVALID_CARD_COMPANY") {
+            console.log("INVALID_CARD_COMPANY");
           }
         });
     });
-    setPaymentMethod(paymentInformation);
   };
-
   const handleChange = e => {
     const { name, value } = e.target;
     setPaymentMethod(prev => ({ ...prev, [name]: value }));
@@ -69,9 +67,9 @@ export default NiceModal.create(({ data }) => {
         <PrevButton onClick={closedModal}>X</PrevButton>
         <Title>확인 및 결제</Title>
         <Location>
-          <CardForModal courtInfo={courtInfo} timeSlot={timeSlot} />
+          <CardForModal courtInfo={courtData} timeSlot={timeSlot} />
         </Location>
-        <ChargeInfo price={courtInfo.price} />
+        <ChargeInfo price={Number(price)} />
         <PaymentMethodContainer>
           <PaymentMethodTitle>결제 수단</PaymentMethodTitle>
           <PaymentMethods>

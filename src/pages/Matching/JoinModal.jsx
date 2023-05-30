@@ -11,10 +11,9 @@ import { matchingAtom } from "../Matching/matchingAtom";
 
 export default NiceModal.create(({ data }) => {
   useBodyOverflow("hidden");
-
+  debugger;
   const { courtInfo, hostInfo, timeSlot } = data;
 
-  console.log(data);
   const modal = useModal();
 
   const closedModal = () => {

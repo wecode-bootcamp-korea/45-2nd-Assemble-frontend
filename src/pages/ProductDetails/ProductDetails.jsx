@@ -9,20 +9,16 @@ import ProductInfo from "./components/ProductInfo";
 import ProductLocation from "./components/ProductLocation";
 import ProductReserve from "./components/ProductReserve";
 
-const dataURL = "http://10.58.52.232:3000";
-// const dataURL = "data/courtData.json";
-
 const ProductDetails = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [courtData, setCourtData] = useState({});
-  const [userData, setUserData] = useState({});
+  const [courtData, setCourtData] = useState([]);
 
   const courtId = 1;
-  const getDate = "2023-05-30";
+  const getDate = "2023-05-23";
 
   // const courtId = searchParams.get("courtId");
   // const getDate = searchParams.get("date");
-  const getTime = searchParams.get("time");
+  // const getTime = searchParams.get("time");
 
   const dateFormat = date => {
     if (!date) return;
@@ -43,27 +39,22 @@ const ProductDetails = () => {
   //       setCourtData(response.data);
   //     }
   //   });
-  // });
+  // }, []);
 
   // 메인에서 court 데이터 받아올 때
 
   useEffect(() => {
     // getDate && setStartDate(getDate);
     axios
-      .get(`${dataURL}/courts?courtId=${courtId}&dateForCourt=${getDate}`)
+      .get(
+        `${process.env.REACT_APP_API_URL}/courts?courtId=${courtId}&dateForCourt=${getDate}`
+      )
       .then(response => {
         setCourtData(response.data);
       });
   }, [startDate]);
 
-  const [reserveData, setReserveData] = useState({
-    courtId: courtId,
-    timeSlot: "",
-    isMatch: "",
-    amount: "",
-  });
-
-  if (!courtData.type) return;
+  if (!courtData[0]) return;
 
   return (
     <Background>
@@ -76,8 +67,6 @@ const ProductDetails = () => {
             courtData={courtData[0]}
             startDate={startDate}
             setStartDate={setStartDate}
-            setReserveData={setReserveData}
-            reserveData={reserveData}
           />
         </ContentsFlex>
         <ProductLocation courtData={courtData[0]} />

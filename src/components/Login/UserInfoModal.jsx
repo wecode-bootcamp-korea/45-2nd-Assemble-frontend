@@ -3,8 +3,10 @@ import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
 import { useMutateMe } from "../../service//mutation/useMutateMe";
 import { fadeIn, fadeOut } from "../../pages/Matching/components/animation";
+import { async } from "q";
+import ProductDetailPaymentModal from "../../pages/ProductDetails/components/ProductDetailPaymentModal";
 
-export default NiceModal.create(() => {
+export default NiceModal.create(reserveData => {
   const { mutate } = useMutateMe();
 
   const [updateInfo, setUpdateInfo] = useState({
@@ -13,9 +15,16 @@ export default NiceModal.create(() => {
     level: "",
   });
   const modal = useModal();
+  const paymentModal = useModal(ProductDetailPaymentModal);
 
   const closedModal = () => {
     modal.remove();
+  };
+
+  const handleResolve = async () => {
+    await updateUserInfo();
+    await paymentModal.show();
+    await modal.remove();
   };
 
   const conditions = {
@@ -120,12 +129,7 @@ export default NiceModal.create(() => {
               취소
             </LoginBtn>
 
-            <LoginBtn
-              onClick={() => {
-                updateUserInfo();
-              }}
-              color="#89B922"
-            >
+            <LoginBtn onClick={handleResolve} color="#89B922">
               완료
             </LoginBtn>
           </ConfirmButtons>
@@ -149,6 +153,7 @@ const Container = styled.div`
   animation: ${props => (props.visible ? fadeIn : fadeOut)} 0.5s ease;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 `;
 
 const Content = styled.div`
@@ -245,6 +250,33 @@ const UserInfoRadioWrapper = styled.div`
   width: 200px;
   display: flex;
   gap: 32px;
+
+  label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-top: 3px;
+    margin-left: 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  & > label > input[type="radio"] {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background-image: url("/images/CheckBox/unChecked.png");
+  }
+
+  [type="radio"]:checked {
+    width: 15px;
+    height: 15px;
+    background-image: url("/images/CheckBox/checked.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
   @media screen and (max-width: 550px) {
     width: 180px;
   }
