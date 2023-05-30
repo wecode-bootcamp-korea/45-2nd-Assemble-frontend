@@ -30,45 +30,6 @@ const ProductDetails = () => {
     });
   }, []);
 
-    const [courtData, setCourtData] = useState(null);
-  const dateFormat = date => {
-    if (!date) return;
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-
-    month = month >= 10 ? month : "0" + month;
-    day = day >= 10 ? day : "0" + day;
-
-    return date.getFullYear() + "-" + month + "-" + day;
-  };
-  const [startDate, setStartDate] = useState(dateFormat(new Date())); //Merge 후 detailpage에 연결 /메인에서 선택한 날짜가 있을 경우 값 변경
-
-  useEffect(() => {
-    axios.get(dataURL).then(response => {
-      if (response.data) {
-        setCourtData(response.data);
-      }
-    });
-      const [courtData, setCourtData] = useState(null);
-
-  const dateFormat = date => {
-    if (!date) return;
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-
-    month = month >= 10 ? month : "0" + month;
-    day = day >= 10 ? day : "0" + day;
-
-    return date.getFullYear() + "-" + month + "-" + day;
-  };
-  const [startDate, setStartDate] = useState(dateFormat(new Date())); 
-
-  useEffect(() => {
-    axios.get(dataURL).then(response => {
-      if (response.data) {
-        setCourtData(response.data);
-      }});
-      
   if (!courtData) return;
 
   return (
