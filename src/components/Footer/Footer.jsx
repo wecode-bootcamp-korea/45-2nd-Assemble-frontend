@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import styled from "styled-components";
 
 const Footer = () => {
+  const location = useLocation();
+  const footerFixed = URL_LIST.includes(location.pathname);
+  const [windowSize, setWindowSize] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleWindowResize = () => setWindowSize(window.innerWidth);
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, []);
+
   return (
-    <FooterArea>
+    <FooterArea primary={footerFixed}>
       <FooterTop>
         <CompanyArea>
           <div>© ${new Date().getFullYear()} Assemble, Inc</div>
@@ -32,21 +43,26 @@ const Footer = () => {
           </ul>
         </LanguageAndSocial>
       </FooterTop>
-      <FooterBottom>
-        웹사이트 제공자: Assemble Ireland UC, private unlimited company, 8
-        Hanover Quay Dublin 2, D02 DP23 Ireland | 이사: Jinmin Yang, Jihuyn Ha,
-        Sujeong Kim | VAT 번호: IE111L | 사업자 등록 번호: IE 111111 | 연락처:
-        matching@assemble.com, 웹사이트, 080-111-1111 | 호스팅 서비스 제공업체:
-        아마존 웹서비스 | Assemble은 통신판매 중개자로 Assemble 플랫폼을 통하여
-        게스트와 호스트 사이에 이루어지는 통신판매의 당사자가 아닙니다. Assemble
-        플랫폼을 통하여 예약된 체육관, 체험, 호스트 서비스에 관한 의무와 책임은
-        해당 서비스를 제공하는 호스트에게 있습니다.
-      </FooterBottom>
+      {(footerFixed && windowSize <= 1160) || (
+        <FooterBottom>
+          웹사이트 제공자: Assemble Ireland UC, private unlimited company, 8
+          Hanover Quay Dublin 2, D02 DP23 Ireland | 이사: Jinmin Yang, Jihuyn
+          Ha, Sujeong Kim | VAT 번호: IE111L | 사업자 등록 번호: IE 111111 |
+          연락처: matching@assemble.com, 웹사이트, 080-111-1111 | 호스팅 서비스
+          제공업체: 아마존 웹서비스 | Assemble은 통신판매 중개자로 Assemble
+          플랫폼을 통하여 게스트와 호스트 사이에 이루어지는 통신판매의 당사자가
+          아닙니다. Assemble 플랫폼을 통하여 예약된 체육관, 체험, 호스트
+          서비스에 관한 의무와 책임은 해당 서비스를 제공하는 호스트에게
+          있습니다.
+        </FooterBottom>
+      )}
     </FooterArea>
   );
 };
 
 export default Footer;
+
+const URL_LIST = [`/`, `/Matching`];
 
 const FOOTER_BOTTOM_LEFT_MENUS = [
   { id: 1, name: `개인정보 처리방침` },
@@ -64,10 +80,12 @@ const FOOTER_BOTTOM_RIGHT_ICON_MENUS = [
 ];
 
 const FooterArea = styled.div`
+  position: ${props => props.primary && `fixed`};
+  bottom: 0px;
   border-top: 1px solid #d9d9d9;
   background-color: #f7f7f7;
   white-space: pre-wrap;
-  max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 40px;
   display: flex;
@@ -82,11 +100,12 @@ const FooterTop = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 14px 0;
-
+  max-width: 1280px;
+  width: 100%;
+  margin: 0px auto;
   @media screen and (max-width: 1126px) {
     flex-direction: column-reverse;
   }
-
   @media screen and (max-width: 550px) {
     flex-direction: column-reverse;
     display: flex;
@@ -131,6 +150,9 @@ const Social = styled.li`
 `;
 
 const FooterBottom = styled.div`
+  max-width: 1280px;
+  width: 100%;
+  margin: 0px auto;
   border-top: 1px solid #d9d9d9;
   padding: 8px 0;
   font-size: 11px;
