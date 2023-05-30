@@ -1,13 +1,14 @@
 [
   {
     "id": 1,
-    "price": "11000.00",
+    "name": "행복가득",
+    "price": "11000",
     "address": "a",
     "longitude": "",
     "latitude": "",
-    "district": "종로구",
     "ownerId": 1,
     "parking": "공용주차장",
+    "district": "종로구",
     "region": "강북",
     "rentalEquip": 0,
     "showerFacility": 1,
@@ -15,7 +16,8 @@
     "type": "클레이 코트",
     "isIndoor": 0,
     "description": "나는 지지않아 짜식아 ",
-    "timeSlot": [
+    "isExclusive": 0,
+    "timeSlots": [
       {
         "timeSlot": "2023-05-22 09:00:00.000000",
         "isAvailable": 0
@@ -195,25 +197,82 @@
       {
         "timeSlot": "2023-05-24 23:00:00.000000",
         "isAvailable": 0
+      },
+      {
+        "timeSlot": "2023-05-30 09:00:00.000000",
+        "isAvailable": 1
+      },
+      {
+        "timeSlot": "2023-05-30 10:00:00.000000",
+        "isAvailable": 1
+      },
+      {
+        "timeSlot": "2023-05-30 11:00:00.000000",
+        "isAvailable": 1
+      },
+      {
+        "timeSlot": "2023-05-30 12:00:00.000000",
+        "isAvailable": 0
+      },
+      {
+        "timeSlot": "2023-05-30 13:00:00.000000",
+        "isAvailable": 0
+      },
+      {
+        "timeSlot": "2023-05-30 14:00:00.000000",
+        "isAvailable": 1
+      },
+      {
+        "timeSlot": "2023-05-30 15:00:00.000000",
+        "isAvailable": 1
+      },
+      {
+        "timeSlot": "2023-05-30 16:00:00.000000",
+        "isAvailable": 1
+      },
+      {
+        "timeSlot": "2023-05-30 17:00:00.000000",
+        "isAvailable": 0
+      },
+      {
+        "timeSlot": "2023-05-30 18:00:00.000000",
+        "isAvailable": 0
+      },
+      {
+        "timeSlot": "2023-05-30 19:00:00.000000",
+        "isAvailable": 1
+      },
+      {
+        "timeSlot": "2023-05-30 20:00:00.000000",
+        "isAvailable": 0
+      },
+      {
+        "timeSlot": "2023-05-30 21:00:00.000000",
+        "isAvailable": 1
+      },
+      {
+        "timeSlot": "2023-05-30 22:00:00.000000",
+        "isAvailable": 1
       }
     ],
     "courtImage": [
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/adam-seckel-caIuSRJEnyE-unsplash.jpg?raw=true",
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/chris-chondrogiannis-oN_rL__KiiU-unsplash.jpg?raw=true",
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/chuttersnap-aRKAzRlRe98-unsplash.jpg?raw=true",
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/chuttersnap-g7wJBNkGIfY-unsplash.jpg?raw=true",
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/gonzalo-facello-_oPHZk_uYXM-unsplash.jpg?raw=true"
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court1.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court2.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court3.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court4.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court5.png?raw=true"
     ]
   },
   {
     "id": 2,
-    "price": "11000.00",
+    "name": "행운가득",
+    "price": "11000",
     "address": "b",
     "longitude": "",
     "latitude": "",
-    "district": "종로구",
     "ownerId": 1,
     "parking": "전용주차장",
+    "district": "종로구",
     "region": "강북",
     "rentalEquip": 0,
     "showerFacility": 1,
@@ -221,7 +280,8 @@
     "type": "하드 코트",
     "isIndoor": 0,
     "description": "나는 지지않아 짜식아 ",
-    "timeSlot": [
+    "isExclusive": 1,
+    "timeSlots": [
       {
         "timeSlot": "2023-05-22 09:00:00.000000",
         "isAvailable": 0
@@ -404,22 +464,23 @@
       }
     ],
     "courtImage": [
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/izuddin-helmi-adnan-10LyifFNXJA-unsplash.jpg?raw=true",
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/rodrigo-kugnharski-DnaofMNz0HM-unsplash.jpg?raw=true",
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/ryan-searle-qjrjJnFypa0-unsplash.jpg?raw=true",
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/steffan-mitchell-9h4Xd2Yp3mc-unsplash.jpg?raw=true",
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/tim-chow-iiWhddT4SB4-unsplash.jpg?raw=true"
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court6.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court7.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court8.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court9.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court10.png?raw=true"
     ]
   },
   {
     "id": 3,
-    "price": "11000.00",
+    "name": "호랑해",
+    "price": "11000",
     "address": "c",
     "longitude": "",
     "latitude": "",
-    "district": "종로구",
     "ownerId": 1,
     "parking": "없음",
+    "district": "종로구",
     "region": "강북",
     "rentalEquip": 0,
     "showerFacility": 1,
@@ -427,7 +488,8 @@
     "type": "잔디 코트",
     "isIndoor": 0,
     "description": "나는 지지않아 짜식아 ",
-    "timeSlot": [
+    "isExclusive": 0,
+    "timeSlots": [
       {
         "timeSlot": "2023-05-22 09:00:00.000000",
         "isAvailable": 1
@@ -610,22 +672,23 @@
       }
     ],
     "courtImage": [
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/chris-chondrogiannis-oN_rL__KiiU-unsplash.jpg?raw=true",
-      "e",
-      "A",
-      "h",
-      "1"
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court11.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court12.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court13.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court14.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court15.png?raw=true"
     ]
   },
   {
     "id": 4,
-    "price": "11000.00",
+    "name": "행복해",
+    "price": "11000",
     "address": "d",
     "longitude": "",
     "latitude": "",
-    "district": "종로구",
     "ownerId": 1,
     "parking": "공용주차장",
+    "district": "종로구",
     "region": "강북",
     "rentalEquip": 1,
     "showerFacility": 1,
@@ -633,7 +696,8 @@
     "type": "카펫 코트",
     "isIndoor": 1,
     "description": "나는 지지않아 짜식아 ",
-    "timeSlot": [
+    "isExclusive": 1,
+    "timeSlots": [
       {
         "timeSlot": "2023-05-22 09:00:00.000000",
         "isAvailable": 1
@@ -816,22 +880,23 @@
       }
     ],
     "courtImage": [
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/chuttersnap-aRKAzRlRe98-unsplash.jpg?raw=true",
-      "A",
-      "y",
-      "h",
-      "h"
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court16.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court17.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court18.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court19.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court20.png?raw=true"
     ]
   },
   {
     "id": 5,
-    "price": "15000.00",
+    "name": "기뻐",
+    "price": "15000",
     "address": "e",
     "longitude": "",
     "latitude": "",
-    "district": "중구",
     "ownerId": 1,
     "parking": "전용주차장",
+    "district": "중구",
     "region": "강북",
     "rentalEquip": 1,
     "showerFacility": 1,
@@ -839,7 +904,8 @@
     "type": "우드 코트",
     "isIndoor": 1,
     "description": "나는 지지않아 짜식아 ",
-    "timeSlot": [
+    "isExclusive": 1,
+    "timeSlots": [
       {
         "timeSlot": "2023-05-22 09:00:00.000000",
         "isAvailable": 0
@@ -1022,22 +1088,23 @@
       }
     ],
     "courtImage": [
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/chuttersnap-g7wJBNkGIfY-unsplash.jpg?raw=true",
-      "d",
-      "g",
-      "A",
-      "A"
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court2.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court3.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court4.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court5.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court6.png?raw=true"
     ]
   },
   {
     "id": 6,
-    "price": "11000.00",
+    "name": "진짜야",
+    "price": "11000",
     "address": "f",
     "longitude": "",
     "latitude": "",
-    "district": "중구",
-    "ownerId": 1,
+    "ownerId": 2,
     "parking": "없음",
+    "district": "중구",
     "region": "강북",
     "rentalEquip": 1,
     "showerFacility": 1,
@@ -1045,24 +1112,25 @@
     "type": "고무 코트",
     "isIndoor": 1,
     "description": "나는 지지않아 짜식아 ",
-    "timeSlot": null,
+    "isExclusive": 1,
+    "timeSlots": [],
     "courtImage": [
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/gonzalo-facello-_oPHZk_uYXM-unsplash.jpg?raw=true",
-      "A",
-      "A",
-      "A",
-      "A"
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court8.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court9.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court10.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court11.png?raw=true"
     ]
   },
   {
     "id": 7,
-    "price": "15000.00",
+    "name": "정말이야",
+    "price": "15000",
     "address": "g",
     "longitude": "",
     "latitude": "",
-    "district": "중구",
-    "ownerId": 1,
+    "ownerId": 2,
     "parking": "공용주차장",
+    "district": "중구",
     "region": "강북",
     "rentalEquip": 1,
     "showerFacility": 0,
@@ -1070,24 +1138,26 @@
     "type": "클레이 코트",
     "isIndoor": 0,
     "description": "나는 지지않아 짜식아 ",
-    "timeSlot": null,
+    "isExclusive": 0,
+    "timeSlots": [],
     "courtImage": [
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/rodrigo-kugnharski-DnaofMNz0HM-unsplash.jpg?raw=true",
-      "A",
-      "A",
-      "A",
-      "A"
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court13.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court14.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court16.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court17.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court19.png?raw=true"
     ]
   },
   {
     "id": 8,
-    "price": "15000.00",
+    "name": "믿어줘",
+    "price": "15000",
     "address": "h",
     "longitude": "",
     "latitude": "",
-    "district": "중구",
-    "ownerId": 1,
+    "ownerId": 2,
     "parking": "전용주차장",
+    "district": "중구",
     "region": "강북",
     "rentalEquip": 0,
     "showerFacility": 1,
@@ -1095,24 +1165,26 @@
     "type": "하드 코트",
     "isIndoor": 0,
     "description": "나는 지지않아 짜식아 ",
-    "timeSlot": null,
+    "isExclusive": 0,
+    "timeSlots": [],
     "courtImage": [
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/ryan-searle-qjrjJnFypa0-unsplash.jpg?raw=true",
-      "A",
-      "A",
-      "A",
-      "A"
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court20.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court2.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court3.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court4.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court5.png?raw=true"
     ]
   },
   {
     "id": 9,
-    "price": "11000.00",
+    "name": "진짠데",
+    "price": "11000",
     "address": "i",
     "longitude": "",
     "latitude": "",
-    "district": "용산구",
     "ownerId": 2,
     "parking": "없음",
+    "district": "용산구",
     "region": "강북",
     "rentalEquip": 1,
     "showerFacility": 1,
@@ -1120,24 +1192,26 @@
     "type": "잔디 코트",
     "isIndoor": 0,
     "description": "나는 지지않아 짜식아 ",
-    "timeSlot": null,
+    "isExclusive": 1,
+    "timeSlots": [],
     "courtImage": [
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/steffan-mitchell-9h4Xd2Yp3mc-unsplash.jpg?raw=true",
-      "A",
-      "A",
-      "A",
-      "A"
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court6.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court8.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court9.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court10.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court11.png?raw=true"
     ]
   },
   {
     "id": 10,
-    "price": "12500.00",
+    "name": "행복해",
+    "price": "12500",
     "address": "j",
     "longitude": "",
     "latitude": "",
-    "district": "용산구",
     "ownerId": 2,
     "parking": "공용주차장",
+    "district": "용산구",
     "region": "강북",
     "rentalEquip": 0,
     "showerFacility": 0,
@@ -1145,24 +1219,26 @@
     "type": "카펫 코트",
     "isIndoor": 1,
     "description": "나는 지지않아 짜식아 ",
-    "timeSlot": null,
+    "isExclusive": 1,
+    "timeSlots": [],
     "courtImage": [
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/tim-chow-iiWhddT4SB4-unsplash.jpg?raw=true",
-      "A",
-      "A",
-      "A",
-      "A"
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court13.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court14.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court16.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court17.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court19.png?raw=true"
     ]
   },
   {
     "id": 11,
-    "price": "12500.00",
+    "name": "너무나도",
+    "price": "12500",
     "address": "k",
     "longitude": "",
     "latitude": "",
-    "district": "용산구",
     "ownerId": 2,
     "parking": "전용주차장",
+    "district": "용산구",
     "region": "강북",
     "rentalEquip": 0,
     "showerFacility": 0,
@@ -1170,24 +1246,26 @@
     "type": "우드 코트",
     "isIndoor": 1,
     "description": "나는 지지않아 짜식아 ",
-    "timeSlot": null,
+    "isExclusive": 1,
+    "timeSlots": [],
     "courtImage": [
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/tim-chow-iiWhddT4SB4-unsplash.jpg?raw=true",
-      "A",
-      "A",
-      "A",
-      "A"
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court20.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court2.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court3.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court4.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court5.png?raw=true"
     ]
   },
   {
     "id": 12,
-    "price": "11000.00",
+    "name": "호랑해",
+    "price": "11000",
     "address": "l",
     "longitude": "",
     "latitude": "",
-    "district": "용산구",
     "ownerId": 2,
     "parking": "없음",
+    "district": "용산구",
     "region": "강북",
     "rentalEquip": 0,
     "showerFacility": 1,
@@ -1195,13 +1273,211 @@
     "type": "고무 코트",
     "isIndoor": 1,
     "description": "나는 지지않아 짜식아 ",
-    "timeSlot": null,
+    "isExclusive": 1,
+    "timeSlots": [],
     "courtImage": [
-      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/tim-chow-iiWhddT4SB4-unsplash.jpg?raw=true",
-      "A",
-      "A",
-      "A",
-      "A"
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court6.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court8.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court9.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court10.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court11.png?raw=true"
     ]
+  },
+  {
+    "id": 13,
+    "name": "하니해",
+    "price": "15000",
+    "address": "m",
+    "longitude": "",
+    "latitude": "",
+    "ownerId": 2,
+    "parking": "공용주차장",
+    "district": "성동구",
+    "region": "강북",
+    "rentalEquip": 0,
+    "showerFacility": 0,
+    "amenities": 0,
+    "type": "클레이 코트",
+    "isIndoor": 0,
+    "description": "나는 지지않아 짜식아 ",
+    "isExclusive": 1,
+    "timeSlots": [],
+    "courtImage": [
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court13.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court14.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court17.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court20.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court2.png?raw=true"
+    ]
+  },
+  {
+    "id": 14,
+    "name": "슈아해",
+    "price": "10000",
+    "address": "n",
+    "longitude": "",
+    "latitude": "",
+    "ownerId": 3,
+    "parking": "전용주차장",
+    "district": "성동구",
+    "region": "강북",
+    "rentalEquip": 0,
+    "showerFacility": 0,
+    "amenities": 0,
+    "type": "하드 코트",
+    "isIndoor": 0,
+    "description": "나는 지지않아 짜식아 ",
+    "isExclusive": 1,
+    "timeSlots": [],
+    "courtImage": [
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court3.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court4.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court6.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court8.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court9.png?raw=true"
+    ]
+  },
+  {
+    "id": 15,
+    "name": "호랑해",
+    "price": "11000",
+    "address": "o",
+    "longitude": "",
+    "latitude": "",
+    "ownerId": 3,
+    "parking": "없음",
+    "district": "성동구",
+    "region": "강북",
+    "rentalEquip": 1,
+    "showerFacility": 0,
+    "amenities": 1,
+    "type": "잔디 코트",
+    "isIndoor": 0,
+    "description": "나는 지지않아 짜식아 ",
+    "isExclusive": 0,
+    "timeSlots": [],
+    "courtImage": [
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court11.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court13.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court16.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court17.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court20.png?raw=true"
+    ]
+  },
+  {
+    "id": 16,
+    "name": "행복가득",
+    "price": "12500",
+    "address": "p",
+    "longitude": "",
+    "latitude": "",
+    "ownerId": 3,
+    "parking": "공용주차장",
+    "district": "성동구",
+    "region": "강북",
+    "rentalEquip": 0,
+    "showerFacility": 1,
+    "amenities": 1,
+    "type": "카펫 코트",
+    "isIndoor": 1,
+    "description": "나는 지지않아 짜식아 ",
+    "isExclusive": 0,
+    "timeSlots": [],
+    "courtImage": [
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court3.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court4.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court5.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court8.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court10.png?raw=true"
+    ]
+  },
+  {
+    "id": 17,
+    "name": "호랑해",
+    "price": "15000",
+    "address": "q",
+    "longitude": "",
+    "latitude": "",
+    "ownerId": 3,
+    "parking": "전용주차장",
+    "district": "광진구",
+    "region": "강북",
+    "rentalEquip": 0,
+    "showerFacility": 0,
+    "amenities": 1,
+    "type": "우드 코트",
+    "isIndoor": 1,
+    "description": "나는 지지않아 짜식아 ",
+    "isExclusive": 1,
+    "timeSlots": [],
+    "courtImage": [
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court11.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court14.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court16.png?raw=true",
+      "https://github.com/haaazzi/images-for-assemble-project/blob/add/images/court19.png?raw=true"
+    ]
+  },
+  {
+    "id": 18,
+    "name": "행복가득",
+    "price": "10000",
+    "address": "r",
+    "longitude": "",
+    "latitude": "",
+    "ownerId": 4,
+    "parking": "없음",
+    "district": "광진구",
+    "region": "강북",
+    "rentalEquip": 0,
+    "showerFacility": 0,
+    "amenities": 0,
+    "type": "고무 코트",
+    "isIndoor": 1,
+    "description": "나는 지지않아 짜식아 ",
+    "isExclusive": 1,
+    "timeSlots": [],
+    "courtImage": []
+  },
+  {
+    "id": 19,
+    "name": "하니해",
+    "price": "11000",
+    "address": "s",
+    "longitude": "",
+    "latitude": "",
+    "ownerId": 4,
+    "parking": "공용주차장",
+    "district": "광진구",
+    "region": "강북",
+    "rentalEquip": 1,
+    "showerFacility": 0,
+    "amenities": 0,
+    "type": "클레이 코트",
+    "isIndoor": 0,
+    "description": "나는 지지않아 짜식아 ",
+    "isExclusive": 0,
+    "timeSlots": [],
+    "courtImage": []
+  },
+  {
+    "id": 20,
+    "name": "호랑해",
+    "price": "10000",
+    "address": "t",
+    "longitude": "",
+    "latitude": "",
+    "ownerId": 4,
+    "parking": "전용주차장",
+    "district": "광진구",
+    "region": "강북",
+    "rentalEquip": 1,
+    "showerFacility": 1,
+    "amenities": 0,
+    "type": "하드 코트",
+    "isIndoor": 0,
+    "description": "나는 지지않아 짜식아 ",
+    "isExclusive": 1,
+    "timeSlots": [],
+    "courtImage": []
   }
 ]
