@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import { useSetRecoilState } from "recoil";
 import List from "./components/List";
 import Map from "./components/Map";
+import { useRecoilState } from "recoil";
 import { mainCourtListAtom } from "../../recoil/mainCourtListAtom";
 
 const Main = () => {
-  const setCourtList = useSetRecoilState(mainCourtListAtom);
+  const [courtList, setCourtList] = useRecoilState(mainCourtListAtom);
   const [searchParams, setSearchParams] = useSearchParams();
   const mapPage = searchParams.get(`page`) === `map`;
 
@@ -25,7 +25,7 @@ const Main = () => {
 
   return (
     <div>
-      {mapPage ? <Map /> : <List />}
+      {mapPage ? <Map courtList={courtList} /> : <List courtList={courtList} />}
 
       <ChangeScreenBuuton onClick={() => changePage()}>
         {mapPage ? `목록 보기` : `지도 표시하기`}
@@ -47,6 +47,7 @@ const ChangeScreenBuuton = styled.div`
   width: 170px;
   padding: 14px 19px;
   border-radius: 24px;
+  z-index: 1;
   &:hover {
     cursor: pointer;
   }

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const CardOfMain = ({ item: { address, courtImage, description } }) => {
+const CardOfMain = ({ item: { address, courtImage, name } }) => {
   return (
     <Container>
       <CourtLink to="/court" target="_blank">
@@ -10,7 +10,7 @@ const CardOfMain = ({ item: { address, courtImage, description } }) => {
           <CardImg src={courtImage[0]} alt="테니스장 사진" />
         </CardImgWrapper>
         <CardInfo>
-          <CardTitle>{description}</CardTitle>
+          <CardTitle>{name}</CardTitle>
           <CardLocation>{address}</CardLocation>
         </CardInfo>
       </CourtLink>
