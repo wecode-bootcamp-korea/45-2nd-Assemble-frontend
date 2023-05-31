@@ -37,7 +37,8 @@ const DetailedFilterContent = () => {
         {PARKING_LIST.map(item => (
           <SelectBox key={item.id} onClick={() => selectParking(item.id)}>
             <SelectButton primary={item.id === parking}>
-              {item.name}
+              <Icon>{item.icon}</Icon>
+              <Title primary={item.id === parking}>{item.name}</Title>
             </SelectButton>
           </SelectBox>
         ))}
@@ -49,7 +50,7 @@ const DetailedFilterContent = () => {
           <SelectBox key={item.id} onClick={() => selectProvide(item.id)}>
             <SelectButton primary={provide[item.id - 1]}>
               <Icon>{item.icon}</Icon>
-              <Title>{item.name}</Title>
+              <Title primary={provide[item.id - 1]}>{item.name}</Title>
             </SelectButton>
           </SelectBox>
         ))}
@@ -71,22 +72,22 @@ const DetailedFilterContent = () => {
 export default DetailedFilterContent;
 
 const PARKING_LIST = [
-  { id: 1, name: `공용` },
-  { id: 2, name: `개인` },
+  { id: 1, name: `공용`, icon: <i class="fas fa-car-alt" /> },
+  { id: 2, name: `개인`, icon: <i class="fas fa-key" /> },
 ];
 
 const PROVIDE_LIST = [
   {
     id: 1,
     name: `장비 대여`,
-    icon: <i class="fa-sharp fa-light fa-boot" />,
+    icon: <i class="fas fa-baseball-ball" />,
   },
   {
     id: 2,
     name: `샤워실`,
     icon: <i class="fa-solid fa-shower" />,
   },
-  { id: 3, name: `편의 시설`, icon: <i class="fa-sharp fa-light fa-boot" /> },
+  { id: 3, name: `편의 시설`, icon: <i class="fas fa-coffee" /> },
 ];
 
 const COURT_LIST = [
@@ -106,13 +107,9 @@ const Warraper = styled.div`
   border-bottom: 1px solid ${props => props.theme.green};
 `;
 
-const Title = styled.div`
-  padding: 20px 0px;
-`;
-
 const SelectArea = styled.ul`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   padding-bottom: 20px;
   text-align: center;
 `;
@@ -124,8 +121,8 @@ const SelectBox = styled.li`
 `;
 
 const SelectButton = styled.button`
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   border: 1px solid ${props => props.primary || props.theme.gray};
   border-radius: 15px;
   background-color: ${props => props.primary && props.theme.lightGreen};
@@ -148,6 +145,11 @@ const Icon = styled.div`
   font-size: 60px;
   &:hover {
   }
+`;
+
+const Title = styled.div`
+  padding: 20px 0px;
+  color: ${props => props.primary && props.theme.lightGreen};
 `;
 
 const CourtArea = styled.ul`

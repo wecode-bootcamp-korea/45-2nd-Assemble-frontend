@@ -1,16 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+import { navFilterAtom } from "../../../../recoil/navFilterAtom";
 
-const CardOfMain = ({ item: { address, courtImage, description } }) => {
+const CardOfMain = ({ item: { courtId, address, courtImage, courtName } }) => {
+  const navFilter = useRecoilValue(navFilterAtom);
   return (
     <Container>
-      <CourtLink to="/court" target="_blank">
+      <CourtLink
+        to={`/court?courtId=${courtId}&date=${navFilter.date}&time=${navFilter.time}`}
+        target="_blank"
+      >
         <CardImgWrapper>
           <CardImg src={courtImage[0]} alt="테니스장 사진" />
         </CardImgWrapper>
         <CardInfo>
-          <CardTitle>{description}</CardTitle>
+          <CardTitle>{courtName}</CardTitle>
           <CardLocation>{address}</CardLocation>
         </CardInfo>
       </CourtLink>
@@ -33,7 +39,7 @@ const Container = styled.div`
   flex-direction: column;
   &:hover {
     ${CardImg} {
-      filter: brightness(150%);
+      filter: brightness(70%);
     }
   }
 `;
@@ -52,7 +58,7 @@ const CourtLink = styled(Link)`
   flex-direction: column;
   &:hover {
     ${CardImg} {
-      filter: brightness(150%);
+      filter: brightness(70%);
     }
     cursor: pointer;
   }

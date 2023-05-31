@@ -62,7 +62,13 @@ const Footer = () => {
 
 export default Footer;
 
-const URL_LIST = [`/`, `/Matching`];
+const URL_LIST = [
+  `/`,
+  `/Matching`,
+  `/profilepage`,
+  `/reservationstatuspage`,
+  `/hostpage`,
+];
 
 const FOOTER_BOTTOM_LEFT_MENUS = [
   { id: 1, name: `개인정보 처리방침` },
@@ -154,7 +160,7 @@ const FooterBottom = styled.div`
   width: 100%;
   margin: 0px auto;
   border-top: 1px solid #d9d9d9;
-  padding: 8px 0;
+  padding-top: 8px;
   font-size: 11px;
   color: #999999;
 `;

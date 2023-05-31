@@ -2,15 +2,17 @@ import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import { useSetRecoilState } from "recoil";
 import List from "./components/List";
 import Map from "./components/Map";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { mainCourtListAtom } from "../../recoil/mainCourtListAtom";
+import { querySelector } from "../../recoil/navFilterAtom";
 
 const Main = () => {
-  const setCourtList = useSetRecoilState(mainCourtListAtom);
+  const [courtList, setCourtList] = useRecoilState(mainCourtListAtom);
   const [searchParams, setSearchParams] = useSearchParams();
   const mapPage = searchParams.get(`page`) === `map`;
+  const queries = useRecoilValue(querySelector);
 
   const changePage = () => {
     searchParams.set(`page`, mapPage ? `list` : `map`);
@@ -19,24 +21,26 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/data/main-court-list.json`)
-      .then(res => setCourtList(res.data));
-  }, [setCourtList]);
+      .get(`${process.env.REACT_APP_API_URL}/courts?${queries}`)
+      .then(res => {
+        setCourtList(res.data);
+      });
+  }, []);
 
   return (
     <div>
-      {mapPage ? <Map /> : <List />}
+      {mapPage ? <Map courtList={courtList} /> : <List courtList={courtList} />}
 
-      <ChangeScreenBuuton onClick={() => changePage()}>
+      <ChangeScreenButton onClick={changePage}>
         {mapPage ? `목록 보기` : `지도 표시하기`}
-      </ChangeScreenBuuton>
+      </ChangeScreenButton>
     </div>
   );
 };
 
 export default Main;
 
-const ChangeScreenBuuton = styled.div`
+const ChangeScreenButton = styled.div`
   position: fixed;
   bottom: 150px;
   left: 50%;
@@ -47,6 +51,7 @@ const ChangeScreenBuuton = styled.div`
   width: 170px;
   padding: 14px 19px;
   border-radius: 24px;
+  z-index: 1;
   &:hover {
     cursor: pointer;
   }
