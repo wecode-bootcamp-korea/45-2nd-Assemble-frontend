@@ -46,6 +46,7 @@ const Header = () => {
 export default Header;
 
 const HeaderFlex = styled.div`
+  margin: 0 auto;
   padding: 0 40px;
   max-width: 1280px;
   height: 80px;

@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import NiceModal from "@ebay/nice-modal-react";
 import { RecoilRoot } from "recoil";
 import Router from "./Router";
@@ -21,7 +20,6 @@ root.render(
           <Router />
         </NiceModal.Provider>
       </RecoilRoot>
-      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </ThemeProvider>
 );
