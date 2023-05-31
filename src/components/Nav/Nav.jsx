@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 import ModalOfNav from "./Filter/ModalOfNav";
 import DetailedFilter from "./DetailedFilter/DetailedFilter";
 import ModalBackgroundColor from "./DetailedFilter/ModalBackgroundColor";
@@ -10,6 +11,7 @@ import { navFilterAtom, querySelector } from "../../recoil/navFilterAtom";
 import { DISTRICT_LIST, TIME_SLOT } from "./Data/local-data";
 
 const Nav = () => {
+  const navigate = useNavigate();
   const [navFilter, setNavFilter] = useRecoilState(navFilterAtom);
   const { position, district, date, time } = navFilter;
   const setCourtList = useSetRecoilState(mainCourtListAtom);
@@ -32,6 +34,7 @@ const Nav = () => {
       .then(res => {
         setCourtList(res.data);
       });
+    navigate(`/`);
   };
 
   useEffect(() => {

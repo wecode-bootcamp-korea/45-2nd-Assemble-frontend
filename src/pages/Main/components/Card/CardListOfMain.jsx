@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
 import CardOfMain from "./CardOfMain";
+import { useRecoilValue } from "recoil";
 import { mainCourtListAtom } from "../../../../recoil/mainCourtListAtom";
 
 const CardList = () => {

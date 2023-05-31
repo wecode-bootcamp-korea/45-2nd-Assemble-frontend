@@ -2,10 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 import { navFilterAtom, querySelector } from "../../../recoil/navFilterAtom";
 import { mainCourtListAtom } from "../../../recoil/mainCourtListAtom";
 
 const DetailedFilterFooter = () => {
+  const navigate = useNavigate();
   const [navFilter, setNavFilter] = useRecoilState(navFilterAtom);
   const setCourtList = useSetRecoilState(mainCourtListAtom);
   const queries = useRecoilValue(querySelector);
@@ -29,6 +31,7 @@ const DetailedFilterFooter = () => {
           position: -1,
         });
       });
+    navigate(`/`);
   };
 
   return (

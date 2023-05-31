@@ -12,6 +12,7 @@ import HostPage from "./pages/HostPage/HostPage";
 import ModalPromise from "./components/Payment/ModalPromise";
 import Login from "./components/Login/Login";
 import PaymentInProgress from "./components/Payment/PaymentInProgress";
+import Empty from "./pages/Empty/Empty";
 
 const Router = () => {
   return (
@@ -31,6 +32,7 @@ const Router = () => {
         <Route path="/test" element={<ModalPromise />} />
         <Route path="/kakao-login" element={<Login />} />
         <Route path="/success" element={<PaymentInProgress />} />
+        <Route path="*" element={<Empty />} />
       </Routes>
       <Footer />
     </BrowserRouter>

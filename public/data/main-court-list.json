@@ -1,11 +1,11 @@
 [
   {
-    "id": 1,
+    "courtId": 1,
     "name": "행복가득",
     "price": "11000",
     "address": "a",
-    "longitude": "",
-    "latitude": "",
+    "longitude": 127.16017523675508,
+    "latitude": 37.62197524055062,
     "ownerId": 1,
     "parking": "공용주차장",
     "district": "종로구",
@@ -264,12 +264,12 @@
     ]
   },
   {
-    "id": 2,
+    "courtId": 2,
     "name": "행운가득",
     "price": "11000",
     "address": "b",
-    "longitude": "",
-    "latitude": "",
+    "longitude": 127.1583774403176,
+    "latitude": 37.620842424005616,
     "ownerId": 1,
     "parking": "전용주차장",
     "district": "종로구",
@@ -472,12 +472,12 @@
     ]
   },
   {
-    "id": 3,
+    "courtId": 3,
     "name": "호랑해",
     "price": "11000",
     "address": "c",
-    "longitude": "",
-    "latitude": "",
+    "longitude": 127.15122688059974,
+    "latitude": 37.624915253753194,
     "ownerId": 1,
     "parking": "없음",
     "district": "종로구",
@@ -680,12 +680,12 @@
     ]
   },
   {
-    "id": 4,
+    "courtId": 4,
     "name": "행복해",
     "price": "11000",
     "address": "d",
-    "longitude": "",
-    "latitude": "",
+    "longitude": 127.15211256646381,
+    "latitude": 37.62456273069659,
     "ownerId": 1,
     "parking": "공용주차장",
     "district": "종로구",
@@ -888,12 +888,12 @@
     ]
   },
   {
-    "id": 5,
+    "courtId": 5,
     "name": "기뻐",
     "price": "15000",
     "address": "e",
-    "longitude": "",
-    "latitude": "",
+    "longitude": 127.021820260851,
+    "latitude": 37.5569473910838,
     "ownerId": 1,
     "parking": "전용주차장",
     "district": "중구",
@@ -1096,7 +1096,7 @@
     ]
   },
   {
-    "id": 6,
+    "courtId": 6,
     "name": "진짜야",
     "price": "11000",
     "address": "f",
@@ -1122,7 +1122,7 @@
     ]
   },
   {
-    "id": 7,
+    "courtId": 7,
     "name": "정말이야",
     "price": "15000",
     "address": "g",
@@ -1149,7 +1149,7 @@
     ]
   },
   {
-    "id": 8,
+    "courtId": 8,
     "name": "믿어줘",
     "price": "15000",
     "address": "h",
@@ -1176,7 +1176,7 @@
     ]
   },
   {
-    "id": 9,
+    "courtId": 9,
     "name": "진짠데",
     "price": "11000",
     "address": "i",
@@ -1203,7 +1203,7 @@
     ]
   },
   {
-    "id": 10,
+    "courtId": 10,
     "name": "행복해",
     "price": "12500",
     "address": "j",
@@ -1230,7 +1230,7 @@
     ]
   },
   {
-    "id": 11,
+    "courtId": 11,
     "name": "너무나도",
     "price": "12500",
     "address": "k",
@@ -1257,7 +1257,7 @@
     ]
   },
   {
-    "id": 12,
+    "courtId": 12,
     "name": "호랑해",
     "price": "11000",
     "address": "l",
@@ -1284,7 +1284,7 @@
     ]
   },
   {
-    "id": 13,
+    "courtId": 13,
     "name": "하니해",
     "price": "15000",
     "address": "m",
@@ -1311,7 +1311,7 @@
     ]
   },
   {
-    "id": 14,
+    "courtId": 14,
     "name": "슈아해",
     "price": "10000",
     "address": "n",
@@ -1338,7 +1338,7 @@
     ]
   },
   {
-    "id": 15,
+    "courtId": 15,
     "name": "호랑해",
     "price": "11000",
     "address": "o",
@@ -1365,7 +1365,7 @@
     ]
   },
   {
-    "id": 16,
+    "courtId": 16,
     "name": "행복가득",
     "price": "12500",
     "address": "p",
@@ -1392,7 +1392,7 @@
     ]
   },
   {
-    "id": 17,
+    "courtId": 17,
     "name": "호랑해",
     "price": "15000",
     "address": "q",
@@ -1418,7 +1418,7 @@
     ]
   },
   {
-    "id": 18,
+    "courtId": 18,
     "name": "행복가득",
     "price": "10000",
     "address": "r",
@@ -1439,7 +1439,7 @@
     "courtImage": []
   },
   {
-    "id": 19,
+    "courtId": 19,
     "name": "하니해",
     "price": "11000",
     "address": "s",
@@ -1460,7 +1460,7 @@
     "courtImage": []
   },
   {
-    "id": 20,
+    "courtId": 20,
     "name": "호랑해",
     "price": "10000",
     "address": "t",
