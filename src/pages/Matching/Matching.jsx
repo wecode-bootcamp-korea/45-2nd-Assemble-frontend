@@ -1,6 +1,6 @@
 import React from "react";
 import CardList from "../../components/Card/CardList";
-import MobileNav from "../../components/Nav/MobileNav";
+import MobileNav from "../../components/Nav/MobileNav.jsx";
 import styled from "styled-components";
 
 const Matching = () => {
