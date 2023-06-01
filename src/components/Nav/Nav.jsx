@@ -15,7 +15,6 @@ const Nav = () => {
   const { position, district, date, time } = navFilter;
   const setCourtList = useSetRecoilState(mainCourtListAtom);
   const queries = useRecoilValue(querySelector);
-  console.log(position);
   const openFilterModal = positionNumber => {
     setNavFilter({
       ...navFilter,
