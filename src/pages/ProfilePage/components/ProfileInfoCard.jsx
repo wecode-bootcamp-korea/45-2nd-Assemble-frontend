@@ -5,7 +5,7 @@ import { apiClient } from "../../../utils";
 import { API } from "../../../config";
 
 const ProfileInfoCard = props => {
-  const { title, value, name, profileValue, setProfileValue } = props;
+  const { title, value, name, profileValue, setProfileValue, setTest } = props;
   const [modifyBtnState, setModifyBtnState] = useState(true);
 
   const userInfoList = {
@@ -46,6 +46,7 @@ const ProfileInfoCard = props => {
           level: LEVEL_RELAY_DATA[profileValue.levelValue],
         });
         setModifyBtnState(prev => !prev);
+        setTest(true);
       } catch (error) {
         console.error("PATCH 요청 실패:", error);
       }
@@ -90,6 +91,12 @@ const InfoCard = styled.div`
   border: 1px solid #d9d9d9;
   border-radius: 20px;
   padding: 16px;
+  @media screen and (max-width: 750px) {
+    width: 450px;
+  }
+  @media screen and (max-width: 480px) {
+    width: 340px;
+  }
 `;
 
 const InfoCardTopArea = styled.div`

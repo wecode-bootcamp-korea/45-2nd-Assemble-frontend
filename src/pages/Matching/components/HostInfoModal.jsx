@@ -11,6 +11,7 @@ export default NiceModal.create(({ data }) => {
   useBodyOverflow("hidden");
   const modalRef = useRef();
   const { hostInfo } = data;
+
   const modal = useModal();
   const closedModal = () => {
     modal.remove();
@@ -41,7 +42,7 @@ export default NiceModal.create(({ data }) => {
             <ProfileInfo>
               <ImgWrapper>
                 <LevelImg
-                  src="/images/Level2.png"
+                  src={`/images/Level${hostInfo.levelId}.png`}
                   alt="실력을 나타내는 이미지"
                 />
               </ImgWrapper>
@@ -76,7 +77,7 @@ const Container = styled.div`
   right: 0;
   display: ${props => (props.visible ? "flex" : "none")};
   opacity: ${props => (props.visible ? 1 : 0)};
-
+  z-index: 778;
   background-color: rgba(40, 40, 40, 0.6);
   transition: opacity 0.5s ease;
   animation: ${props => (props.visible ? fadeIn : fadeOut)} 0.5s ease;
@@ -113,7 +114,7 @@ const Content = styled.div`
   background-color: white;
   flex-direction: column;
   width: 400px;
-  height: 260px;
+  height: 300px;
   padding: 16px;
 
   @media screen and (max-width: 440px) {

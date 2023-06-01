@@ -59,7 +59,11 @@ const DetailedFilterContent = () => {
       <Title>코트 종류</Title>
       <CourtArea>
         {COURT_LIST.map(item => (
-          <CourtCheckBox key={item.id} onClick={() => selectCourt(item.id)}>
+          <CourtCheckBox
+            key={item.id}
+            primary={item.id === court}
+            onClick={() => selectCourt(item.id)}
+          >
             <input type="checkbox" checked={item.id === court} readOnly />
             {item.name}
           </CourtCheckBox>
@@ -143,8 +147,6 @@ const Icon = styled.div`
   width: 100%;
   height: 100px;
   font-size: 60px;
-  &:hover {
-  }
 `;
 
 const Title = styled.div`
@@ -158,9 +160,30 @@ const CourtArea = styled.ul`
   grid-template-rows: repeat(2, 30px);
   grid-gap: 0px 70px;
   padding: 0px 30px;
+  color: ${props =>
+    props.primary ? props.theme.lightGreen : props.theme.gray};
 `;
 
 const CourtCheckBox = styled.li`
-  color: ${props => props.theme.gray};
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   cursor: pointer;
+
+  & > input[type="checkBox"] {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1px solid ${props => props.theme.lightGreen};
+    margin-right: 5px;
+  }
+
+  & > input[type="checkBox"]:checked {
+    width: 15px;
+    height: 15px;
+    border: none;
+    background-image: url("/images/CheckBox/checked.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 `;

@@ -5,7 +5,7 @@ import FilterMatching from "../components/FilterMatching";
 import ProfileBookBtn from "../../../components/ProfileBookBtn/ProfileBookBtn";
 
 const ReservationCard = ({ host, guest, court, reservation }) => {
-  const { courtName, address, price, id, courtImage } = court;
+  const { courtName, address, price, courtId, courtImage } = court;
   const { paymentStatus, isMatch, timeSlot } = reservation;
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ const ReservationCard = ({ host, guest, court, reservation }) => {
     .padStart(2, "0")}:00`;
 
   const goToCourt = () => {
-    navigate(`/court/courtId${id}`);
+    navigate(`/court?courtId=${courtId}&date=`);
   };
 
   return (
@@ -74,7 +74,7 @@ const Container = styled.div`
   &:hover {
     cursor: pointer;
     ${CardImg} {
-      filter: brightness(150%);
+      filter: brightness(70%);
     }
   }
 `;

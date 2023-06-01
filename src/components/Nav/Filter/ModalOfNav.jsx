@@ -17,7 +17,7 @@ export default ModalOfNav;
 
 const Wrapper = styled.div`
   position: relative;
-  width: 100%;
+  width: 280px;
   height: 280px;
   background-color: white;
   display: flex;

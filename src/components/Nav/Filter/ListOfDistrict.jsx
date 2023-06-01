@@ -68,8 +68,6 @@ const District = styled.button`
   box-shadow: ${props => props.primary && `5px 5px 11px rgba(33, 33, 33, 0.2)`};
   border: 1px solid lightGray;
   &:hover {
-    border: 1px solid
-      ${props =>
-        props.primary ? props.theme.lightGray : props.theme.lightGreen};
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.3);
   }
 `;

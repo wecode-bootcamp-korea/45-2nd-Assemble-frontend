@@ -23,7 +23,7 @@ const ExpireReservationCard = ({ timeSlot, court, paymentStatus }) => {
     .padStart(2, "0")}:00`;
 
   const goToCourt = () => {
-    navigate(`/court/courtId${courtId}`);
+    navigate(`/court?courtId=${courtId}&date=`);
   };
 
   return (
@@ -66,7 +66,7 @@ const Container = styled.div`
   &:hover {
     cursor: pointer;
     ${CardImg} {
-      filter: brightness(150%);
+      filter: brightness(70%);
     }
   }
 `;

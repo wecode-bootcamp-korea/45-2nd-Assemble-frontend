@@ -20,6 +20,7 @@ const PaymentInProgress = () => {
 
   useEffect(() => {
     if (!accessToken) return;
+
     const paymentDetails = {
       amount: amount,
       matchId: matchId,
@@ -33,21 +34,64 @@ const PaymentInProgress = () => {
       isMatch: isMatch,
       paymentKey: paymentKey,
       orderId: orderId,
-      timeSlot: "2023-05-23 11:00:00",
+      timeSlot: timeSlot,
     };
+    console.log("paymentReserveDetails", paymentReserveDetails);
 
+    const completeMatchingPayment = async () => {
+      const res = await mutateAsync(paymentDetails);
+
+      const { match } = res;
+      const { court, isMatch, timeSlot } = match;
+      const { courtImages, courtName, price, address, courtId } = court;
+      const courtImageObj = courtImages[0];
+      const { courtImage } = courtImageObj;
+
+      const matchingReserveDetails = {
+        courtId: courtId,
+        courtImage: courtImage,
+        courtName: courtName,
+        price: price,
+        isMatch: isMatch,
+        timeSlot: timeSlot,
+        address: address,
+      };
+
+      navigate("/paymentSuccess", { state: matchingReserveDetails });
+    };
     const Token = localStorage.getItem("accessToken");
     const completePayment = async () => {
-      // const res = await mutateAsync(paymentDetails);
-      await axios.post(
-        `${process.env.REACT_APP_API_URL}/reservations`,
-        paymentReserveDetails,
-        { headers: { Authorization: Token } }
-      );
-      // navigate("/paymentSuccess", { state: paymentReserveDetails });
+      await axios
+        .post(
+          `${process.env.REACT_APP_API_URL}/reservations`,
+          paymentReserveDetails,
+          { headers: { Authorization: Token } }
+        )
+        .then(res => {
+          console.log(res.data);
+          const item = res.data.reservation;
+          console.log("item", item);
+          const { court, isMatch, timeSlot } = item;
+          const { courtImages, courtName, price, address, courtId } = court;
+          const courtImageObj = courtImages[0];
+          const { courtImage } = courtImageObj;
+
+          const ReserveDetails = {
+            courtId: courtId,
+            courtImage: courtImage,
+            courtName: courtName,
+            price: price,
+            isMatch: isMatch,
+            timeSlot: timeSlot,
+            address: address,
+          };
+
+          navigate("/paymentSuccess", { state: ReserveDetails });
+        });
     };
-    completePayment();
+    matchId ? completeMatchingPayment() : completePayment();
   }, [accessToken, mutateAsync]);
+
   return (
     <Container>
       <Logo src="/images/logo2.png" />

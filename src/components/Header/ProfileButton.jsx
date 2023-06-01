@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth } from "../../hooks/useAuth";
 
 const ProfileButton = ({ user }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const navigation = useNavigate("");
+  const { clearUser } = useAuth();
+  const logout = () => {
+    setIsOpenMenu(!isOpenMenu);
+    clearUser();
+    alert(`로그아웃 되었습니다.`);
+  };
 
-  console.log("user", user);
-  console.log("user.level", user.level);
   return (
     <MenuBox>
       <ProfileMenuButton onClick={() => setIsOpenMenu(!isOpenMenu)}>
@@ -24,9 +29,9 @@ const ProfileButton = ({ user }) => {
       </ProfileMenuButton>
       {isOpenMenu && (
         <DropMenu>
-          {DROPMENU_LIST.map(data => {
+          {DROPMENU_LIST.map((data, index) => {
             return (
-              <li>
+              <li key={index}>
                 <PageButton
                   onClick={() => {
                     navigation(data.page);
@@ -38,6 +43,7 @@ const ProfileButton = ({ user }) => {
               </li>
             );
           })}
+          <PageButton onClick={logout}>로그아웃</PageButton>
         </DropMenu>
       )}
     </MenuBox>
@@ -63,7 +69,6 @@ const ProfileMenuButton = styled.button`
   align-items: center;
   width: 75px;
   height: 40px;
-  margin-left: 20px;
   border: 1px solid #d9d9d9;
   border-radius: 50px;
   box-sizing: border-box;
@@ -91,7 +96,7 @@ const ProfileImg = styled.img`
 const DropMenu = styled.ul`
   position: absolute;
   top: 50px;
-  right: -40px;
+  right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;

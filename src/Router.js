@@ -13,12 +13,11 @@ import PaymentSuccess from "./components/Payment/PaymentSuccess";
 import Login from "./components/Login/Login";
 import PaymentInProgress from "./components/Payment/PaymentInProgress";
 import Empty from "./pages/Empty/Empty";
+import MatchingNav from "./components/Nav/MatchingNav";
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <Header />
-      <Nav />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/court" element={<ProductDetails />} />
@@ -29,12 +28,10 @@ const Router = () => {
         />
         <Route path="/profilepage" element={<ProfilePage />} />
         <Route path="/hostpage" element={<HostPage />} />
-
         <Route path="/kakao-login" element={<Login />} />
         <Route path="/success" element={<PaymentInProgress />} />
         <Route path="/paymentSuccess" element={<PaymentSuccess />} />
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 };

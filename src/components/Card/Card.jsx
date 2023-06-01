@@ -7,6 +7,8 @@ import MatchingButton from "../../pages/Matching/components/MatchingButton";
 import { usePaymentProcess } from "../Payment/usePaymentProcess";
 import { useTimeSlot } from "../../hooks/useTime";
 import HostInfoModal from "../../pages/Matching/components/HostInfoModal";
+import format from "date-fns/format";
+
 const Card = React.forwardRef(({ item }, ref) => {
   const navigate = useNavigate();
   const { paymentProcess } = usePaymentProcess();
@@ -14,9 +16,10 @@ const Card = React.forwardRef(({ item }, ref) => {
   const { courtInfo, timeSlot } = item;
   const { address, price, courtName, courtImage } = courtInfo;
   const [formattedTime, formattedDate] = useTimeSlot(timeSlot);
-
+  const date = new Date();
+  const today = format(date, "yyyy-MM-dd");
   const goToCourt = () => {
-    navigate("/main");
+    navigate(`/court?courtId=${courtInfo.courtId}&date=`);
   };
 
   const goToJoin = () => {

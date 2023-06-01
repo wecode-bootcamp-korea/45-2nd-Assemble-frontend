@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import MobileNav from "../../../components/Nav/MobileNav";
 import CardListOfMain from "./Card/CardListOfMain";
+import MainLayout from "../../../components/Layout/MainLayout";
 
 const List = () => {
   return (

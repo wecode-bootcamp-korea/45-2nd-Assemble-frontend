@@ -24,8 +24,8 @@ const Wrapper = styled.div`
   grid-auto-rows: minmax(0, calc((100vw- 48px) / 4 * 4 / 3));
   grid-row-gap: 36px;
   grid-column-gap: 24px;
-  padding: 40px;
-
+  padding: 0px;
+  place-items: center;
   @media screen and (max-width: 1126px) {
     grid-template-columns: repeat(3, 1fr);
   }

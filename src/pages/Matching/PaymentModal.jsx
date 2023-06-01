@@ -18,7 +18,6 @@ export default NiceModal.create(({ data }) => {
   const modal = useModal();
 
   const [paymentMethod, setPaymentMethod] = useRecoilState(paymentAtom);
-
   const { matchId, courtInfo, timeSlot } = data;
   const { easyPay } = paymentMethod;
 
@@ -33,14 +32,14 @@ export default NiceModal.create(({ data }) => {
     orderId: orderId,
     courtId: courtInfo.courtId,
     orderName: courtInfo.courtName,
-    successUrl: `http://localhost:3000/success?matchId=${matchId}`,
+    successUrl: `http://localhost:3000/success?matchId=${matchId}&courtId=${courtInfo.courtId}`,
     failUrl: "http://localhost:3000/fail",
     flowMode: "DIRECT",
     easyPay: easyPay,
   };
 
   const handleResolve = () => {
-    if (!paymentMethod) {
+    if (!easyPay) {
       alert("결제 방식을 선택해 주세요!");
     } else {
       modal.resolve();

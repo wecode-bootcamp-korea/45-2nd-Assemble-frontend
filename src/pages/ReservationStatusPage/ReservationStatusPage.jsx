@@ -4,12 +4,12 @@ import styled from "styled-components";
 import ReservationCard from "./components/ReservationCard";
 import { apiClient } from "../../utils";
 import { API } from "../../config";
+import MyPageLayout from "../../components/Layout/MyPageLayout";
 
 const ReservationStatusPage = () => {
   const [reservationList, setReservationList] = useState([]);
   const [currentTab, setCurrentTab] = useState("전체");
   const [searchParams, setSearchParams] = useSearchParams();
-
   const token = localStorage.getItem("accessToken");
   const config = {
     headers: {
@@ -75,25 +75,27 @@ const ReservationStatusPage = () => {
   }, [currentTab]);
 
   return (
-    <Container>
-      <Title>예약현황</Title>
-      <Tabs className="tabs">
-        {TAB_ARR.map(item => (
-          <Tab
-            key={item.id}
-            title={item.title}
-            onClick={() => setCurrentTab(item.title)}
-          >
-            {item.title}
-          </Tab>
-        ))}
-      </Tabs>
-      <ReservationList>
-        {reservationList.map(item => (
-          <ReservationCard key={item.reservation.reservationId} {...item} />
-        ))}
-      </ReservationList>
-    </Container>
+    <MyPageLayout>
+      <Container>
+        <Title>예약현황</Title>
+        <Tabs className="tabs">
+          {TAB_ARR.map(item => (
+            <Tab
+              key={item.id}
+              title={item.title}
+              onClick={() => setCurrentTab(item.title)}
+            >
+              {item.title}
+            </Tab>
+          ))}
+        </Tabs>
+        <ReservationList>
+          {reservationList.map(item => (
+            <ReservationCard key={item.reservation.reservationId} {...item} />
+          ))}
+        </ReservationList>
+      </Container>
+    </MyPageLayout>
   );
 };
 

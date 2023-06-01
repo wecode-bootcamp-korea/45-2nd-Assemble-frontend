@@ -3,41 +3,50 @@ import NiceModal from "@ebay/nice-modal-react";
 import styled from "styled-components";
 import CourtHostCard from "./components/CourtHostCard";
 import AddCourtModal from "./components/AddCourtModal";
-
+import { apiClient } from "../../utils";
+import MyPageLayout from "../../components/Layout/MyPageLayout";
 const HostPage = () => {
   const [courtHostList, setCourtHostList] = useState([]);
+
   const openModal = () => {
-    NiceModal.show(AddCourtModal);
+    NiceModal.show(AddCourtModal, { fetchData });
     document.body.style.overflow = "hidden";
   };
 
+  const token = localStorage.getItem("accessToken");
+  const config = {
+    headers: {
+      Authorization: `${token}`,
+    },
+  };
+
+  const fetchData = async () => {
+    const hostRes = await apiClient.get(
+      "http://10.58.52.234:3000/courts/hosting",
+      config
+    );
+    const hostData = hostRes.data;
+    setCourtHostList(hostData);
+  };
+
   useEffect(() => {
-    fetch("/data/hostPageData/CourtHostData.json", {
-      method: "GET",
-    })
-      .then(res => res.json())
-      .then(data => {
-        setCourtHostList(data);
-      });
+    fetchData();
   }, []);
 
   return (
-    <Container>
-      <Title>호스팅 내역</Title>
-      <ButtonPositionBox>
-        <AddButton onClick={openModal}>등록하기</AddButton>
-      </ButtonPositionBox>
-      <ReservationList>
-        {courtHostList.map(item => (
-          <CourtHostCard
-            key={item.reservation.id}
-            courtId={item.court.id}
-            timeSlot={item.reservation.timeSlot}
-            court={item.court}
-          />
-        ))}
-      </ReservationList>
-    </Container>
+    <MyPageLayout>
+      <Container>
+        <Title>호스팅 내역</Title>
+        <ButtonPositionBox>
+          <AddButton onClick={openModal}>등록하기</AddButton>
+        </ButtonPositionBox>
+        <ReservationList>
+          {courtHostList.map(item => (
+            <CourtHostCard key={item.courtId} {...item} />
+          ))}
+        </ReservationList>
+      </Container>
+    </MyPageLayout>
   );
 };
 
@@ -76,20 +85,16 @@ const ReservationList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: 350px;
-  /* grid-gap: 16px; */
   @media screen and (max-width: 1128px) {
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 350px;
-    /* grid-gap: 8px; */
   }
   @media screen and (max-width: 842px) {
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 350px;
-    /* grid-gap: 4px; */
   }
   @media screen and (max-width: 556px) {
     grid-template-columns: repeat(1, 1fr);
     grid-auto-rows: 350px;
-    /* grid-row-gap: 16px; */
   }
 `;

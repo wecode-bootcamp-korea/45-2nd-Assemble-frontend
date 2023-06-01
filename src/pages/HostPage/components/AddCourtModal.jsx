@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
+import { apiClient } from "../../../utils";
 
-export default NiceModal.create(() => {
+export default NiceModal.create(({ fetchData }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewFile, setPreviewFile] = useState("");
+  const [courtInfo, setCourtInfo] = useState({
+    courtName: "",
+    address: "",
+    price: "",
+  });
 
   const modal = useModal();
   const closedModal = () => {
@@ -15,7 +21,6 @@ export default NiceModal.create(() => {
   const handleFileChange = event => {
     const files = event.target.files;
     setSelectedFile(files);
-
     const reader = new FileReader();
     reader.readAsDataURL(files[0]);
     reader.onloadend = () => {
@@ -23,7 +28,23 @@ export default NiceModal.create(() => {
     };
   };
 
-  const addCourt = () => {
+  const handleInfo = e => {
+    const { name, value } = e.target;
+    setCourtInfo({ ...courtInfo, [name]: value });
+  };
+
+  const addCourt = async () => {
+    const formData = new FormData();
+    formData.append("courtImage", selectedFile[0]);
+    formData.append("name", courtInfo.courtName);
+    formData.append("address", courtInfo.address);
+    formData.append("price", courtInfo.price);
+    try {
+      await apiClient.post(`http://10.58.52.234:3000/courts`, formData);
+    } catch (error) {
+      console.error("PATCH 요청 실패:", error);
+    }
+    fetchData();
     modal.remove();
     document.body.style.overflow = "unset";
   };
@@ -34,21 +55,36 @@ export default NiceModal.create(() => {
         <ClosedButton onClick={closedModal}>X</ClosedButton>
         <Content>
           <Title>등록하기</Title>
-          <ImgPreview src={previewFile} alt="프로필 이미지" />
+          <ImgPreview src={previewFile} alt="코트장 이미지" />
           <UploadInput
             type="file"
             accept="image/*"
             multiple
             onChange={handleFileChange}
           />
-          <LongTextInput type="text" placeholder="코트장명" />
+          <LongTextInput
+            type="text"
+            placeholder="코트장명"
+            name="courtName"
+            onChange={handleInfo}
+          />
           <InputArea>
             <TextInput type="text" placeholder="강북/강남" />
             <TextInput type="text" placeholder="자치구" />
           </InputArea>
-          <LongTextInput type="text" placeholder="주소" />
+          <LongTextInput
+            type="text"
+            placeholder="주소"
+            name="address"
+            onChange={handleInfo}
+          />
           <InputArea>
-            <TextInput type="text" placeholder="금액" />
+            <TextInput
+              type="text"
+              placeholder="금액"
+              name="price"
+              onChange={handleInfo}
+            />
             <TextInput type="text" placeholder="실내/실외" />
           </InputArea>
           <TypeArea>
@@ -178,7 +214,7 @@ const Title = styled.div`
 const ImgPreview = styled.img`
   /* width: 450px; */
   /* height: 300px; */
-  border: 1px solid black;
+  /* border: 1px solid black; */
 `;
 
 const UploadInput = styled.input`
@@ -200,6 +236,7 @@ const TextInput = styled.input`
   height: 40px;
   border-radius: 10px;
   padding-left: 10px;
+  border: 1px solid black;
 `;
 
 const LongTextInput = styled(TextInput)`
@@ -257,6 +294,7 @@ const DescriptionInput = styled.input`
   margin-bottom: 20px;
   padding-left: 10px;
   padding-bottom: 50px;
+  border: 1px solid black;
 `;
 
 const AddButton = styled.button`

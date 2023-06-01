@@ -2,52 +2,31 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-
 import ReserveCourtInfo from "./component/ReserveCourtInfo";
-import ChargeInfo from "./ChargeInfo";
+import ProductChargeInfo from "./ProductChargeInfo";
 import SuccessPageButton from "./component/SuccessPageButton";
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [reserveData, setReserveData] = useState(location.state);
-  const { isMatch, timeSlot } = reserveData; //paymentinprogress에서 state로 받기
-  const [postButtonOn, setPostButtonOn] = useState(false);
-  const [courtData, setCourtData] = useState([]);
-  const { price } = courtData;
+  const [data, setData] = useState(location.state);
 
-  useEffect(() => {
-    axios.get(process.env.REACT_APP_API_URL).then(response => {
-      setCourtData(response.data);
-    });
-  }, []);
+  const { isMatch, timeSlot, address, courtImage, price, courtId } = data; //paymentinprogress에서 state로 받기
+  const [postButtonOn, setPostButtonOn] = useState(false);
+
+  console.log("data", data);
 
   if (postButtonOn) {
-    //   axios
-    //     .post(`${REACT_APP_API_URL}/reservations`, {
-    //       courtId: courtId,
-    //       timeSlot: timeSlot,
-    //       isMatch: isMatch,
-    //       paymentKey: paymentKey,
-    //       amount: amount,
-    //       orderId: orderId,
-    //     })
-    //     .then(response => {
-    //       console.log(response);
-    //     });
-
-    navigate(isMatch ? "/reservationstatuspage" : "/");
+    navigate(isMatch === "1" ? "/reservationstatuspage" : "/");
   }
-
-  if (!courtData.price) return;
-
+  if (!data.courtId) return;
   return (
     <PageBackground>
       <PaymentSuccessInfo>
         <Title>결제가 완료되었습니다.</Title>
         <Thanks>이용해 주셔서 감사합니다.</Thanks>
-        <ReserveCourtInfo courtData={courtData} timeSlot={timeSlot} />
-        <ChargeInfo successPage price={price} />
+        <ReserveCourtInfo courtData={data} timeSlot={timeSlot} />
+        <ProductChargeInfo isMatch={isMatch} price={price} />
         <SuccessPageButton
           isMatch={isMatch}
           postButtonOn={postButtonOn}
