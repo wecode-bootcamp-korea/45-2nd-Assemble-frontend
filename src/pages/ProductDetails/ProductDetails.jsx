@@ -13,12 +13,9 @@ const ProductDetails = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [courtData, setCourtData] = useState([]);
 
-  const courtId = 1;
-  const getDate = "2023-05-23";
-
-  // const courtId = searchParams.get("courtId");
-  // const getDate = searchParams.get("date");
-  // const getTime = searchParams.get("time");
+  const courtId = searchParams.get("courtId");
+  const getDate = searchParams.get("date");
+  const getTime = searchParams.get("time");
 
   const dateFormat = date => {
     if (!date) return;
@@ -33,18 +30,8 @@ const ProductDetails = () => {
 
   const [startDate, setStartDate] = useState(dateFormat(new Date()));
 
-  // useEffect(() => {
-  //   axios.get(dataURL).then(response => {
-  //     if (response.data) {
-  //       setCourtData(response.data);
-  //     }
-  //   });
-  // }, []);
-
-  // 메인에서 court 데이터 받아올 때
-
   useEffect(() => {
-    // getDate && setStartDate(getDate);
+    getDate && setStartDate(getDate);
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/courts?courtId=${courtId}&dateForCourt=${getDate}`

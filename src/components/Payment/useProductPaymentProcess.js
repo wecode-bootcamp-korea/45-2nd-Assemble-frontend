@@ -35,7 +35,10 @@ export const useProductPaymentProcess = () => {
         //로그인 했을 때
         if (!matching) {
           //매칭 미선택
-          await paymentModal.show({ reserveData: reserveData });
+          await paymentModal.show({
+            reserveData: reserveData,
+            courtData: courtData,
+          });
         } else {
           //매칭 선택
           if (checkUserInfo()) {
