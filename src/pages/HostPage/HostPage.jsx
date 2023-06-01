@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import NiceModal from "@ebay/nice-modal-react";
 import styled from "styled-components";
 import CourtHostCard from "./components/CourtHostCard";
@@ -7,10 +7,12 @@ import { apiClient } from "../../utils";
 
 const HostPage = () => {
   const [courtHostList, setCourtHostList] = useState([]);
+
   const openModal = () => {
-    NiceModal.show(AddCourtModal);
+    NiceModal.show(AddCourtModal, { fetchData });
     document.body.style.overflow = "hidden";
   };
+
   const token = localStorage.getItem("accessToken");
   const config = {
     headers: {
@@ -18,8 +20,7 @@ const HostPage = () => {
     },
   };
 
-  const fetchData = useCallback(() => {
-    const setData = async () => {
+  const fetchData = async () => {
     const hostRes = await apiClient.get(
       "http://10.58.52.234:3000/courts/hosting",
       config

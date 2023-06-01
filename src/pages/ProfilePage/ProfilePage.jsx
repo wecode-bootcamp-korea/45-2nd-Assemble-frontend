@@ -12,7 +12,7 @@ const ProfilePage = () => {
     levelValue: "",
   });
   const [reservationList, setReservationList] = useState([]);
-
+  const [test, setTest] = useState(false);
   const token = localStorage.getItem("accessToken");
   const config = {
     headers: {
@@ -20,21 +20,21 @@ const ProfilePage = () => {
     },
   };
 
-  const profileGetData = useCallback(async () => {
+  const profileGetData = async () => {
     const profileRes = await apiClient.get(`${API.GET_USER_API}`, config);
     const profileData = profileRes.data;
-    if (
-      profileData.name !== profileValue.nameValue ||
-      profileData.gender !== profileValue.genderValue ||
-      profileData.level !== profileValue.levelValue
-    ) {
-      setProfileValue({
-        nameValue: profileData.name,
-        genderValue: profileData.gender,
-        levelValue: profileData.level,
-      });
-    }
-  }, [profileValue]);
+    // if (
+    //   profileData.name !== profileValue.nameValue ||
+    //   profileData.gender !== profileValue.genderValue ||
+    //   profileData.level !== profileValue.levelValue
+    // ) {
+    setProfileValue({
+      nameValue: profileData.name,
+      genderValue: profileData.gender,
+      levelValue: profileData.level,
+    });
+    // }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,8 +69,10 @@ const ProfilePage = () => {
     };
     profileGetData();
     fetchData();
-  }, []);
-
+    console.log("das");
+    setTest(false);
+  }, [test]);
+  console.log(test);
   return (
     <Container>
       <section>
@@ -85,6 +87,7 @@ const ProfilePage = () => {
                 value={profileValue[name]}
                 setProfileValue={setProfileValue}
                 profileValue={profileValue}
+                setTest={setTest}
               />
             );
           })}

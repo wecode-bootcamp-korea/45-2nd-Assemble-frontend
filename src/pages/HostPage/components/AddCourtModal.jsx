@@ -3,7 +3,7 @@ import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
 import { apiClient } from "../../../utils";
 
-export default NiceModal.create(() => {
+export default NiceModal.create(({ fetchData }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewFile, setPreviewFile] = useState("");
   const [courtInfo, setCourtInfo] = useState({
@@ -44,6 +44,7 @@ export default NiceModal.create(() => {
     } catch (error) {
       console.error("PATCH 요청 실패:", error);
     }
+    fetchData();
     modal.remove();
     document.body.style.overflow = "unset";
   };
