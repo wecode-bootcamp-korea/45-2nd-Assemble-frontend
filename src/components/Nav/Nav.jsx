@@ -41,7 +41,7 @@ const Nav = () => {
     <Container>
       <FilterContainer>
         <FilterNode>
-          <SelectDistrict onClick={() => openFilterModal(0)}>
+          <SelectDistrict primary={position} onClick={() => openFilterModal(0)}>
             <p>장소</p>
             {district ? (
               <SelectedFont>
@@ -54,7 +54,7 @@ const Nav = () => {
           <ModalBox>{position === 0 && <ModalOfNav />}</ModalBox>
         </FilterNode>
         <FilterNode>
-          <SelectDate onClick={() => openFilterModal(1)}>
+          <SelectDate primary={position} onClick={() => openFilterModal(1)}>
             <p>날짜</p>
             {date ? (
               <SelectedFont>
@@ -71,7 +71,7 @@ const Nav = () => {
         </FilterNode>
         <FilterNode>
           <SelectTimeArea>
-            <SelectTime onClick={() => openFilterModal(2)}>
+            <SelectTime primary={position} onClick={() => openFilterModal(2)}>
               <p>시간</p>
               {time ? (
                 <SelectedFont>
@@ -153,9 +153,12 @@ const Select = styled.div`
   }
 `;
 const SelectDistrict = styled(Select)`
+  background-color: ${props => props.primary === 0 && props.theme.lightGray};
   padding-left: 30px;
 `;
-const SelectDate = styled(Select)``;
+const SelectDate = styled(Select)`
+  background-color: ${props => props.primary === 1 && props.theme.lightGray};
+`;
 const SelectTimeArea = styled(Select)`
   padding: 0;
   flex-direction: row;
@@ -163,7 +166,11 @@ const SelectTimeArea = styled(Select)`
   justify-content: space-between;
   position: relative;
 `;
-const SelectTime = styled(Select)``;
+
+const SelectTime = styled(Select)`
+  background-color: ${props => props.primary === 2 && props.theme.lightGray};
+`;
+
 const SelectedFont = styled.p`
   font-size: 15px;
 `;
