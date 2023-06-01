@@ -2,8 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const ExpireReservationCard = ({ courtId, court }) => {
-  const { name, address, price, district, region } = court;
+const ExpireReservationCard = ({
+  courtId,
+  courtName,
+  address,
+  price,
+  courtImage,
+}) => {
   const navigate = useNavigate();
 
   const goToCourt = () => {
@@ -13,15 +18,15 @@ const ExpireReservationCard = ({ courtId, court }) => {
   return (
     <Container onClick={goToCourt}>
       <CardImgWrapper>
-        <CardImg src="./images/tennis.png" alt="테니스장사진" />
+        <CardImg src={courtImage} alt="테니스장사진" />
       </CardImgWrapper>
       <CardInfo>
-        <CardTitle>{name}</CardTitle>
+        <CardTitle>{courtName}</CardTitle>
         <CardLocation>{address}</CardLocation>
       </CardInfo>
       <CardDescription>
         <CardTimeInfo>
-          <CardPrice>{price.toLocaleString()} 원/시간</CardPrice>
+          <CardPrice>{price} 원/시간</CardPrice>
         </CardTimeInfo>
       </CardDescription>
     </Container>

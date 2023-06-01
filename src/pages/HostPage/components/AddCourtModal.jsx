@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
-// import AWS from "aws-sdk";
 import { apiClient } from "../../../utils";
 
 export default NiceModal.create(() => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewFile, setPreviewFile] = useState("");
+  const [courtInfo, setCourtInfo] = useState({
+    courtName: "",
+    address: "",
+    price: "",
+  });
 
   const modal = useModal();
   const closedModal = () => {
@@ -23,53 +27,23 @@ export default NiceModal.create(() => {
       setPreviewFile(reader.result);
     };
   };
+
+  const handleInfo = e => {
+    const { name, value } = e.target;
+    setCourtInfo({ ...courtInfo, [name]: value });
+  };
+
   const addCourt = async () => {
     const formData = new FormData();
-    formData.append("file", selectedFile);
-    formData.append("name", selectedFile.name);
-
+    formData.append("courtImage", selectedFile[0]);
+    formData.append("name", courtInfo.courtName);
+    formData.append("address", courtInfo.address);
+    formData.append("price", courtInfo.price);
     try {
-      await apiClient.post(`http://10.58.52.234:3000/courts`, {
-        formData: formData,
-        name: "a",
-        address: "a",
-        price: "a",
-      });
+      await apiClient.post(`http://10.58.52.234:3000/courts`, formData);
     } catch (error) {
       console.error("PATCH 요청 실패:", error);
     }
-
-    // const addCourt = async file => {
-    // const formData = new FormData();
-    // formData.append("file", file);
-    // formData.append("name", file.name);
-
-    // const S3_BUCKET = "court-img-upload";
-    // const REGION = "ap-northeast-2";
-    // const ACCESS_KEY_ID = "AKIA3AH5NN4HX7Y4Y6A7";
-    // const SECRET_ACCESS_KEY = "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";
-
-    // AWS.config.update({
-    //   region: REGION,
-    //   accessKeyId: ACCESS_KEY_ID,
-    //   secretAccessKey: SECRET_ACCESS_KEY,
-    // });
-
-    // const s3 = new AWS.S3();
-
-    // try {
-    //   const params = {
-    //     Bucket: S3_BUCKET,
-    //     Key: `upload/${file.name}`,
-    //     Body: formData.get("file"),
-    //     ACL: "public-read",
-    //   };
-
-    //   const response = await s3.upload(params).promise();
-    //   console.log("File uploaded successfully:", response.Location);
-    // } catch (error) {
-    //   console.error("Error uploading file:", error);
-    // }
     modal.remove();
     document.body.style.overflow = "unset";
   };
@@ -87,14 +61,29 @@ export default NiceModal.create(() => {
             multiple
             onChange={handleFileChange}
           />
-          <LongTextInput type="text" placeholder="코트장명" />
+          <LongTextInput
+            type="text"
+            placeholder="코트장명"
+            name="courtName"
+            onChange={handleInfo}
+          />
           <InputArea>
             <TextInput type="text" placeholder="강북/강남" />
             <TextInput type="text" placeholder="자치구" />
           </InputArea>
-          <LongTextInput type="text" placeholder="주소" />
+          <LongTextInput
+            type="text"
+            placeholder="주소"
+            name="address"
+            onChange={handleInfo}
+          />
           <InputArea>
-            <TextInput type="text" placeholder="금액" />
+            <TextInput
+              type="text"
+              placeholder="금액"
+              name="price"
+              onChange={handleInfo}
+            />
             <TextInput type="text" placeholder="실내/실외" />
           </InputArea>
           <TypeArea>
@@ -162,11 +151,9 @@ export default NiceModal.create(() => {
           </OptionArea>
           <LongTextInput type="text" placeholder="기타편의시설" />
           <DescriptionInput type="text" placeholder="설명" />
-          {/* <AddButton onClick={() => addCourt(selectedFile[0])}> */}
           <AddButton onClick={addCourt}>등록하기</AddButton>
         </Content>
       </ModalSection>
-      {/* <img src="https://court-img-upload.s3.ap-northeast-2.amazonaws.com/upload/Level1.jpeg" /> */}
     </Container>
   );
 });

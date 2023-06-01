@@ -3,6 +3,7 @@ import NiceModal from "@ebay/nice-modal-react";
 import styled from "styled-components";
 import CourtHostCard from "./components/CourtHostCard";
 import AddCourtModal from "./components/AddCourtModal";
+import { apiClient } from "../../utils";
 
 const HostPage = () => {
   const [courtHostList, setCourtHostList] = useState([]);
@@ -10,15 +11,23 @@ const HostPage = () => {
     NiceModal.show(AddCourtModal);
     document.body.style.overflow = "hidden";
   };
+  const token = localStorage.getItem("accessToken");
+  const config = {
+    headers: {
+      Authorization: `${token}`,
+    },
+  };
 
   useEffect(() => {
-    fetch("/data/hostPageData/CourtHostData.json", {
-      method: "GET",
-    })
-      .then(res => res.json())
-      .then(data => {
-        setCourtHostList(data);
-      });
+    const fetchData = async () => {
+      const hostRes = await apiClient.get(
+        "http://10.58.52.234:3000/courts/hosting",
+        config
+      );
+      const hostData = hostRes.data;
+      setCourtHostList(hostData);
+    };
+    fetchData();
   }, []);
 
   return (
@@ -29,12 +38,7 @@ const HostPage = () => {
       </ButtonPositionBox>
       <ReservationList>
         {courtHostList.map(item => (
-          <CourtHostCard
-            key={item.reservation.id}
-            courtId={item.court.id}
-            timeSlot={item.reservation.timeSlot}
-            court={item.court}
-          />
+          <CourtHostCard key={item.courtId} {...item} />
         ))}
       </ReservationList>
     </Container>
@@ -76,20 +80,16 @@ const ReservationList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: 350px;
-  /* grid-gap: 16px; */
   @media screen and (max-width: 1128px) {
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 350px;
-    /* grid-gap: 8px; */
   }
   @media screen and (max-width: 842px) {
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 350px;
-    /* grid-gap: 4px; */
   }
   @media screen and (max-width: 556px) {
     grid-template-columns: repeat(1, 1fr);
     grid-auto-rows: 350px;
-    /* grid-row-gap: 16px; */
   }
 `;
