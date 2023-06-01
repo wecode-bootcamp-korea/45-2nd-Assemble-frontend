@@ -55,7 +55,7 @@ export default NiceModal.create(({ fetchData }) => {
         <ClosedButton onClick={closedModal}>X</ClosedButton>
         <Content>
           <Title>등록하기</Title>
-          <ImgPreview src={previewFile} alt="코트장 이미지" />
+          <ImgPreview src={previewFile} alt="코트장 이미지를 추가해주세요" />
           <UploadInput
             type="file"
             accept="image/*"
@@ -182,9 +182,22 @@ const Container = styled.div`
 `;
 
 const ModalSection = styled.div`
+  height: 800px;
   background-color: #f1f1f1;
   padding: 40px;
   border-radius: 16px;
+  overflow-y: scroll;
+  /* width: 550px; */
+  &::-webkit-scrollbar {
+    width: 15px;
+    border-radius: 20px;
+    background: white;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${props => props.theme.lightGray};
+    border-radius: 6px;
+  }
 `;
 
 const ClosedButton = styled.button`
@@ -202,7 +215,6 @@ const Content = styled.div`
   align-items: center;
   gap: 12px;
   width: 450px;
-  overflow-y: scroll;
 `;
 
 const Title = styled.div`
@@ -212,9 +224,9 @@ const Title = styled.div`
 `;
 
 const ImgPreview = styled.img`
-  /* width: 450px; */
-  /* height: 300px; */
-  /* border: 1px solid black; */
+  width: 450px;
+  height: 300px;
+  background-color: ${props => (props.src ? "" : "lightGray")};
 `;
 
 const UploadInput = styled.input`
@@ -259,6 +271,22 @@ const TypeArea = styled.div`
 const TypeValueArea = styled.div`
   display: flex;
   gap: 10px;
+
+  & > label > input[type="radio"] {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1px solid ${props => props.theme.green};
+    border-radius: 3px;
+  }
+
+  & > label > input[type="radio"]:checked {
+    width: 15px;
+    height: 15px;
+    background-image: url("/images/CheckBox/checked.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 `;
 
 const OptionArea = styled.div`
@@ -279,6 +307,22 @@ const OptionValueArea = styled.div`
   flex-direction: column;
   gap: 10px;
   padding-top: 10px;
+
+  & > div > label > input[type="radio"] {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1px solid ${props => props.theme.green};
+    border-radius: 3px;
+  }
+
+  & > div > label > input[type="radio"]:checked {
+    width: 15px;
+    height: 15px;
+    background-image: url("/images/CheckBox/checked.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 `;
 
 const OptionParkingArea = styled(OptionValueArea)`
