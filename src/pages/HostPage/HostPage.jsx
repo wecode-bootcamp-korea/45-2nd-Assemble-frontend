@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import NiceModal from "@ebay/nice-modal-react";
 import styled from "styled-components";
 import CourtHostCard from "./components/CourtHostCard";
@@ -18,15 +18,17 @@ const HostPage = () => {
     },
   };
 
+  const fetchData = useCallback(() => {
+    const setData = async () => {
+    const hostRes = await apiClient.get(
+      "http://10.58.52.234:3000/courts/hosting",
+      config
+    );
+    const hostData = hostRes.data;
+    setCourtHostList(hostData);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const hostRes = await apiClient.get(
-        "http://10.58.52.234:3000/courts/hosting",
-        config
-      );
-      const hostData = hostRes.data;
-      setCourtHostList(hostData);
-    };
     fetchData();
   }, []);
 
