@@ -33,7 +33,7 @@ const Header = () => {
             ) : (
               <>
                 <LoginButton onClick={logout}>로그아웃</LoginButton>
-                <ProfileButton />
+                <ProfileButton user={user} />
               </>
             )}
           </CategoryFlex>

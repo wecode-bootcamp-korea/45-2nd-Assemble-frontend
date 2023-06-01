@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const ProfileButton = () => {
+const ProfileButton = ({ user }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const navigation = useNavigate("");
+
+  console.log("user", user);
+  console.log("user.level", user.level);
   return (
     <MenuBox>
       <ProfileMenuButton onClick={() => setIsOpenMenu(!isOpenMenu)}>
@@ -14,7 +17,10 @@ const ProfileButton = () => {
             !isOpenMenu ? "images/Nav/menu.png" : "images/Nav/expand_less.png"
           }
         />
-        <ProfileImg />
+        <ProfileImg
+          user={user}
+          src={user.level && `images/Level${user.level}.png`}
+        />
       </ProfileMenuButton>
       {isOpenMenu && (
         <DropMenu>
@@ -74,11 +80,12 @@ const MenuIcon = styled.img`
   margin-left: 5px;
 `;
 
-const ProfileImg = styled.div`
+const ProfileImg = styled.img`
   width: 30px;
   height: 30px;
-  background-color: burlywood;
   border-radius: 100%;
+  border: 1px solid ${props => props.theme.lightGray};
+  background-color: ${props => !props.user && props.theme.lightGray};
 `;
 
 const DropMenu = styled.ul`
