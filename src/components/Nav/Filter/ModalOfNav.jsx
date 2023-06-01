@@ -1,19 +1,35 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { navFilterAtom } from "../../../recoil/navFilterAtom";
 import District from "./SelectDistrict";
 import Date from "./SelectDate";
 import Time from "./SelectTime";
 
 const ModalOfNav = () => {
-  const { position } = useRecoilValue(navFilterAtom);
-  return <Wrapper>{MODAL_LIST[position]}</Wrapper>;
+  const el = useRef();
+  const [navFilter, setNavFilter] = useRecoilState(navFilterAtom);
+  const { position } = navFilter;
+
+  const handleCloseModal = e => {
+    if (!el.current || !el.current.contains(e.target)) {
+      setNavFilter({ ...navFilter, position: -1 });
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mouseup", handleCloseModal);
+    return () => {
+      document.removeEventListener("mouseup", handleCloseModal);
+    };
+  }, []);
+
+  return <Wrapper ref={el}>{MODAL_LIST[position]}</Wrapper>;
 };
 
-const MODAL_LIST = [<District key={0} />, <Date key={1} />, <Time key={2} />];
-
 export default ModalOfNav;
+
+const MODAL_LIST = [<District key={0} />, <Date key={1} />, <Time key={2} />];
 
 const Wrapper = styled.div`
   position: relative;
