@@ -28,4 +28,8 @@ const DetailedFilterModal = styled.div`
   padding: 20px 30px;
   border-radius: 10px;
   overflow: auto;
+  @media screen and (max-width: 600px) {
+    border: 1px solid blue;
+    width: 500px;
+  }
 `;

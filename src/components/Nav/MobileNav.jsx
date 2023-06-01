@@ -31,6 +31,7 @@ export default MobileNav;
 const MNavContainer = styled.div`
   width: 100%;
   padding: 16px 24px;
+  display: none;
 `;
 
 const MNavWrapper = styled.div`

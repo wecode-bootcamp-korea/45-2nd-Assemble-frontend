@@ -119,6 +119,9 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 950px) {
+    max-width: 550px;
+  }
 `;
 
 const FilterContainer = styled.div`
@@ -128,10 +131,16 @@ const FilterContainer = styled.div`
   border-radius: 50px;
   display: flex;
   align-items: center;
+  @media screen and (max-width: 950px) {
+    width: 100%;
+  }
 `;
 
 const FilterNode = styled.div`
   position: relative;
+  @media screen and (max-width: 950px) {
+    width: 100%;
+  }
 `;
 
 const Select = styled.div`
@@ -144,14 +153,16 @@ const Select = styled.div`
   padding: 20px;
   border-radius: 40px;
   font-size: 12px;
+  p:first-child {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
   &:hover {
     background-color: ${props => props.theme.lightGray};
     cursor: pointer;
   }
-
-  p:first-child {
-    font-weight: bold;
-    margin-bottom: 5px;
+  @media screen and (max-width: 950px) {
+    width: 100%;
   }
 `;
 
