@@ -87,7 +87,7 @@ const KakaoMap = styled.div`
 const Card = styled.div`
   position: absolute;
   top: 50px;
-  right: 50px;
+  right: 100px;
   width: 300px;
   z-index: 10;
   background-color: white;
