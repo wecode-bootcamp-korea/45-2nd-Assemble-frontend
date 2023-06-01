@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { navFilterAtom } from "../../../recoil/navFilterAtom";
@@ -41,7 +41,7 @@ const Wrapper = styled.div`
   width: 100%;
   background-color: white;
   display: flex;
-  border-radius: 10px;
+  border-radius: 20px;
   border: 1px solid lightgray;
   padding: 10% 10px;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);

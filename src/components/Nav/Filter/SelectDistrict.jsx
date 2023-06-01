@@ -12,7 +12,7 @@ const SelectDistrict = () => {
         <DistrictArea
           key={item.id}
           primary={item.id === selectedArea}
-          onClick={() =>
+          onMouseEnter={() =>
             setSelectedArea(prev => (prev === item.id ? -1 : item.id))
           }
         >
