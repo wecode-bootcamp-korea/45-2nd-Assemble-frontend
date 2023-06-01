@@ -19,6 +19,7 @@ const ListOfDistrict = ({ selectedArea }) => {
                 setNavFilter({
                   ...navFilter,
                   district: item.id === navFilter.district ? 0 : item.id,
+                  position: -1,
                 })
               }
             >

@@ -24,6 +24,7 @@ const SelectDate = () => {
             format(item, "yyyy-MM-dd") === navFilte.date
               ? ``
               : format(item, "yyyy-MM-dd"),
+          position: -1,
         })
       }
       inline
