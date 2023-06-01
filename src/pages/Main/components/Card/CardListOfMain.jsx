@@ -19,13 +19,14 @@ const CardList = () => {
 export default CardList;
 
 const Wrapper = styled.div`
+  border: 1px solid red;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(0, calc((100vw- 48px) / 4 * 4 / 3));
   grid-row-gap: 36px;
-  grid-column-gap: 24px;
-  padding: 0px;
+  grid-column-gap: 0px;
   place-items: center;
+  padding: 0px;
   @media screen and (max-width: 1126px) {
     grid-template-columns: repeat(3, 1fr);
   }
