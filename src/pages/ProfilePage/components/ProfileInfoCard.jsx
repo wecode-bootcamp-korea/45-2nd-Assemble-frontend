@@ -4,8 +4,14 @@ import UserInfoForm from "./UserInfoForm";
 import { apiClient } from "../../../utils";
 import { API } from "../../../config";
 
-const ProfileInfoCard = props => {
-  const { title, value, name, profileValue, setProfileValue, setTest } = props;
+const ProfileInfoCard = ({
+  title,
+  value,
+  name,
+  profileValue,
+  setProfileValue,
+  setForReRendering,
+}) => {
   const [modifyBtnState, setModifyBtnState] = useState(true);
 
   const userInfoList = {
@@ -46,7 +52,7 @@ const ProfileInfoCard = props => {
           level: LEVEL_RELAY_DATA[profileValue.levelValue],
         });
         setModifyBtnState(prev => !prev);
-        setTest(true);
+        setForReRendering(true);
       } catch (error) {
         console.error("PATCH 요청 실패:", error);
       }

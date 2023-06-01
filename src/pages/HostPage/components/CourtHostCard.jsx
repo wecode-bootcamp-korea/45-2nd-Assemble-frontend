@@ -1,22 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const ExpireReservationCard = ({
-  courtId,
-  courtName,
-  address,
-  price,
-  courtImage,
-}) => {
-  const navigate = useNavigate();
-
-  const goToCourt = () => {
-    navigate(`/court/courtId${courtId}`);
-  };
-
+const ExpireReservationCard = ({ courtName, address, price, courtImage }) => {
   return (
-    <Container onClick={goToCourt}>
+    <Container>
       <CardImgWrapper>
         <CardImg src={courtImage} alt="테니스장사진" />
       </CardImgWrapper>
@@ -25,9 +12,7 @@ const ExpireReservationCard = ({
         <CardLocation>{address}</CardLocation>
       </CardInfo>
       <CardDescription>
-        <CardTimeInfo>
-          <CardPrice>{price} 원/시간</CardPrice>
-        </CardTimeInfo>
+        <CardPrice>{Math.floor(price).toLocaleString()} 원/시간</CardPrice>
       </CardDescription>
     </Container>
   );
@@ -44,20 +29,19 @@ const CardImg = styled.img`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  filter: brightness(0.8);
   border-radius: 30px;
+  padding: 16px;
   &:hover {
     cursor: pointer;
     ${CardImg} {
-      filter: brightness(150%);
+      filter: brightness(70%);
     }
   }
 `;
 
 const CardImgWrapper = styled.div`
-  width: 100%;
   flex: 1;
+  width: 100%;
   padding-bottom: 16px;
 `;
 
@@ -68,9 +52,9 @@ const CardInfo = styled.div`
 `;
 
 const CardDescription = styled.div`
-  padding: 0 16px;
   display: flex;
   justify-content: space-between;
+  padding: 0 16px;
 `;
 
 const CardLocation = styled.p`
@@ -83,8 +67,6 @@ const CardTitle = styled.p`
   line-height: ${props => props.theme.xl.lineHeight};
   font-weight: 900;
 `;
-
-const CardTimeInfo = styled.div``;
 
 const CardPrice = styled.p`
   font-size: ${props => props.theme.base.fontSize};

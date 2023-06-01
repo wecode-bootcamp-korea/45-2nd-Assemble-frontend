@@ -3,27 +3,13 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import FilterMatching from "../components/FilterMatching";
 import ProfileBookBtn from "../../../components/ProfileBookBtn/ProfileBookBtn";
+import { useTimeSlot } from "../../../hooks/useTime";
 
 const ReservationCard = ({ host, guest, court, reservation }) => {
   const { courtName, address, price, courtId, courtImage } = court;
   const { paymentStatus, isMatch, timeSlot } = reservation;
   const navigate = useNavigate();
-
-  const date = new Date(timeSlot);
-  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const dayOfWeek = weekdays[date.getDay()];
-  const formattedDate = `${year}년 ${month}월 ${day}일 ${dayOfWeek}요일`;
-
-  const startTime = timeSlot.slice(11, 16);
-  const endTime = new Date(timeSlot);
-  endTime.setHours(endTime.getHours() + 1);
-  const formattedTime = `${startTime} ~ ${endTime
-    .getHours()
-    .toString()
-    .padStart(2, "0")}:00`;
+  const [formattedTime, formattedDate] = useTimeSlot(timeSlot);
 
   const goToCourt = () => {
     navigate(`/court?courtId=${courtId}&date=`);
@@ -111,16 +97,19 @@ const CardTitle = styled.p`
 const CardTimeInfo = styled.div`
   flex: 1;
 `;
+
 const CardDate = styled.p`
   font-size: ${props => props.theme.sm.fontSize};
   line-height: ${props => props.theme.sm.lineHeight};
   color: ${props => props.theme.grey};
 `;
+
 const CardTime = styled.p`
   font-size: ${props => props.theme.sm.fontSize};
   line-height: ${props => props.theme.sm.lineHeight};
   color: ${props => props.theme.grey};
 `;
+
 const CardPrice = styled.p`
   font-size: ${props => props.theme.base.fontSize};
   line-height: ${props => props.theme.base.lineHeight};

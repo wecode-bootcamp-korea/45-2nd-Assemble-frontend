@@ -3,21 +3,22 @@ import NiceModal from "@ebay/nice-modal-react";
 import styled from "styled-components";
 import CourtHostCard from "./components/CourtHostCard";
 import AddCourtModal from "./components/AddCourtModal";
-import { apiClient } from "../../utils";
 import MyPageLayout from "../../components/Layout/MyPageLayout";
+import { apiClient } from "../../utils";
+
 const HostPage = () => {
   const [courtHostList, setCourtHostList] = useState([]);
-
-  const openModal = () => {
-    NiceModal.show(AddCourtModal, { fetchData });
-    document.body.style.overflow = "hidden";
-  };
 
   const token = localStorage.getItem("accessToken");
   const config = {
     headers: {
       Authorization: `${token}`,
     },
+  };
+
+  const openModal = () => {
+    NiceModal.show(AddCourtModal, { fetchData });
+    document.body.style.overflow = "hidden";
   };
 
   const fetchData = async () => {
@@ -53,14 +54,14 @@ const HostPage = () => {
 export default HostPage;
 
 const Container = styled.div`
-  padding: 40px 0px;
   max-width: 1280px;
   margin: 0 auto;
+  padding: 40px 0px;
 `;
 
 const Title = styled.h1`
-  font-size: 32px;
   margin: 40px 0 20px 0;
+  font-size: 32px;
 `;
 
 const ButtonPositionBox = styled.div`
@@ -69,15 +70,15 @@ const ButtonPositionBox = styled.div`
 `;
 
 const AddButton = styled.button`
-  background-color: #89b922;
-  color: white;
-  margin-bottom: 20px;
   width: 100px;
-  border-radius: 30px;
   height: 50px;
+  margin-bottom: 20px;
+  background-color: ${props => props.theme.green};
+  border-radius: 30px;
   font-size: 12px;
+  color: white;
   &:hover {
-    background-color: #a1db26;
+    background-color: ${props => props.theme.lightGreen};
   }
 `;
 

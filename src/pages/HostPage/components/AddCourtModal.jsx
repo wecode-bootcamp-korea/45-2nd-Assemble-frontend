@@ -183,30 +183,29 @@ const Container = styled.div`
 
 const ModalSection = styled.div`
   height: 800px;
-  background-color: #f1f1f1;
   padding: 40px;
   border-radius: 16px;
+  background-color: #f1f1f1;
   overflow-y: scroll;
-  /* width: 550px; */
   &::-webkit-scrollbar {
     width: 15px;
     border-radius: 20px;
-    background: white;
+    background-color: white;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${props => props.theme.lightGray};
     border-radius: 6px;
+    background-color: ${props => props.theme.lightGray};
   }
 `;
 
 const ClosedButton = styled.button`
-  padding: 5px;
-  border-radius: 50%;
-  border: 1px solid #d9d9d9;
   width: 30px;
-  font-size: ${props => props.theme.sm.fontSize};
+  padding: 5px;
+  border: 1px solid ${props => props.theme.lightGray};
+  border-radius: 50%;
   background-color: white;
+  font-size: ${props => props.theme.sm.fontSize};
 `;
 
 const Content = styled.div`
@@ -218,9 +217,9 @@ const Content = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: ${props => props.theme["2xl"].fontSize};
   text-align: center;
   padding-bottom: 24px;
+  font-size: ${props => props.theme["2xl"].fontSize};
 `;
 
 const ImgPreview = styled.img`
@@ -230,12 +229,12 @@ const ImgPreview = styled.img`
 `;
 
 const UploadInput = styled.input`
-  border: 1px solid black;
   width: 450px;
   height: 40px;
   padding: 7px 0 0 10px;
-  background-color: white;
+  border: 1px solid black;
   border-radius: 10px;
+  background-color: white;
 `;
 
 const InputArea = styled.div`
@@ -246,9 +245,9 @@ const InputArea = styled.div`
 const TextInput = styled.input`
   width: 220px;
   height: 40px;
-  border-radius: 10px;
   padding-left: 10px;
   border: 1px solid black;
+  border-radius: 10px;
 `;
 
 const LongTextInput = styled(TextInput)`
@@ -256,14 +255,14 @@ const LongTextInput = styled(TextInput)`
 `;
 
 const TypeArea = styled.div`
-  width: 450px;
-  height: 70px;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  width: 450px;
+  height: 70px;
   padding-top: 10px;
+  border: 1px solid black;
   border-radius: 10px;
   background-color: white;
 `;
@@ -290,22 +289,22 @@ const TypeValueArea = styled.div`
 `;
 
 const OptionArea = styled.div`
+  display: flex;
+  gap: 30px;
   width: 450px;
   height: 70px;
   padding: 0 25px;
+  border: 1px solid black;
   border-radius: 10px;
   background-color: white;
-  display: flex;
-  gap: 30px;
-  border: 1px solid black;
 `;
 
 const OptionValueArea = styled.div`
-  width: 100px;
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 10px;
+  width: 100px;
   padding-top: 10px;
 
   & > div > label > input[type="radio"] {
@@ -326,28 +325,28 @@ const OptionValueArea = styled.div`
 `;
 
 const OptionParkingArea = styled(OptionValueArea)`
+  width: 160px;
   border-left: 1px solid black;
   border-right: 1px solid black;
-  width: 160px;
 `;
 
 const DescriptionInput = styled.input`
   width: 450px;
   height: 100px;
-  border-radius: 10px;
-  margin-bottom: 20px;
   padding-left: 10px;
   padding-bottom: 50px;
+  margin-bottom: 20px;
   border: 1px solid black;
+  border-radius: 10px;
 `;
 
 const AddButton = styled.button`
-  background-color: #89b922;
-  color: white;
   width: 100px;
-  border-radius: 30px;
   height: 50px;
+  border-radius: 30px;
+  background-color: #89b922;
   font-size: 12px;
+  color: white;
   &:hover {
     background-color: #a1db26;
   }
