@@ -48,12 +48,12 @@ const Map = () => {
         position: new kakao.maps.LatLng(item.latitude, item.longitude),
       });
 
-      let infowindow = new kakao.maps.InfoWindow({
-        map,
-        content: item.courtName,
-      });
+      // let infowindow = new kakao.maps.InfoWindow({ // 장소명 표시
+      // map,
+      // content: item.courtName,
+      // });
+      // infowindow.open(map, marker);
 
-      infowindow.open(map, marker);
       map.setCenter(center);
       kakao.maps.event.addListener(marker, "click", () =>
         setShowCard(prev => (prev === item.courtId ? 0 : item.courtId))

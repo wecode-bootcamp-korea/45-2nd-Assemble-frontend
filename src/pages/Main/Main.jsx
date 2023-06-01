@@ -22,7 +22,8 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/courts?${queries}`)
+      .get(`/data/main-court-list.json`)
+      // .get(`${process.env.REACT_APP_API_URL}/courts?${queries}`)
       .then(res => {
         setCourtList(res.data);
       });
