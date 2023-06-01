@@ -90,6 +90,12 @@ const InfoCard = styled.div`
   border: 1px solid #d9d9d9;
   border-radius: 20px;
   padding: 16px;
+  @media screen and (max-width: 750px) {
+    width: 450px;
+  }
+  @media screen and (max-width: 480px) {
+    width: 340px;
+  }
 `;
 
 const InfoCardTopArea = styled.div`

@@ -52,7 +52,7 @@ const Container = styled.div`
 
 const CardImgWrapper = styled.div`
   width: 100%;
-  flex: 1.2;
+  flex: 1;
   padding-bottom: 16px;
 `;
 
@@ -62,7 +62,6 @@ const CardInfo = styled.div`
   padding: 0 16px;
 `;
 const CardDescription = styled.div`
-  flex: 1;
   padding: 0 16px;
   display: flex;
   justify-content: space-between;
@@ -78,9 +77,7 @@ const CardTitle = styled.p`
   font-weight: 900;
 `;
 
-const CardTimeInfo = styled.div`
-  flex: 1;
-`;
+const CardTimeInfo = styled.div``;
 
 const CardPrice = styled.p`
   font-size: ${props => props.theme.base.fontSize};

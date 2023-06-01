@@ -4,6 +4,7 @@ import ProfileInfoCard from "./components/ProfileInfoCard";
 import ExpireReservationCard from "./components/ExpireReservationCard";
 import { apiClient } from "../../utils";
 import { API } from "../../config";
+import MypageLayout from "../../components/Layout/MypageLayout";
 
 const ProfilePage = () => {
   const [profileValue, setProfileValue] = useState({
@@ -72,38 +73,40 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <Container>
-      <section>
-        <FirstTitle>개인정보</FirstTitle>
-        <ProfileInfoBox>
-          {PROFILE_INFO_DATA.map(({ id, title, name }) => {
-            return (
-              <ProfileInfoCard
-                key={id}
-                name={name}
-                title={title}
-                value={profileValue[name]}
-                setProfileValue={setProfileValue}
-                profileValue={profileValue}
+    <MypageLayout>
+      <Container>
+        <section>
+          <FirstTitle>개인정보</FirstTitle>
+          <ProfileInfoBox>
+            {PROFILE_INFO_DATA.map(({ id, title, name }) => {
+              return (
+                <ProfileInfoCard
+                  key={id}
+                  name={name}
+                  title={title}
+                  value={profileValue[name]}
+                  setProfileValue={setProfileValue}
+                  profileValue={profileValue}
+                />
+              );
+            })}
+          </ProfileInfoBox>
+        </section>
+        <section>
+          <SecondTitle>완료내역</SecondTitle>
+          <CompletionList>
+            {reservationList.map(item => (
+              <ExpireReservationCard
+                key={item.reservation.reservationId}
+                timeSlot={item.reservation.timeSlot}
+                paymentStatus={item.reservation.paymentStatus}
+                court={item.court}
               />
-            );
-          })}
-        </ProfileInfoBox>
-      </section>
-      <section>
-        <SecondTitle>완료내역</SecondTitle>
-        <CompletionList>
-          {reservationList.map(item => (
-            <ExpireReservationCard
-              key={item.reservation.reservationId}
-              timeSlot={item.reservation.timeSlot}
-              paymentStatus={item.reservation.paymentStatus}
-              court={item.court}
-            />
-          ))}
-        </CompletionList>
-      </section>
-    </Container>
+            ))}
+          </CompletionList>
+        </section>
+      </Container>
+    </MypageLayout>
   );
 };
 
@@ -116,14 +119,17 @@ const PROFILE_INFO_DATA = [
 ];
 
 const Container = styled.div`
-  padding: 40px 0px;
+  padding: 40px 40px;
   max-width: 1280px;
   margin: 0 auto;
 `;
 
 const FirstTitle = styled.h1`
   font-size: 32px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  @media screen and (max-width: 750px) {
+    text-align: center;
+  }
 `;
 
 const ProfileInfoBox = styled.div`
@@ -131,10 +137,10 @@ const ProfileInfoBox = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 150px;
   grid-gap: 8px;
-  @media screen and (max-width: 852px) {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 150px;
-    grid-gap: 4px;
+  @media screen and (max-width: 750px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   @media screen and (max-width: 570px) {
     grid-template-columns: repeat(1, 1fr);
@@ -145,7 +151,10 @@ const ProfileInfoBox = styled.div`
 
 const SecondTitle = styled.h1`
   font-size: 32px;
-  margin: 40px 0 20px 0;
+  margin: 40px 0 40px 0;
+  @media screen and (max-width: 750px) {
+    text-align: center;
+  }
 `;
 
 const CompletionList = styled.div`

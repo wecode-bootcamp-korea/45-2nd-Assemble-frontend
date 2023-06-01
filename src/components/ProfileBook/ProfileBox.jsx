@@ -6,12 +6,16 @@ const CONVERT_GENDER = { male: "남성", female: "여성" };
 
 const ProfileBox = ({ hostInfo }) => {
   const { gender, levelId, name } = hostInfo;
+
   return (
     <Container>
       <ProfileRight>
         <ProfileInfo>
           <ImgWrapper>
-            <LevelImg src="/images/Level2.png" alt="실력을 나타내는 이미지" />
+            <LevelImg
+              src={`/images/Level${levelId}.png`}
+              alt="실력을 나타내는 이미지"
+            />
           </ImgWrapper>
           <Name>{name}</Name>
         </ProfileInfo>

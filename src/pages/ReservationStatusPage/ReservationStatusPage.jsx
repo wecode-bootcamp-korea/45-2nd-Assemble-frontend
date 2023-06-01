@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ReservationCard from "./components/ReservationCard";
 import { apiClient } from "../../utils";
 import { API } from "../../config";
+import MypageLayout from "../../components/Layout/MypageLayout";
 
 const ReservationStatusPage = () => {
   const [reservationList, setReservationList] = useState([]);
@@ -75,25 +76,27 @@ const ReservationStatusPage = () => {
   }, [currentTab]);
 
   return (
-    <Container>
-      <Title>예약현황</Title>
-      <Tabs className="tabs">
-        {TAB_ARR.map(item => (
-          <Tab
-            key={item.id}
-            title={item.title}
-            onClick={() => setCurrentTab(item.title)}
-          >
-            {item.title}
-          </Tab>
-        ))}
-      </Tabs>
-      <ReservationList>
-        {reservationList.map(item => (
-          <ReservationCard key={item.reservation.reservationId} {...item} />
-        ))}
-      </ReservationList>
-    </Container>
+    <MypageLayout>
+      <Container>
+        <Title>예약현황</Title>
+        <Tabs className="tabs">
+          {TAB_ARR.map(item => (
+            <Tab
+              key={item.id}
+              title={item.title}
+              onClick={() => setCurrentTab(item.title)}
+            >
+              {item.title}
+            </Tab>
+          ))}
+        </Tabs>
+        <ReservationList>
+          {reservationList.map(item => (
+            <ReservationCard key={item.reservation.reservationId} {...item} />
+          ))}
+        </ReservationList>
+      </Container>
+    </MypageLayout>
   );
 };
 

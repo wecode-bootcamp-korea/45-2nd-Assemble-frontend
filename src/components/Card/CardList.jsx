@@ -1,23 +1,27 @@
-import React, { useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useToken } from "../../service/query/useToken";
 import { QUERY_KEY_INFINITE } from "../../service/query/useScroll";
 import { getMatches } from "../../service/apis/getMatches";
 import styled from "styled-components";
 import Card from "./Card";
+import { navSearchFilterAtom } from "../../recoil/matchingNavFilterAtom";
+import { useRecoilState } from "recoil";
 
 const CardList = () => {
+  const [filter, setFilter] = useRecoilState(navSearchFilterAtom);
+  const { data: token } = useToken();
+
   const {
     fetchNextPage,
     hasNextPage,
-
     isFetchingNextPage,
     data,
     status,
     error,
   } = useInfiniteQuery({
-    queryKey: [QUERY_KEY_INFINITE],
-    queryFn: ({ pageParam = 1 }) => getMatches(pageParam),
-
+    queryKey: [QUERY_KEY_INFINITE, filter],
+    queryFn: ({ pageParam = 1 }) => getMatches(pageParam, filter),
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.length ? allPages.length + 1 : undefined;
     },
@@ -33,7 +37,6 @@ const CardList = () => {
       intObserver.current = new IntersectionObserver(cards => {
         if (cards[0].isIntersecting && hasNextPage) {
           console.log("We are near the last post!");
-
           fetchNextPage();
         }
       });
