@@ -4,7 +4,7 @@ import styled from "styled-components";
 import useBodyOverflow from "../../../hooks/useBodyOverflow";
 import MatchingButton from "../../Matching/components/MatchingButton";
 import CardForModal from "../../../components/Card/CardForModal";
-import ChargeInfo from "../../../components/Payment/ChargeInfo";
+import ProductChargeInfo from "../../../components/Payment/ProductChargeInfo";
 import { fadeIn, fadeOut } from "../../Matching/components/animation";
 import { loadTossPayments } from "@tosspayments/payment-sdk";
 
@@ -16,21 +16,19 @@ export default NiceModal.create(({ reserveData, courtData }) => {
   useBodyOverflow("hidden");
   const modal = useModal();
   const [paymentMethod, setPaymentMethod] = useState("");
-  const { price, timeSlot, isMatch, courtName, courtId } = reserveData;
+  const { price, amount, timeSlot, isMatch, courtName, courtId } = reserveData;
   const { easyPay } = paymentMethod;
 
   const closedModal = () => {
     modal.remove();
   };
-  const totalAmount = Math.ceil(Number(price) * 1.14);
   const orderId = uuidv4();
-
   const paymentInformation = {
-    amount: totalAmount,
+    amount: amount,
     orderId: orderId,
     orderName: courtName,
     successUrl: `http://localhost:3000/success?courtId=${courtId}&isMatch=${isMatch}&timeSlot=${encodeURIComponent(
-      JSON.stringify(timeSlot)
+      timeSlot
     )}`,
     failUrl: "http://localhost:3000/fail",
     flowMode: "DIRECT",
@@ -69,7 +67,7 @@ export default NiceModal.create(({ reserveData, courtData }) => {
         <Location>
           <CardForModal courtInfo={courtData} timeSlot={timeSlot} />
         </Location>
-        <ChargeInfo price={Number(price)} />
+        <ProductChargeInfo price={Number(price)} isMatch={isMatch} />
         <PaymentMethodContainer>
           <PaymentMethodTitle>결제 수단</PaymentMethodTitle>
           <PaymentMethods>
@@ -228,11 +226,14 @@ const PaymentMethod = styled.label`
   font-size: ${props => props.theme.sm.fontSize};
 `;
 const Conditions = styled.div`
+  margin-bottom: 10px;
   font-size: ${props => props.theme.xs.fontSize};
   color: ${props => props.theme.gray};
+
   @media screen and (max-width: 550px) {
     padding: 14px 0;
   }
+
   @media screen and (max-width: 440px) {
     padding: 4px 0 0 0;
   }

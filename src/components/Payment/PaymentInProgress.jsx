@@ -33,7 +33,7 @@ const PaymentInProgress = () => {
       isMatch: isMatch,
       paymentKey: paymentKey,
       orderId: orderId,
-      timeSlot: "2023-05-23 11:00:00",
+      timeSlot: timeSlot,
     };
 
     const Token = localStorage.getItem("accessToken");
@@ -44,7 +44,7 @@ const PaymentInProgress = () => {
         paymentReserveDetails,
         { headers: { Authorization: Token } }
       );
-      // navigate("/paymentSuccess", { state: paymentReserveDetails });
+      navigate("/paymentSuccess", { state: paymentReserveDetails });
     };
     completePayment();
   }, [accessToken, mutateAsync]);

@@ -6,8 +6,6 @@ const ProfileButton = ({ user }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const navigation = useNavigate("");
 
-  console.log("user", user);
-  console.log("user.level", user.level);
   return (
     <MenuBox>
       <ProfileMenuButton onClick={() => setIsOpenMenu(!isOpenMenu)}>
