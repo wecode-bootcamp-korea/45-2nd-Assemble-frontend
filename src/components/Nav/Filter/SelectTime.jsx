@@ -67,18 +67,16 @@ const TimeTableBox = styled.div`
 
 const TimeButton = styled.button`
   color: ${props => (props.primary ? "white" : props.theme.gray)};
+  box-shadow: ${props => props.primary && "5px 5px 11px rgba(33, 33, 33, 0.2)"};
   width: 120px;
   padding: 7px 10px;
   background-color: ${props =>
     props.primary ? props.theme.lightGreen : "white"};
-  box-shadow: ${props => props.primary && "5px 5px 11px rgba(33, 33, 33, 0.2)"};
   border: 1px solid lightGray;
   border-radius: 15px;
   margin-bottom: 5px;
   cursor: pointer;
   &:hover {
-    border: 1px solid
-      ${props =>
-        props.primary ? props.theme.lightGray : props.theme.lightGreen};
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.3);
   }
 `;

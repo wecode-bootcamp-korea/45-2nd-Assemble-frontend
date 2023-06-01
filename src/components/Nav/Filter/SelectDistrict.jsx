@@ -11,6 +11,7 @@ const SelectDistrict = () => {
       {DISTRICT_AREA_LIST.map(item => (
         <DistrictArea
           key={item.id}
+          primary={item.id === selectedArea}
           onClick={() =>
             setSelectedArea(prev => (prev === item.id ? -1 : item.id))
           }
@@ -35,17 +36,16 @@ const Wrapper = styled.div`
 `;
 
 const DistrictArea = styled.button`
-  color: ${props => props.theme.gray};
+  color: ${props => (props.primary ? `white` : props.theme.gray)};
   width: 70%;
   padding: 20px 20px;
   margin: 18px;
   font-size: 17px;
+  background-color: ${props => props.primary && props.theme.lightGreen};
   border: 1px solid ${props => props.theme.lightGray};
   border-radius: 10px;
+  box-shadow: ${props => props.primary && `5px 5px 11px rgba(33, 33, 33, 0.2)`};
   &:hover {
-    border: 1px solid
-      ${props =>
-        props.primary ? props.theme.lightGray : props.theme.lightGreen};
-    color: ${props => (props.primary ? "white" : props.theme.lightGreen)};
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.3);
   }
 `;
