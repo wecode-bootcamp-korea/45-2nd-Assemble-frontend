@@ -14,10 +14,8 @@ const PaymentSuccess = () => {
   const { isMatch, timeSlot, address, courtImage, price, courtId } = data; //paymentinprogress에서 state로 받기
   const [postButtonOn, setPostButtonOn] = useState(false);
 
-  console.log("data", data);
-
   if (postButtonOn) {
-    navigate(isMatch === "1" ? "/reservationstatuspage" : "/");
+    navigate(Number(isMatch) === 1 ? "/reservationstatuspage" : "/");
   }
   if (!data.courtId) return;
   return (
