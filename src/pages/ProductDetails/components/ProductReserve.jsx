@@ -10,7 +10,12 @@ import TimeTable from "./TimeTable";
 import "react-datepicker/dist/react-datepicker.css";
 import "./datePicker.css";
 
-const ProductReserve = ({ courtData, startDate, setStartDate }) => {
+const ProductReserve = ({
+  courtData,
+  startDate,
+  setStartDate,
+  dateForCourt,
+}) => {
   const { detailPaymentProcess } = useProductPaymentProcess();
   const { price, timeSlots, courtName, courtId } = courtData;
   const [isDate, setIsDate] = useState(false);
@@ -38,6 +43,8 @@ const ProductReserve = ({ courtData, startDate, setStartDate }) => {
   const totalPrice = () => {
     return matching ? taxPrice / 2 : taxPrice;
   };
+
+  console.log("selectedTime", selectedTime);
 
   useEffect(() => {
     setReserveData({
@@ -84,7 +91,7 @@ const ProductReserve = ({ courtData, startDate, setStartDate }) => {
   };
 
   const changeDate = () => {
-    if (!selectedDate) return startDate;
+    if (!selectedDate) return dateForCourt;
     if (selectedDate) return dateFormat(selectedDate);
   };
 

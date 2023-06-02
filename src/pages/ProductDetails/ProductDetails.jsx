@@ -52,6 +52,7 @@ const ProductDetails = () => {
             <ProductInfo courtData={courtData[0]} />
             <ProductReserve
               courtData={courtData[0]}
+              dateForCourt={dateForCourt}
               startDate={startDate}
               setStartDate={setStartDate}
             />
