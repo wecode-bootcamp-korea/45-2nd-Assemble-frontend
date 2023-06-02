@@ -24,7 +24,11 @@ export const useProductPaymentProcess = () => {
     try {
       if (!isAuthenticated) {
         //로그인 안했을 때
-        await loginModal.show({ reserveData: reserveData, matching: matching });
+        await loginModal.show({
+          reserveData: reserveData,
+          matching: matching,
+          courtData: courtData,
+        });
         await paymentModal.show({
           reserveData: reserveData,
           courtData: courtData,
@@ -49,7 +53,10 @@ export const useProductPaymentProcess = () => {
             });
           } else {
             //회원정보 없을 때
-            await userInfoModal.show();
+            await userInfoModal.show({
+              courtData: courtData,
+              reserveData: reserveData,
+            });
             await userInfoModal.remove();
             await paymentModal.show({
               reserveData: reserveData,

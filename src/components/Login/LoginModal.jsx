@@ -7,7 +7,7 @@ import { kakaoLogin } from "./kakaoLogin";
 import { fadeIn, fadeOut } from "../../pages/Matching/components/animation";
 import UserInfoModal from "./UserInfoModal";
 
-export default NiceModal.create(({ reserveData, matching }) => {
+export default NiceModal.create(({ reserveData, matching, courtData }) => {
   useBodyOverflow("hidden");
   const modal = useModal();
 
@@ -33,7 +33,7 @@ export default NiceModal.create(({ reserveData, matching }) => {
       if (checkUserInfo()) {
         modal.resolve();
       } else {
-        userInfoModal.show({ reserveData: reserveData });
+        userInfoModal.show({ reserveData: reserveData, courtData: courtData });
       }
     } else {
       modal.resolve();

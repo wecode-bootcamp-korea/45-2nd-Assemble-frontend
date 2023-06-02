@@ -6,8 +6,9 @@ import { fadeIn, fadeOut } from "../../pages/Matching/components/animation";
 import { async } from "q";
 import ProductDetailPaymentModal from "../../pages/ProductDetails/components/ProductDetailPaymentModal";
 
-export default NiceModal.create(reserveData => {
+export default NiceModal.create(({ reserveData, courtData }) => {
   const { mutate } = useMutateMe();
+  console.log(courtData);
 
   const [updateInfo, setUpdateInfo] = useState({
     name: "",
@@ -23,7 +24,7 @@ export default NiceModal.create(reserveData => {
 
   const handleResolve = async () => {
     await updateUserInfo();
-    await paymentModal.show();
+    await paymentModal.show({ courtData: courtData, reserveData: reserveData });
     await modal.remove();
   };
 
@@ -44,7 +45,8 @@ export default NiceModal.create(reserveData => {
     if (isAllfilled) {
       mutate(updateInfo);
       modal.resolve();
-      modal.hide();
+      modal.remove();
+      paymentModal.show({ reserveData: reserveData, courtData: courtData });
     } else {
       alert("추가 정보를 모두 기입해주세요");
     }
