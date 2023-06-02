@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ProfileInfoCard from "./components/ProfileInfoCard";
 import ExpireReservationCard from "./components/ExpireReservationCard";
+import MyPageLayout from "../../components/Layout/MyPageLayout";
 import { apiClient } from "../../utils";
 import { API } from "../../config";
-import MyPageLayout from "../../components/Layout/MyPageLayout";
 
 const ProfilePage = () => {
   const [profileValue, setProfileValue] = useState({
@@ -13,7 +13,8 @@ const ProfilePage = () => {
     levelValue: "",
   });
   const [reservationList, setReservationList] = useState([]);
-  const [test, setTest] = useState(false);
+  const [forReRendering, setForReRendering] = useState(false);
+
   const token = localStorage.getItem("accessToken");
   const config = {
     headers: {
@@ -24,17 +25,11 @@ const ProfilePage = () => {
   const profileGetData = async () => {
     const profileRes = await apiClient.get(`${API.GET_USER_API}`, config);
     const profileData = profileRes.data;
-    // if (
-    //   profileData.name !== profileValue.nameValue ||
-    //   profileData.gender !== profileValue.genderValue ||
-    //   profileData.level !== profileValue.levelValue
-    // ) {
     setProfileValue({
       nameValue: profileData.name,
       genderValue: profileData.gender,
       levelValue: profileData.level,
     });
-    // }
   };
 
   useEffect(() => {
@@ -43,8 +38,8 @@ const ProfilePage = () => {
         `${API.GET_RESERVATION_API}?isExpired=1&isMatch=0`,
         config
       );
-
       const normalHostData = normalHostRes.data;
+
       const matchHostRes = await apiClient.get(
         `${API.GET_RESERVATION_API}?isExpired=1&isMatch=1`,
         config
@@ -70,10 +65,9 @@ const ProfilePage = () => {
     };
     profileGetData();
     fetchData();
-    console.log("das");
-    setTest(false);
-  }, [test]);
-  console.log(test);
+    setForReRendering(false);
+  }, [forReRendering]);
+
   return (
     <MyPageLayout>
       <Container>
@@ -89,7 +83,7 @@ const ProfilePage = () => {
                   value={profileValue[name]}
                   setProfileValue={setProfileValue}
                   profileValue={profileValue}
-                  setTest={setTest}
+                  setForReRendering={setForReRendering}
                 />
               );
             })}
@@ -163,21 +157,21 @@ const SecondTitle = styled.h1`
 const CompletionList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 460px;
+  grid-auto-rows: 440px;
   grid-gap: 32px;
   @media screen and (max-width: 928px) {
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 460px;
+    grid-auto-rows: 440px;
     grid-gap: 16px;
   }
-  @media screen and (max-width: 628px) {
+  @media screen and (max-width: 690px) {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 460px;
+    grid-auto-rows: 440px;
     grid-gap: 8px;
   }
-  @media screen and (max-width: 328px) {
+  @media screen and (max-width: 490px) {
     grid-template-columns: repeat(1, 1fr);
-    grid-auto-rows: 460px;
+    grid-auto-rows: 440px;
     grid-row-gap: 4px;
   }
 `;
