@@ -17,7 +17,7 @@ const PaymentSuccess = () => {
   console.log("data", data);
 
   if (postButtonOn) {
-    navigate(isMatch === "1" ? "/reservationstatuspage" : "/");
+    navigate(Number(isMatch) === 1 ? "/reservationstatuspage" : "/");
   }
   if (!data.courtId) return;
   return (
