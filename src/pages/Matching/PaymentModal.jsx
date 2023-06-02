@@ -24,7 +24,7 @@ export default NiceModal.create(({ data }) => {
   const closedModal = () => {
     modal.remove();
   };
-  const totalAmount = Math.ceil(courtInfo.price * 1.14);
+  const totalAmount = Math.ceil((courtInfo.price / 2) * 1.14);
   const orderId = uuidv4();
 
   const paymentInformation = {
