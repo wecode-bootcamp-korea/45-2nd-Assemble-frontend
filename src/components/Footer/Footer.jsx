@@ -86,8 +86,6 @@ const FOOTER_BOTTOM_RIGHT_ICON_MENUS = [
 ];
 
 const FooterArea = styled.div`
-  position: ${props => props.primary && `fixed`};
-  bottom: 0px;
   border-top: 1px solid #d9d9d9;
   background-color: #f7f7f7;
   white-space: pre-wrap;

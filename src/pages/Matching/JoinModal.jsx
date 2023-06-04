@@ -8,19 +8,20 @@ import CardForModal from "../../components/Card/CardForModal";
 import useBodyOverflow from "../../hooks/useBodyOverflow";
 import { fadeIn, fadeOut } from "./components/animation";
 import { matchingAtom } from "../Matching/matchingAtom";
+import PaymentModal from "./PaymentModal";
 
 export default NiceModal.create(({ data }) => {
   useBodyOverflow("hidden");
-  debugger;
   const { courtInfo, hostInfo, timeSlot } = data;
-
   const modal = useModal();
+  const paymentmodal = useModal(PaymentModal);
 
   const closedModal = () => {
     modal.remove();
   };
   const handleResolve = async () => {
-    modal.resolve();
+    modal.remove();
+    paymentmodal.show({ data: data });
   };
 
   return (

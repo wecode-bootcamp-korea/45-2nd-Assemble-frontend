@@ -2,6 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useMemo, useRef } from "react";
 import { QUERY_KEY_USER, useMe } from "../service/query/useMe.js";
 import { QUERY_KEY_TOKEN, useToken } from "../service/query/useToken.js";
+import { getMatches } from "../service/apis/getMatches.js";
 
 export const useAuth = () => {
   const queryClient = useQueryClient();
@@ -20,6 +21,7 @@ export const useAuth = () => {
       } else {
         clearUser();
       }
+      getMatches();
     },
     retry: false,
     refetchOnMount: false,

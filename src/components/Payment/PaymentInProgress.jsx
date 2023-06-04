@@ -20,6 +20,7 @@ const PaymentInProgress = () => {
 
   useEffect(() => {
     if (!accessToken) return;
+
     const paymentDetails = {
       amount: amount,
       matchId: matchId,
@@ -36,9 +37,28 @@ const PaymentInProgress = () => {
       timeSlot: timeSlot,
     };
 
+    const completeMatchingPayment = async () => {
+      const res = await mutateAsync(paymentDetails);
+
+      const { match } = res;
+      const { court, isMatch, timeSlot } = match;
+      const { courtImages, courtName, price, address } = court;
+      const courtImageObj = courtImages[0];
+      const { courtImage } = courtImageObj;
+
+      const matchingReserveDetails = {
+        courtImage: courtImage,
+        courtName: courtName,
+        price: price,
+        isMatch: isMatch,
+        timeSlot: timeSlot,
+        address: address,
+      };
+
+      navigate("/paymentSuccess", { state: matchingReserveDetails });
+    };
     const Token = localStorage.getItem("accessToken");
     const completePayment = async () => {
-      // const res = await mutateAsync(paymentDetails);
       await axios.post(
         `${process.env.REACT_APP_API_URL}/reservations`,
         paymentReserveDetails,
@@ -46,8 +66,9 @@ const PaymentInProgress = () => {
       );
       navigate("/paymentSuccess", { state: paymentReserveDetails });
     };
-    completePayment();
+    matchId ? completeMatchingPayment() : completePayment();
   }, [accessToken, mutateAsync]);
+
   return (
     <Container>
       <Logo src="/images/logo2.png" />

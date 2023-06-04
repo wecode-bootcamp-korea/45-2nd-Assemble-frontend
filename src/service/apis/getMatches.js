@@ -1,7 +1,10 @@
 import { apiClient } from "../../utils/index.js";
 
-export const getMatches = async (pageParam = 1, options = {}) => {
-  const { data } = await apiClient.get(`/matches?page=${pageParam}`, options);
+export const getMatches = async (pageParam = 1, query, options = {}) => {
+  const { data } = await apiClient.get(
+    `/matches?page=${pageParam}&date=${query}`,
+    options
+  );
 
   return data;
 };
