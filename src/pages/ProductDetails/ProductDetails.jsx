@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-
+import MainLayout from "../../components/Layout/MainLayout";
 import ProductTitle from "./components/ProductTitle";
 import ProductImages from "./components/ProductImages";
 import ProductInfo from "./components/ProductInfo";
@@ -29,12 +29,11 @@ const ProductDetails = () => {
   };
 
   const [startDate, setStartDate] = useState(dateFormat(new Date()));
-
+  const dateForCourt = !getDate ? startDate : getDate;
   useEffect(() => {
-    getDate && setStartDate(getDate);
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/courts?courtId=${courtId}&dateForCourt=${getDate}`
+        `${process.env.REACT_APP_API_URL}/courts?courtId=${courtId}&dateForCourt=${dateForCourt}`
       )
       .then(response => {
         setCourtData(response.data);
@@ -44,21 +43,24 @@ const ProductDetails = () => {
   if (!courtData[0]) return;
 
   return (
-    <Background>
-      <ProductWrapper>
-        <ProductTitle courtData={courtData[0]} />
-        <ProductImages courtData={courtData[0]} />
-        <ContentsFlex>
-          <ProductInfo courtData={courtData[0]} />
-          <ProductReserve
-            courtData={courtData[0]}
-            startDate={startDate}
-            setStartDate={setStartDate}
-          />
-        </ContentsFlex>
-        <ProductLocation courtData={courtData[0]} />
-      </ProductWrapper>
-    </Background>
+    <MainLayout>
+      <Background>
+        <ProductWrapper>
+          <ProductTitle courtData={courtData[0]} />
+          <ProductImages courtData={courtData[0]} />
+          <ContentsFlex>
+            <ProductInfo courtData={courtData[0]} />
+            <ProductReserve
+              courtData={courtData[0]}
+              dateForCourt={dateForCourt}
+              startDate={startDate}
+              setStartDate={setStartDate}
+            />
+          </ContentsFlex>
+          <ProductLocation courtData={courtData[0]} />
+        </ProductWrapper>
+      </Background>
+    </MainLayout>
   );
 };
 

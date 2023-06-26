@@ -2,18 +2,21 @@ import React from "react";
 import styled from "styled-components";
 
 const SuccessPageButton = ({ isMatch, setPostButtonOn }) => {
+  const isMatchN = Number(isMatch);
   const matched = SUCCESS_PAGE_BUTTON[0];
   const unMatched = SUCCESS_PAGE_BUTTON[1];
 
   return (
     <ButtonLayout>
-      <IsMatching>{isMatch ? matched.message : unMatched.message}</IsMatching>
+      <IsMatching>
+        {isMatchN === 1 ? matched.message : unMatched.message}
+      </IsMatching>
       <GoToMain
         onClick={() => {
           setPostButtonOn(prev => !prev);
         }}
       >
-        {isMatch ? matched.buttonName : unMatched.buttonName}
+        {isMatchN === 1 ? matched.buttonName : unMatched.buttonName}
       </GoToMain>
     </ButtonLayout>
   );

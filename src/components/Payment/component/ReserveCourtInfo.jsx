@@ -7,7 +7,7 @@ const ReserveCourtInfo = ({ courtData, timeSlot }) => {
     <BackgroundBox>
       <Title> 예약 정보</Title>
       <ReserveCourtInfoBox>
-        <CourtImage src={courtImage[0]}></CourtImage>
+        <CourtImage src={courtImage}></CourtImage>
         <CourtName>
           <SubTitle>예약장소</SubTitle>
           <p>{courtName}</p>

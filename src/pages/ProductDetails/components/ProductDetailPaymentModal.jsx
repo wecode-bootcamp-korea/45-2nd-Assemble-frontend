@@ -13,11 +13,14 @@ const { v4: uuidv4 } = require("uuid");
 const clientKey = process.env.REACT_APP_CLIENTKEY;
 
 export default NiceModal.create(({ reserveData, courtData }) => {
+  console.log(courtData);
   useBodyOverflow("hidden");
   const modal = useModal();
   const [paymentMethod, setPaymentMethod] = useState("");
   const { price, amount, timeSlot, isMatch, courtName, courtId } = reserveData;
   const { easyPay } = paymentMethod;
+
+  console.log("reserveData", reserveData);
 
   const closedModal = () => {
     modal.remove();
@@ -27,7 +30,7 @@ export default NiceModal.create(({ reserveData, courtData }) => {
     amount: amount,
     orderId: orderId,
     orderName: courtName,
-    successUrl: `http://localhost:3000/success?courtId=${courtId}&isMatch=${isMatch}&timeSlot=${encodeURIComponent(
+    successUrl: `http://localhost:3000/success?courtId=${courtId}&isMatch=${isMatch}&amount=${amount}&timeSlot=${encodeURIComponent(
       timeSlot
     )}`,
     failUrl: "http://localhost:3000/fail",
@@ -58,7 +61,7 @@ export default NiceModal.create(({ reserveData, courtData }) => {
     const { name, value } = e.target;
     setPaymentMethod(prev => ({ ...prev, [name]: value }));
   };
-
+  if (!reserveData.price) return;
   return (
     <Container visible={modal.visible}>
       <Content>

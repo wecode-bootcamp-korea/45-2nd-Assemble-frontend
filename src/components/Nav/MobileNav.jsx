@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import NiceModal, { useModal } from "@ebay/nice-modal-react";
+import React from "react";
+import { useModal } from "@ebay/nice-modal-react";
 import MobileNavModal from "./MobileNavModal";
 import styled from "styled-components";
 
@@ -31,7 +31,6 @@ export default MobileNav;
 const MNavContainer = styled.div`
   width: 100%;
   padding: 16px 24px;
-  display: none;
 `;
 
 const MNavWrapper = styled.div`

@@ -9,21 +9,18 @@ import ModalBackgroundColor from "./DetailedFilter/ModalBackgroundColor";
 import { mainCourtListAtom } from "../../recoil/mainCourtListAtom";
 import { navFilterAtom, querySelector } from "../../recoil/navFilterAtom";
 import { DISTRICT_LIST, TIME_SLOT } from "./Data/local-data";
-
 const Nav = () => {
   const navigate = useNavigate();
   const [navFilter, setNavFilter] = useRecoilState(navFilterAtom);
   const { position, district, date, time } = navFilter;
   const setCourtList = useSetRecoilState(mainCourtListAtom);
   const queries = useRecoilValue(querySelector);
-
   const openFilterModal = positionNumber => {
     setNavFilter({
       ...navFilter,
       position: position === positionNumber ? -1 : positionNumber,
     });
   };
-
   const search = () => {
     setNavFilter({
       ...navFilter,
@@ -36,17 +33,15 @@ const Nav = () => {
       });
     navigate(`/`);
   };
-
   useEffect(() => {
     document.querySelector("body").style.overflow =
       position === 3 ? `hidden` : `scroll`;
   }, [position]);
-
   return (
     <Container>
       <FilterContainer>
         <FilterNode>
-          <SelectDistrict onClick={() => openFilterModal(0)}>
+          <SelectDistrict primary={position} onClick={() => openFilterModal(0)}>
             <p>장소</p>
             {district ? (
               <SelectedFont>
@@ -58,9 +53,8 @@ const Nav = () => {
           </SelectDistrict>
           <ModalBox>{position === 0 && <ModalOfNav />}</ModalBox>
         </FilterNode>
-
         <FilterNode>
-          <SelectDate onClick={() => openFilterModal(1)}>
+          <SelectDate primary={position} onClick={() => openFilterModal(1)}>
             <p>날짜</p>
             {date ? (
               <SelectedFont>
@@ -75,10 +69,9 @@ const Nav = () => {
           </SelectDate>
           <ModalBox>{position === 1 && <ModalOfNav />}</ModalBox>
         </FilterNode>
-
         <FilterNode>
           <SelectTimeArea>
-            <SelectTime onClick={() => openFilterModal(2)}>
+            <SelectTime primary={position} onClick={() => openFilterModal(2)}>
               <p>시간</p>
               {time ? (
                 <SelectedFont>
@@ -95,7 +88,6 @@ const Nav = () => {
           <ModalBox>{position === 2 && <ModalOfNav />}</ModalBox>
         </FilterNode>
       </FilterContainer>
-
       <DetailedFilterbutton onClick={() => openFilterModal(3)}>
         필터
       </DetailedFilterbutton>
@@ -108,9 +100,7 @@ const Nav = () => {
     </Container>
   );
 };
-
 export default Nav;
-
 const Container = styled.div`
   margin: 0 auto;
   max-width: 1280px;
@@ -123,7 +113,6 @@ const Container = styled.div`
     max-width: 550px;
   }
 `;
-
 const FilterContainer = styled.div`
   width: 840px;
   height: 66px;
@@ -135,14 +124,12 @@ const FilterContainer = styled.div`
     width: 100%;
   }
 `;
-
 const FilterNode = styled.div`
   position: relative;
   @media screen and (max-width: 950px) {
     width: 100%;
   }
 `;
-
 const Select = styled.div`
   position: relative;
   display: flex;
@@ -165,13 +152,13 @@ const Select = styled.div`
     width: 100%;
   }
 `;
-
 const SelectDistrict = styled(Select)`
+  background-color: ${props => props.primary === 0 && props.theme.lightGray};
   padding-left: 30px;
 `;
-
-const SelectDate = styled(Select)``;
-
+const SelectDate = styled(Select)`
+  background-color: ${props => props.primary === 1 && props.theme.lightGray};
+`;
 const SelectTimeArea = styled(Select)`
   padding: 0;
   flex-direction: row;
@@ -180,16 +167,16 @@ const SelectTimeArea = styled(Select)`
   position: relative;
 `;
 
-const SelectTime = styled(Select)``;
+const SelectTime = styled(Select)`
+  background-color: ${props => props.primary === 2 && props.theme.lightGray};
+`;
 
 const SelectedFont = styled.p`
   font-size: 15px;
 `;
-
 const UnSelectedFont = styled.p`
   color: ${props => props.theme.gray};
 `;
-
 const SearchIcon = styled.button`
   position: absolute;
   right: 10px;
@@ -202,7 +189,6 @@ const SearchIcon = styled.button`
     background-image: url(/images/Nav/searchiconhover.png);
   }
 `;
-
 const ModalBox = styled.div`
   position: absolute;
   top: 70px;
@@ -210,7 +196,6 @@ const ModalBox = styled.div`
   width: 100%;
   z-index: 10;
 `;
-
 const DetailedFilterbutton = styled.button`
   border: 1px solid ${props => props.theme.lightGray};
   padding: 10px 20px;

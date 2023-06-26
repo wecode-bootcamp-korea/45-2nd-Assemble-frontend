@@ -3,12 +3,11 @@ import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
 import { useMutateMe } from "../../service//mutation/useMutateMe";
 import { fadeIn, fadeOut } from "../../pages/Matching/components/animation";
-import { async } from "q";
-import ProductDetailPaymentModal from "../../pages/ProductDetails/components/ProductDetailPaymentModal";
+import JoinModal from "../../pages/Matching/JoinModal";
 
-export default NiceModal.create(({ reserveData, courtData }) => {
+export default NiceModal.create(({ data }) => {
   const { mutate } = useMutateMe();
-  console.log(courtData);
+  const joinModal = useModal(JoinModal);
 
   const [updateInfo, setUpdateInfo] = useState({
     name: "",
@@ -16,16 +15,9 @@ export default NiceModal.create(({ reserveData, courtData }) => {
     level: "",
   });
   const modal = useModal();
-  const paymentModal = useModal(ProductDetailPaymentModal);
 
   const closedModal = () => {
     modal.remove();
-  };
-
-  const handleResolve = async () => {
-    await updateUserInfo();
-    await paymentModal.show({ courtData: courtData, reserveData: reserveData });
-    await modal.remove();
   };
 
   const conditions = {
@@ -44,9 +36,8 @@ export default NiceModal.create(({ reserveData, courtData }) => {
   const updateUserInfo = () => {
     if (isAllfilled) {
       mutate(updateInfo);
-      modal.resolve();
       modal.remove();
-      paymentModal.show({ reserveData: reserveData, courtData: courtData });
+      joinModal.show({ data: data });
     } else {
       alert("추가 정보를 모두 기입해주세요");
     }
@@ -131,7 +122,12 @@ export default NiceModal.create(({ reserveData, courtData }) => {
               취소
             </LoginBtn>
 
-            <LoginBtn onClick={handleResolve} color="#89B922">
+            <LoginBtn
+              onClick={() => {
+                updateUserInfo();
+              }}
+              color="#89B922"
+            >
               완료
             </LoginBtn>
           </ConfirmButtons>
@@ -149,13 +145,12 @@ const Container = styled.div`
   right: 0;
   display: ${props => (props.visible ? "flex" : "none")};
   opacity: ${props => (props.visible ? 1 : 0)};
-
+  z-index: 779;
   background-color: rgba(40, 40, 40, 0.8);
   transition: opacity 0.5s ease;
   animation: ${props => (props.visible ? fadeIn : fadeOut)} 0.5s ease;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
 `;
 
 const Content = styled.div`
@@ -252,7 +247,6 @@ const UserInfoRadioWrapper = styled.div`
   width: 200px;
   display: flex;
   gap: 32px;
-
   label {
     display: flex;
     flex-direction: row;
@@ -263,14 +257,12 @@ const UserInfoRadioWrapper = styled.div`
     font-size: 14px;
     cursor: pointer;
   }
-
   & > label > input[type="radio"] {
     appearance: none;
     width: 15px;
     height: 15px;
     background-image: url("/images/CheckBox/unChecked.png");
   }
-
   [type="radio"]:checked {
     width: 15px;
     height: 15px;
@@ -278,7 +270,6 @@ const UserInfoRadioWrapper = styled.div`
     background-repeat: no-repeat;
     background-size: cover;
   }
-
   @media screen and (max-width: 550px) {
     width: 180px;
   }

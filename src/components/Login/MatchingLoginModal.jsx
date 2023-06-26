@@ -5,13 +5,14 @@ import { useAuth } from "../../hooks/useAuth";
 import useBodyOverflow from "../../hooks/useBodyOverflow";
 import { kakaoLogin } from "./kakaoLogin";
 import { fadeIn, fadeOut } from "../../pages/Matching/components/animation";
-import UserInfoModal from "./UserInfoModal";
+import MatchingUserInfoModal from "./MatchingUserInfoModal";
+import JoinModal from "../../pages/Matching/JoinModal";
 
-export default NiceModal.create(({ reserveData, matching, courtData }) => {
+export default NiceModal.create(({ data }) => {
   useBodyOverflow("hidden");
   const modal = useModal();
-
-  const userInfoModal = useModal(UserInfoModal);
+  const joinModal = useModal(JoinModal);
+  const matchingUserInfoModal = useModal(MatchingUserInfoModal);
   const { isAuthenticated, user } = useAuth();
   const checkUserInfo = () => {
     const { gender, name, level } = user;
@@ -29,13 +30,11 @@ export default NiceModal.create(({ reserveData, matching, courtData }) => {
     kakaoLogin();
   };
   const handleResolve = () => {
-    if (matching) {
-      if (checkUserInfo()) {
-        modal.resolve();
-      } else {
-        userInfoModal.show({ reserveData: reserveData, courtData: courtData });
-      }
+    if (checkUserInfo()) {
+      modal.resolve();
+      joinModal.show({ data: data });
     } else {
+      matchingUserInfoModal.show({ data: data });
       modal.resolve();
     }
     modal.remove();
@@ -85,13 +84,12 @@ const Container = styled.div`
   right: 0;
   display: ${props => (props.visible ? "flex" : "none")};
   opacity: ${props => (props.visible ? 1 : 0)};
-
+  z-index: 777;
   background-color: rgba(40, 40, 40, 0.8);
   transition: opacity 0.5s ease;
   animation: ${props => (props.visible ? fadeIn : fadeOut)} 0.5s ease;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
 `;
 
 const Content = styled.div`

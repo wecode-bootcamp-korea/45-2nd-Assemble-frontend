@@ -1,29 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useTimeSlot } from "../../../hooks/useTime";
 
 const ExpireReservationCard = ({ timeSlot, court, paymentStatus }) => {
   const { courtName, address, price, courtImage, courtId } = court;
   const navigate = useNavigate();
-
-  const date = new Date(timeSlot);
-  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const dayOfWeek = weekdays[date.getDay()];
-  const formattedDate = `${year}년 ${month}월 ${day}일 ${dayOfWeek}요일`;
-
-  const startTime = timeSlot.slice(11, 16);
-  const endTime = new Date(timeSlot);
-  endTime.setHours(endTime.getHours() + 1);
-  const formattedTime = `${startTime} ~ ${endTime
-    .getHours()
-    .toString()
-    .padStart(2, "0")}:00`;
+  const [formattedTime, formattedDate] = useTimeSlot(timeSlot);
 
   const goToCourt = () => {
-    navigate(`/court/courtId${courtId}`);
+    navigate(`/court?courtId=${courtId}&date=`);
   };
 
   return (
@@ -66,7 +52,7 @@ const Container = styled.div`
   &:hover {
     cursor: pointer;
     ${CardImg} {
-      filter: brightness(150%);
+      filter: brightness(70%);
     }
   }
 `;

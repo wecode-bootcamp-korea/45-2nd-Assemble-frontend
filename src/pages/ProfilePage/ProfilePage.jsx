@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ProfileInfoCard from "./components/ProfileInfoCard";
 import ExpireReservationCard from "./components/ExpireReservationCard";
+import MyPageLayout from "../../components/Layout/MyPageLayout";
 import { apiClient } from "../../utils";
 import { API } from "../../config";
 
@@ -12,6 +13,7 @@ const ProfilePage = () => {
     levelValue: "",
   });
   const [reservationList, setReservationList] = useState([]);
+  const [forReRendering, setForReRendering] = useState(false);
 
   const token = localStorage.getItem("accessToken");
   const config = {
@@ -20,21 +22,15 @@ const ProfilePage = () => {
     },
   };
 
-  const profileGetData = useCallback(async () => {
+  const profileGetData = async () => {
     const profileRes = await apiClient.get(`${API.GET_USER_API}`, config);
     const profileData = profileRes.data;
-    if (
-      profileData.name !== profileValue.nameValue ||
-      profileData.gender !== profileValue.genderValue ||
-      profileData.level !== profileValue.levelValue
-    ) {
-      setProfileValue({
-        nameValue: profileData.name,
-        genderValue: profileData.gender,
-        levelValue: profileData.level,
-      });
-    }
-  }, [profileValue]);
+    setProfileValue({
+      nameValue: profileData.name,
+      genderValue: profileData.gender,
+      levelValue: profileData.level,
+    });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,8 +38,8 @@ const ProfilePage = () => {
         `${API.GET_RESERVATION_API}?isExpired=1&isMatch=0`,
         config
       );
-
       const normalHostData = normalHostRes.data;
+
       const matchHostRes = await apiClient.get(
         `${API.GET_RESERVATION_API}?isExpired=1&isMatch=1`,
         config
@@ -69,41 +65,45 @@ const ProfilePage = () => {
     };
     profileGetData();
     fetchData();
-  }, []);
+    setForReRendering(false);
+  }, [forReRendering]);
 
   return (
-    <Container>
-      <section>
-        <FirstTitle>개인정보</FirstTitle>
-        <ProfileInfoBox>
-          {PROFILE_INFO_DATA.map(({ id, title, name }) => {
-            return (
-              <ProfileInfoCard
-                key={id}
-                name={name}
-                title={title}
-                value={profileValue[name]}
-                setProfileValue={setProfileValue}
-                profileValue={profileValue}
+    <MyPageLayout>
+      <Container>
+        <section>
+          <FirstTitle>개인정보</FirstTitle>
+          <ProfileInfoBox>
+            {PROFILE_INFO_DATA.map(({ id, title, name }) => {
+              return (
+                <ProfileInfoCard
+                  key={id}
+                  name={name}
+                  title={title}
+                  value={profileValue[name]}
+                  setProfileValue={setProfileValue}
+                  profileValue={profileValue}
+                  setForReRendering={setForReRendering}
+                />
+              );
+            })}
+          </ProfileInfoBox>
+        </section>
+        <section>
+          <SecondTitle>완료내역</SecondTitle>
+          <CompletionList>
+            {reservationList.map(item => (
+              <ExpireReservationCard
+                key={item.reservation.reservationId}
+                timeSlot={item.reservation.timeSlot}
+                paymentStatus={item.reservation.paymentStatus}
+                court={item.court}
               />
-            );
-          })}
-        </ProfileInfoBox>
-      </section>
-      <section>
-        <SecondTitle>완료내역</SecondTitle>
-        <CompletionList>
-          {reservationList.map(item => (
-            <ExpireReservationCard
-              key={item.reservation.reservationId}
-              timeSlot={item.reservation.timeSlot}
-              paymentStatus={item.reservation.paymentStatus}
-              court={item.court}
-            />
-          ))}
-        </CompletionList>
-      </section>
-    </Container>
+            ))}
+          </CompletionList>
+        </section>
+      </Container>
+    </MyPageLayout>
   );
 };
 
@@ -116,14 +116,17 @@ const PROFILE_INFO_DATA = [
 ];
 
 const Container = styled.div`
-  padding: 40px 0px;
+  padding: 40px 40px;
   max-width: 1280px;
   margin: 0 auto;
 `;
 
 const FirstTitle = styled.h1`
   font-size: 32px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  @media screen and (max-width: 750px) {
+    text-align: center;
+  }
 `;
 
 const ProfileInfoBox = styled.div`
@@ -131,10 +134,10 @@ const ProfileInfoBox = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 150px;
   grid-gap: 8px;
-  @media screen and (max-width: 852px) {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 150px;
-    grid-gap: 4px;
+  @media screen and (max-width: 750px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   @media screen and (max-width: 570px) {
     grid-template-columns: repeat(1, 1fr);
@@ -145,27 +148,30 @@ const ProfileInfoBox = styled.div`
 
 const SecondTitle = styled.h1`
   font-size: 32px;
-  margin: 40px 0 20px 0;
+  margin: 40px 0 40px 0;
+  @media screen and (max-width: 750px) {
+    text-align: center;
+  }
 `;
 
 const CompletionList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 460px;
+  grid-auto-rows: 440px;
   grid-gap: 32px;
   @media screen and (max-width: 928px) {
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 460px;
+    grid-auto-rows: 440px;
     grid-gap: 16px;
   }
-  @media screen and (max-width: 628px) {
+  @media screen and (max-width: 690px) {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 460px;
+    grid-auto-rows: 440px;
     grid-gap: 8px;
   }
-  @media screen and (max-width: 328px) {
+  @media screen and (max-width: 490px) {
     grid-template-columns: repeat(1, 1fr);
-    grid-auto-rows: 460px;
+    grid-auto-rows: 440px;
     grid-row-gap: 4px;
   }
 `;

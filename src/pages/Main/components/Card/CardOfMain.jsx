@@ -33,10 +33,9 @@ const CardImg = styled.img`
 `;
 
 const Container = styled.div`
-  max-width: 280px;
-  max-height: 430px;
   display: flex;
   flex-direction: column;
+  height: 100%;
   &:hover {
     ${CardImg} {
       filter: brightness(70%);
@@ -45,10 +44,14 @@ const Container = styled.div`
 `;
 
 const CardImgWrapper = styled.div`
-  width: 100%;
-  max-height: 300px;
+  width: 95%;
+  margin: 0 auto;
   flex: 1.2;
   padding-bottom: 16px;
+  position: relative;
+  @media screen and (max-width: 550px) {
+    width: 100%;
+  }
 `;
 
 const CourtLink = styled(Link)`

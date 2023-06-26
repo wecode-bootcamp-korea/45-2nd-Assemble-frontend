@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import ReservationCard from "./components/ReservationCard";
+import MyPageLayout from "../../components/Layout/MyPageLayout";
 import { apiClient } from "../../utils";
 import { API } from "../../config";
 
@@ -40,15 +41,27 @@ const ReservationStatusPage = () => {
 
         let typeSelect = [];
         if (currentTab === "일반") {
-          typeSelect = normalData.data;
+          typeSelect = normalData.data.sort(
+            (a, b) =>
+              new Date(a.reservation.timeSlot) -
+              new Date(b.reservation.timeSlot)
+          );
           searchParams.set("isExpired", "0");
           searchParams.set("isMatch", "0");
         } else if (currentTab === "매치(Host)") {
-          typeSelect = matchHostData.data;
+          typeSelect = matchHostData.data.sort(
+            (a, b) =>
+              new Date(a.reservation.timeSlot) -
+              new Date(b.reservation.timeSlot)
+          );
           searchParams.set("isExpired", "0");
           searchParams.set("isMatch", "1");
         } else if (currentTab === "매치(Guest)") {
-          typeSelect = matchGuestData.data;
+          typeSelect = matchGuestData.data.sort(
+            (a, b) =>
+              new Date(a.reservation.timeSlot) -
+              new Date(b.reservation.timeSlot)
+          );
           searchParams.delete("isMatch");
           searchParams.set("isExpired", "0");
         } else if (currentTab === "전체") {
@@ -75,25 +88,27 @@ const ReservationStatusPage = () => {
   }, [currentTab]);
 
   return (
-    <Container>
-      <Title>예약현황</Title>
-      <Tabs className="tabs">
-        {TAB_ARR.map(item => (
-          <Tab
-            key={item.id}
-            title={item.title}
-            onClick={() => setCurrentTab(item.title)}
-          >
-            {item.title}
-          </Tab>
-        ))}
-      </Tabs>
-      <ReservationList>
-        {reservationList.map(item => (
-          <ReservationCard key={item.reservation.reservationId} {...item} />
-        ))}
-      </ReservationList>
-    </Container>
+    <MyPageLayout>
+      <Container>
+        <Title>예약현황</Title>
+        <Tabs className="tabs">
+          {TAB_ARR.map(item => (
+            <Tab
+              key={item.id}
+              title={item.title}
+              onClick={() => setCurrentTab(item.title)}
+            >
+              {item.title}
+            </Tab>
+          ))}
+        </Tabs>
+        <ReservationList>
+          {reservationList.map(item => (
+            <ReservationCard key={item.reservation.reservationId} {...item} />
+          ))}
+        </ReservationList>
+      </Container>
+    </MyPageLayout>
   );
 };
 
@@ -107,14 +122,14 @@ const TAB_ARR = [
 ];
 
 const Container = styled.div`
-  padding: 40px 0px;
   max-width: 1280px;
   margin: 0 auto;
+  padding: 40px 0px;
 `;
 
 const Title = styled.h1`
-  font-size: 32px;
   margin: 40px 0 20px 0;
+  font-size: 32px;
 `;
 
 const Tabs = styled.ul`
@@ -178,9 +193,9 @@ const ReservationList = styled.div`
     grid-auto-rows: 450px;
     grid-gap: 4px;
   }
-  @media screen and (max-width: 360px) {
+  @media screen and (max-width: 420px) {
     grid-template-columns: repeat(1, 1fr);
-    grid-auto-rows: 500px;
-    grid-row-gap: 16px;
+    grid-auto-rows: 450px;
+    grid-row-gap: 2px;
   }
 `;

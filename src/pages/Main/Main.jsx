@@ -7,6 +7,7 @@ import Map from "./components/Map";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { mainCourtListAtom } from "../../recoil/mainCourtListAtom";
 import { querySelector } from "../../recoil/navFilterAtom";
+import MainLayout from "../../components/Layout/MainLayout";
 
 const Main = () => {
   const [courtList, setCourtList] = useRecoilState(mainCourtListAtom);
@@ -28,13 +29,19 @@ const Main = () => {
   }, []);
 
   return (
-    <div>
-      {mapPage ? <Map courtList={courtList} /> : <List courtList={courtList} />}
+    <MainLayout>
+      <div style={{ paddingTop: "40px" }}>
+        {mapPage ? (
+          <Map courtList={courtList} />
+        ) : (
+          <List courtList={courtList} />
+        )}
 
-      <ChangeScreenButton onClick={changePage}>
-        {mapPage ? `목록 보기` : `지도 표시하기`}
-      </ChangeScreenButton>
-    </div>
+        <ChangeScreenButton onClick={changePage}>
+          {mapPage ? `목록 보기` : `지도 표시하기`}
+        </ChangeScreenButton>
+      </div>
+    </MainLayout>
   );
 };
 

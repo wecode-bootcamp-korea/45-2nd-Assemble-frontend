@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
+import { apiClient } from "../../../utils";
 
-export default NiceModal.create(() => {
+export default NiceModal.create(({ fetchData }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewFile, setPreviewFile] = useState("");
+  const [courtInfo, setCourtInfo] = useState({
+    courtName: "",
+    address: "",
+    price: "",
+  });
 
   const modal = useModal();
   const closedModal = () => {
@@ -15,7 +21,6 @@ export default NiceModal.create(() => {
   const handleFileChange = event => {
     const files = event.target.files;
     setSelectedFile(files);
-
     const reader = new FileReader();
     reader.readAsDataURL(files[0]);
     reader.onloadend = () => {
@@ -23,7 +28,23 @@ export default NiceModal.create(() => {
     };
   };
 
-  const addCourt = () => {
+  const handleInfo = e => {
+    const { name, value } = e.target;
+    setCourtInfo({ ...courtInfo, [name]: value });
+  };
+
+  const addCourt = async () => {
+    const formData = new FormData();
+    formData.append("courtImage", selectedFile[0]);
+    formData.append("name", courtInfo.courtName);
+    formData.append("address", courtInfo.address);
+    formData.append("price", courtInfo.price);
+    try {
+      await apiClient.post(`http://10.58.52.234:3000/courts`, formData);
+    } catch (error) {
+      console.error("PATCH 요청 실패:", error);
+    }
+    fetchData();
     modal.remove();
     document.body.style.overflow = "unset";
   };
@@ -34,21 +55,36 @@ export default NiceModal.create(() => {
         <ClosedButton onClick={closedModal}>X</ClosedButton>
         <Content>
           <Title>등록하기</Title>
-          <ImgPreview src={previewFile} alt="프로필 이미지" />
+          <ImgPreview src={previewFile} alt="코트장 이미지를 추가해주세요" />
           <UploadInput
             type="file"
             accept="image/*"
             multiple
             onChange={handleFileChange}
           />
-          <LongTextInput type="text" placeholder="코트장명" />
+          <LongTextInput
+            type="text"
+            placeholder="코트장명"
+            name="courtName"
+            onChange={handleInfo}
+          />
           <InputArea>
             <TextInput type="text" placeholder="강북/강남" />
             <TextInput type="text" placeholder="자치구" />
           </InputArea>
-          <LongTextInput type="text" placeholder="주소" />
+          <LongTextInput
+            type="text"
+            placeholder="주소"
+            name="address"
+            onChange={handleInfo}
+          />
           <InputArea>
-            <TextInput type="text" placeholder="금액" />
+            <TextInput
+              type="text"
+              placeholder="금액"
+              name="price"
+              onChange={handleInfo}
+            />
             <TextInput type="text" placeholder="실내/실외" />
           </InputArea>
           <TypeArea>
@@ -146,18 +182,30 @@ const Container = styled.div`
 `;
 
 const ModalSection = styled.div`
-  background-color: #f1f1f1;
+  height: 800px;
   padding: 40px;
   border-radius: 16px;
+  background-color: #f1f1f1;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 15px;
+    border-radius: 20px;
+    background-color: white;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: ${props => props.theme.lightGray};
+  }
 `;
 
 const ClosedButton = styled.button`
-  padding: 5px;
-  border-radius: 50%;
-  border: 1px solid #d9d9d9;
   width: 30px;
-  font-size: ${props => props.theme.sm.fontSize};
+  padding: 5px;
+  border: 1px solid ${props => props.theme.lightGray};
+  border-radius: 50%;
   background-color: white;
+  font-size: ${props => props.theme.sm.fontSize};
 `;
 
 const Content = styled.div`
@@ -166,28 +214,27 @@ const Content = styled.div`
   align-items: center;
   gap: 12px;
   width: 450px;
-  overflow-y: scroll;
 `;
 
 const Title = styled.div`
-  font-size: ${props => props.theme["2xl"].fontSize};
   text-align: center;
   padding-bottom: 24px;
+  font-size: ${props => props.theme["2xl"].fontSize};
 `;
 
 const ImgPreview = styled.img`
-  /* width: 450px; */
-  /* height: 300px; */
-  border: 1px solid black;
+  width: 450px;
+  height: 300px;
+  background-color: ${props => (props.src ? "" : "lightGray")};
 `;
 
 const UploadInput = styled.input`
-  border: 1px solid black;
   width: 450px;
   height: 40px;
   padding: 7px 0 0 10px;
-  background-color: white;
+  border: 1px solid black;
   border-radius: 10px;
+  background-color: white;
 `;
 
 const InputArea = styled.div`
@@ -198,8 +245,9 @@ const InputArea = styled.div`
 const TextInput = styled.input`
   width: 220px;
   height: 40px;
-  border-radius: 10px;
   padding-left: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
 `;
 
 const LongTextInput = styled(TextInput)`
@@ -207,14 +255,14 @@ const LongTextInput = styled(TextInput)`
 `;
 
 const TypeArea = styled.div`
-  width: 450px;
-  height: 70px;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  width: 450px;
+  height: 70px;
   padding-top: 10px;
+  border: 1px solid black;
   border-radius: 10px;
   background-color: white;
 `;
@@ -222,50 +270,83 @@ const TypeArea = styled.div`
 const TypeValueArea = styled.div`
   display: flex;
   gap: 10px;
+
+  & > label > input[type="radio"] {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1px solid ${props => props.theme.green};
+    border-radius: 3px;
+  }
+
+  & > label > input[type="radio"]:checked {
+    width: 15px;
+    height: 15px;
+    background-image: url("/images/CheckBox/checked.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 `;
 
 const OptionArea = styled.div`
+  display: flex;
+  gap: 30px;
   width: 450px;
   height: 70px;
   padding: 0 25px;
+  border: 1px solid black;
   border-radius: 10px;
   background-color: white;
-  display: flex;
-  gap: 30px;
-  border: 1px solid black;
 `;
 
 const OptionValueArea = styled.div`
-  width: 100px;
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 10px;
+  width: 100px;
   padding-top: 10px;
+
+  & > div > label > input[type="radio"] {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1px solid ${props => props.theme.green};
+    border-radius: 3px;
+  }
+
+  & > div > label > input[type="radio"]:checked {
+    width: 15px;
+    height: 15px;
+    background-image: url("/images/CheckBox/checked.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 `;
 
 const OptionParkingArea = styled(OptionValueArea)`
+  width: 160px;
   border-left: 1px solid black;
   border-right: 1px solid black;
-  width: 160px;
 `;
 
 const DescriptionInput = styled.input`
   width: 450px;
   height: 100px;
-  border-radius: 10px;
-  margin-bottom: 20px;
   padding-left: 10px;
   padding-bottom: 50px;
+  margin-bottom: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
 `;
 
 const AddButton = styled.button`
-  background-color: #89b922;
-  color: white;
   width: 100px;
-  border-radius: 30px;
   height: 50px;
+  border-radius: 30px;
+  background-color: #89b922;
   font-size: 12px;
+  color: white;
   &:hover {
     background-color: #a1db26;
   }

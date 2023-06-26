@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-
 import ReserveCourtInfo from "./component/ReserveCourtInfo";
 import ProductChargeInfo from "./ProductChargeInfo";
 import SuccessPageButton from "./component/SuccessPageButton";
@@ -10,31 +9,24 @@ import SuccessPageButton from "./component/SuccessPageButton";
 const PaymentSuccess = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [reserveData, setReserveData] = useState(location.state);
-  const { isMatch, timeSlot, courtId } = reserveData; //paymentinprogress에서 state로 받기
+  const [data, setData] = useState(location.state);
+
+  const { isMatch, timeSlot, address, courtImage, price, courtId } = data; //paymentinprogress에서 state로 받기
   const [postButtonOn, setPostButtonOn] = useState(false);
-  const [courtData, setCourtData] = useState([]);
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/courts?courtId=${courtId}`)
-      .then(response => {
-        setCourtData(response.data);
-      });
-  }, []);
+
+  console.log("data", data);
 
   if (postButtonOn) {
-    navigate(isMatch ? "/reservationstatuspage" : "/");
+    navigate(Number(isMatch) === 1 ? "/reservationstatuspage" : "/");
   }
-  console.log("courtData", courtData[0]);
-
-  if (!courtData[0]) return console.log("nono");
+  if (!data.courtId) return;
   return (
     <PageBackground>
       <PaymentSuccessInfo>
         <Title>결제가 완료되었습니다.</Title>
         <Thanks>이용해 주셔서 감사합니다.</Thanks>
-        <ReserveCourtInfo courtData={courtData[0]} timeSlot={timeSlot} />
-        <ProductChargeInfo isMatch={isMatch} price={courtData[0].price} />
+        <ReserveCourtInfo courtData={data} timeSlot={timeSlot} />
+        <ProductChargeInfo isMatch={isMatch} price={price} />
         <SuccessPageButton
           isMatch={isMatch}
           postButtonOn={postButtonOn}

@@ -18,6 +18,7 @@ const SelectTime = () => {
               setNavFilter({
                 ...navFilter,
                 time: item.format === navFilter.time ? `` : item.format,
+                position: -1,
               })
             }
           >

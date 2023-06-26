@@ -4,29 +4,23 @@ import { addDays } from "date-fns";
 import { ko } from "date-fns/locale";
 import format from "date-fns/format";
 import { useRecoilState } from "recoil";
-import { navFilterAtom } from "../../../recoil/navFilterAtom";
+import { matchingNavFilterAtom } from "../../../recoil/matchingNavFilterAtom";
 
-const SelectDate = () => {
-  const [navFilte, setNavFilte] = useRecoilState(navFilterAtom);
+const SelectDateForMatcing = () => {
+  const [query, SetQuery] = useRecoilState(matchingNavFilterAtom);
 
+  const saveDate = item => {
+    SetQuery(format(item, "yyyy-MM-dd"));
+  };
   return (
     <ReactDatePicker
       locale={ko}
       dateFormat="yyyy-MM-dd"
-      selected={navFilte.date ? new Date(navFilte.date) : ``}
+      selected={query ? new Date(query) : ``}
       minDate={new Date()}
       maxDate={addDays(new Date(), 6)}
       showDisabledMonthNavigation
-      onChange={item =>
-        setNavFilte({
-          ...navFilte,
-          date:
-            format(item, "yyyy-MM-dd") === navFilte.date
-              ? ``
-              : format(item, "yyyy-MM-dd"),
-          position: -1,
-        })
-      }
+      onChange={saveDate}
       inline
     >
       <div>현재 날짜를 기준으로 6일후까지만 선택이 가능합니다.</div>
@@ -34,4 +28,4 @@ const SelectDate = () => {
   );
 };
 
-export default SelectDate;
+export default SelectDateForMatcing;
