@@ -8,6 +8,7 @@ import ProductImages from "./components/ProductImages";
 import ProductInfo from "./components/ProductInfo";
 import ProductLocation from "./components/ProductLocation";
 import ProductReserve from "./components/ProductReserve";
+import { dateFormat } from "../../utils/function";
 
 const ProductDetails = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,27 +18,21 @@ const ProductDetails = () => {
   const getDate = searchParams.get("date");
   const getTime = searchParams.get("time");
 
-  const dateFormat = date => {
-    if (!date) return;
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-
-    month = month >= 10 ? month : "0" + month;
-    day = day >= 10 ? day : "0" + day;
-
-    return date.getFullYear() + "-" + month + "-" + day;
-  };
-
   const [startDate, setStartDate] = useState(dateFormat(new Date()));
-  const dateForCourt = !getDate ? startDate : getDate;
-  useEffect(() => {
-    axios
-      .get(
+  // const dateForCourt = !getDate ? startDate : getDate; // 배포할 때는 필요없음
+  const dateForCourt = `2023-06-05`; // 배포할 때 고정값
+
+  const getCourtData = async ()  => {
+    await axios.get(
         `${process.env.REACT_APP_API_URL}/courts?courtId=${courtId}&dateForCourt=${dateForCourt}`
       )
       .then(response => {
         setCourtData(response.data);
       });
+  } 
+
+  useEffect(() => {
+    getCourtData();
   }, [startDate]);
 
   if (!courtData[0]) return;

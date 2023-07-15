@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import { addDays } from "date-fns";
 import { ko } from "date-fns/esm/locale";
 import { useProductPaymentProcess } from "../../../components/Payment/useProductPaymentProcess";
-
+import { dateFormat, timeFormat } from "../../../utils/function";
 import TimeTable from "./TimeTable";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,7 +14,7 @@ const ProductReserve = ({
   courtData,
   startDate,
   setStartDate,
-  dateForCourt,
+  dateForCourt, // 배포할 때는 필요없음
 }) => {
   const { detailPaymentProcess } = useProductPaymentProcess();
   const { price, timeSlots, courtName, courtId } = courtData;
@@ -22,7 +22,7 @@ const ProductReserve = ({
   const [isTime, setIsTime] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
-  const [inputValues, setInputValues] = useState("");
+  const [isMatched, setIsMatched] = useState("");
   const [reserveData, setReserveData] = useState({
     courtId: "",
     price: "",
@@ -32,19 +32,39 @@ const ProductReserve = ({
     amount: "",
   });
 
-  const handleInput = e => {
-    const { id, value } = e.target;
-    setInputValues({ [id]: value });
+  const newTimeObject = timeFormat(selectedTime);
+  const {startTime,endTime,formattedTime} = newTimeObject;
+
+  const changeDate = () => {
+    if (!selectedDate) return startDate;
+    if (selectedDate) return dateFormat(selectedDate);
   };
 
-  const matching = inputValues.matching;
-  const isMatch = matching ? 1 : 0;
+  const handleInputIsMatch = e => {
+    const { id, value } = e.target;
+    setIsMatched({ [id]: value });
+  };
+
+  const matching = isMatched.matching;
+  const isMatch = matching ? 1 : 0; // 서버로 보낼 때 true === 1 로 false === 0 으로 
   const taxPrice = Math.ceil(Number(price) * 1.14);
   const totalPrice = () => {
     return matching ? taxPrice / 2 : taxPrice;
   };
 
-  console.log("selectedTime", selectedTime);
+  const handleReserveButton = () => {
+    detailPaymentProcess(matching, reserveData, courtData);
+  };
+
+  const handleDateButton = e => {
+    setIsTime(false);
+    setIsDate(!isDate);
+  };
+
+  const handleTimeButton = e => {
+    setIsDate(false);
+    setIsTime(!isTime);
+  };
 
   useEffect(() => {
     setReserveData({
@@ -56,44 +76,6 @@ const ProductReserve = ({
       amount: totalPrice(),
     });
   }, [selectedTime, isMatch]);
-
-  const doReserve = () => {
-    detailPaymentProcess(matching, reserveData, courtData);
-  };
-
-  const dateButton = e => {
-    setIsTime(false);
-    setIsDate(!isDate);
-  };
-
-  const timeButton = e => {
-    setIsDate(false);
-    setIsTime(!isTime);
-  };
-
-  const startTime = selectedTime.slice(11, 16);
-  const endTime = new Date(selectedTime);
-  endTime.setHours(endTime.getHours() + 1);
-  const formattedTime = `${startTime} ~ ${endTime
-    .getHours()
-    .toString()
-    .padStart(2, "0")}:00`;
-
-  const dateFormat = date => {
-    if (!date) return;
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-
-    month = month >= 10 ? month : "0" + month;
-    day = day >= 10 ? day : "0" + day;
-
-    return date.getFullYear() + "-" + month + "-" + day;
-  };
-
-  const changeDate = () => {
-    if (!selectedDate) return dateForCourt;
-    if (selectedDate) return dateFormat(selectedDate);
-  };
 
   useEffect(() => {
     setStartDate(changeDate());
@@ -107,7 +89,7 @@ const ProductReserve = ({
       </CourtPrice>
       <SelectBox>
         <DateBox>
-          <DateButton onClick={dateButton}>
+          <DateButton onClick={handleDateButton}>
             <span>예약 날짜</span>
             <span>{changeDate()}</span>
           </DateButton>
@@ -131,7 +113,7 @@ const ProductReserve = ({
           )}
         </DateBox>
         <DateBox>
-          <TimeButton onClick={timeButton}>
+          <TimeButton onClick={handleTimeButton}>
             <span>예약 시간</span>
 
             {!startTime ? (
@@ -155,7 +137,7 @@ const ProductReserve = ({
               id="noMatching"
               name="isMatch"
               defaultChecked
-              onChange={handleInput}
+              onChange={handleInputIsMatch}
             />
             <label htmlFor="noMatching">파트너 매칭이 필요하지 않아요</label>
           </Box>
@@ -164,13 +146,13 @@ const ProductReserve = ({
               type="radio"
               id="matching"
               name="isMatch"
-              onChange={handleInput}
+              onChange={handleInputIsMatch}
             />
             <label htmlFor="matching">파트너 매칭이 필요해요</label>
           </Box>
         </MatchButton>
       </SelectBox>
-      <ReserveButton onClick={doReserve} disabled={!selectedTime}>
+      <ReserveButton onClick={handleReserveButton} disabled={!selectedTime}>
         예약하기
       </ReserveButton>
       <Notice>매칭을 희망하신 경우 이용 금액의 절반이 결제됩니다.</Notice>
