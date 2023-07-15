@@ -1,36 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import ReserveCourtInfo from "./component/ReserveCourtInfo";
 import ProductChargeInfo from "./ProductChargeInfo";
 import SuccessPageButton from "./component/SuccessPageButton";
 
+
 const PaymentSuccess = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const [data, setData] = useState(location.state);
 
-  const { isMatch, timeSlot, address, courtImage, price, courtId } = data; //paymentinprogress에서 state로 받기
-  const [postButtonOn, setPostButtonOn] = useState(false);
-
-  console.log("data", data);
-
-  if (postButtonOn) {
-    navigate(Number(isMatch) === 1 ? "/reservationstatuspage" : "/");
-  }
   if (!data.courtId) return;
+
   return (
     <PageBackground>
       <PaymentSuccessInfo>
         <Title>결제가 완료되었습니다.</Title>
         <Thanks>이용해 주셔서 감사합니다.</Thanks>
-        <ReserveCourtInfo courtData={data} timeSlot={timeSlot} />
-        <ProductChargeInfo isMatch={isMatch} price={price} />
+        <ReserveCourtInfo courtData={data}
+         />
+        <ProductChargeInfo courtData={data} />
         <SuccessPageButton
-          isMatch={isMatch}
-          postButtonOn={postButtonOn}
-          setPostButtonOn={setPostButtonOn}
+         courtData={data}
         />
       </PaymentSuccessInfo>
     </PageBackground>
