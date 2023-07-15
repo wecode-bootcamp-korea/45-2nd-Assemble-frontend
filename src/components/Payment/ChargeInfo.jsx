@@ -2,16 +2,16 @@ import React from "react";
 import styled from "styled-components";
 
 const ChargeInfo = ({ price }) => {
-  const PRICEN = price / 2;
-  const SERVICE_FEE = PRICEN * 0.14;
-  const SUBTOTAL = PRICEN + SERVICE_FEE;
+  const MATCHED_PRICE = price / 2;
+  const SERVICE_FEE = MATCHED_PRICE * 0.14;
+  const SUBTOTAL = MATCHED_PRICE + SERVICE_FEE;
   return (
     <PaymentInfo>
       <PaymentInfoTitle successPage>요금 세부정보</PaymentInfoTitle>
       <ChargeFee>
         <PaymentDetail>
-          <div>{`${PRICEN.toLocaleString()} 원 x 1 시간`}</div>
-          <div>{`${PRICEN.toLocaleString()} 원`}</div>
+          <div>{`${MATCHED_PRICE.toLocaleString()} 원 x 1 시간`}</div>
+          <div>{`${MATCHED_PRICE.toLocaleString()} 원`}</div>
         </PaymentDetail>
         <PaymentDetail>
           <div>프레너미 서비스 수수료</div>

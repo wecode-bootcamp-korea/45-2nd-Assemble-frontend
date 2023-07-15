@@ -3,13 +3,10 @@ import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
 import { useMutateMe } from "../../service//mutation/useMutateMe";
 import { fadeIn, fadeOut } from "../../pages/Matching/components/animation";
-import { async } from "q";
 import ProductDetailPaymentModal from "../../pages/ProductDetails/components/ProductDetailPaymentModal";
 
 export default NiceModal.create(({ reserveData, courtData }) => {
   const { mutate } = useMutateMe();
-  console.log(courtData);
-
   const [updateInfo, setUpdateInfo] = useState({
     name: "",
     gender: "",
@@ -34,7 +31,7 @@ export default NiceModal.create(({ reserveData, courtData }) => {
     level: updateInfo.level,
   };
 
-  const isAllfilled = Object.values(conditions).every(value => value !== "");
+  const isAllFilled = Object.values(conditions).every(value => value !== "");
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -42,7 +39,7 @@ export default NiceModal.create(({ reserveData, courtData }) => {
   };
 
   const updateUserInfo = () => {
-    if (isAllfilled) {
+    if (isAllFilled) {
       mutate(updateInfo);
       modal.resolve();
       modal.remove();
