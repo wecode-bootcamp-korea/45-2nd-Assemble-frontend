@@ -1,22 +1,30 @@
-import React from "react";
+import { React, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const SuccessPageButton = ({ isMatch, setPostButtonOn }) => {
-  const isMatchN = Number(isMatch);
+const SuccessPageButton = ({ courtData }) => {
+  const {isMatch} = courtData;
+  const matchedSuccess = 1;
   const matched = SUCCESS_PAGE_BUTTON[0];
   const unMatched = SUCCESS_PAGE_BUTTON[1];
+  const [postButtonOn, setPostButtonOn] = useState(false);
+  const navigate = useNavigate();
+
+    if (postButtonOn) {
+    navigate(isMatch === matchedSuccess ? "/reservationstatuspage" : "/");
+  }
 
   return (
     <ButtonLayout>
       <IsMatching>
-        {isMatchN === 1 ? matched.message : unMatched.message}
+        {isMatch === matchedSuccess ? matched.message : unMatched.message}
       </IsMatching>
       <GoToMain
         onClick={() => {
           setPostButtonOn(prev => !prev);
         }}
       >
-        {isMatchN === 1 ? matched.buttonName : unMatched.buttonName}
+        {isMatch === matchedSuccess ? matched.buttonName : unMatched.buttonName}
       </GoToMain>
     </ButtonLayout>
   );

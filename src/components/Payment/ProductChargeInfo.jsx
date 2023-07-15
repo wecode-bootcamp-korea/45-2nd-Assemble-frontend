@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-const ProductChargeInfo = ({ price, isMatch }) => {
+const ProductChargeInfo = ({ courtData }) => {
+  const { isMatch, price } = courtData;
   const priceN = Number(price);
-  const isMatchN = Number(isMatch);
   const SERVICE_FEE = priceN * 0.14;
   const SUBTOTAL = priceN + SERVICE_FEE;
   const MATCHED_FEE = priceN / 2;
   const MATCHED_SERVICE_FEE = MATCHED_FEE * 0.14;
   const MATCHED_TOTAL = (priceN / 2) * 1.14;
+  const matchedSuccess = 1;
 
   return (
     <PaymentInfo>
@@ -18,7 +19,7 @@ const ProductChargeInfo = ({ price, isMatch }) => {
           <div>기본 결제 금액</div>
           <div>{`${priceN.toLocaleString()} 원`}</div>
         </PaymentDetail>
-        {isMatchN === 1 ? (
+        {isMatch === matchedSuccess ? (
           <PaymentDetail>
             <div>파트너와 더치페이 금액</div>
             <div>{`${MATCHED_FEE.toLocaleString()} 원`}</div>
@@ -29,14 +30,14 @@ const ProductChargeInfo = ({ price, isMatch }) => {
         <PaymentDetail>
           <div>프레너미 서비스 수수료</div>
           <div>
-            {isMatchN === 1
+            {isMatch === matchedSuccess
               ? `${MATCHED_SERVICE_FEE.toLocaleString()} 원`
               : `${SERVICE_FEE.toLocaleString()} 원`}
           </div>
         </PaymentDetail>
         <PaymentDetail>
           <div>총 합계</div>
-          {isMatchN === 1 ? (
+          {isMatch === matchedSuccess ? (
             <div>{`${MATCHED_TOTAL.toLocaleString()} 원`}</div>
           ) : (
             <div>{`${SUBTOTAL.toLocaleString()} 원`}</div>

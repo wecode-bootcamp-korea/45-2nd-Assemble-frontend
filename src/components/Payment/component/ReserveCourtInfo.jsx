@@ -1,8 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { timeFormat } from "../../../utils/function";
 
-const ReserveCourtInfo = ({ courtData, timeSlot }) => {
-  const { courtName, address, courtImage } = courtData;
+const ReserveCourtInfo = ({ courtData }) => {
+  const { courtName, address, courtImage, timeSlot } = courtData;
+  const newTimeObject = timeFormat(timeSlot);
+  const {formattedTime} = newTimeObject;
+  const dateOnly = timeSlot.slice(0, 10);
+
   return (
     <BackgroundBox>
       <Title> 예약 정보</Title>
@@ -18,7 +23,7 @@ const ReserveCourtInfo = ({ courtData, timeSlot }) => {
         </Location>
         <ReserveTime>
           <SubTitle>예약 시간</SubTitle>
-          <p>{timeSlot}</p>
+          <p>{dateOnly} / {formattedTime}</p>
         </ReserveTime>
       </ReserveCourtInfoBox>
     </BackgroundBox>

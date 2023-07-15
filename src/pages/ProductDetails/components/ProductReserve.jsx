@@ -162,7 +162,7 @@ const ProductReserve = ({
           총 결제 금액
           <PayInfo />
         </span>
-        <span>{totalPrice()}원</span>
+        <span>{totalPrice().toLocaleString()}원</span>
       </TotalPrice>
     </Flex>
   );
