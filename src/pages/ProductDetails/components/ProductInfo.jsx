@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 const ProductInfo = ({ courtData }) => {
   const {
@@ -12,15 +12,23 @@ const ProductInfo = ({ courtData }) => {
     isIndoor,
   } = courtData;
 
-  const arr = [];
-  if (rentalEquip === 1) arr.push(1);
-  if (showerFacility === 1) arr.push(2);
-  if (amenities === 1) arr.push(3);
+  const facilityArr = [];
+  const facilityTrue = 1;
+  const indoor = 1;
+  const noParking = 3;
+
+  const rentalEquipId = "rentalEquipId";
+  const showerFacilityId = "showerFacilityId";
+  const amenitiesId = "amenitiesId";
+
+  if (rentalEquip === facilityTrue) facilityArr.push(rentalEquipId);
+  if (showerFacility === facilityTrue) facilityArr.push(showerFacilityId);
+  if (amenities === facilityTrue) facilityArr.push(amenitiesId);
 
   const infoMessage = {
-    1: { img: "장비 대여", msg: "장비 대여 서비스를 이용하실 수 있습니다." },
-    2: { img: "샤워실", msg: "샤워실을 이용하실 수 있습니다." },
-    3: { img: "편의 시설", msg: "시설 내에 기타 편의시설이 있습니다." },
+    rentalEquipId: { img: "장비 대여", msg: "장비 대여 서비스를 이용하실 수 있습니다." },
+    showerFacilityId: { img: "샤워실", msg: "샤워실을 이용하실 수 있습니다." },
+    amenitiesId: { img: "편의 시설", msg: "시설 내에 기타 편의시설이 있습니다." },
   };
 
   return (
@@ -33,13 +41,13 @@ const ProductInfo = ({ courtData }) => {
         <BoxFlex>
           <Point>
             <img src="/images/ProductDetail/실외 코트.png" />
-            <span>{isIndoor === 1 ? "실내" : "실외"} 코트</span>
+            <span>{isIndoor === indoor ? "실내" : "실외"} 코트</span>
           </Point>
           <Point>
             <img src="/images/ProductDetail/클레이 코트.png" />
             <span>{type}</span>
           </Point>
-          {parking !== 3 && (
+          {parking !== noParking && (
             <Point>
               <img src="/images/ProductDetail/주차장.png" />
               <span>{parking}</span>
@@ -48,7 +56,7 @@ const ProductInfo = ({ courtData }) => {
         </BoxFlex>
       </CheckPoint>
       <Details>
-        {arr.map(id => {
+        {facilityArr.map(id => {
           return (
             <Detail>
               <img src={`/images/ProductDetail/${infoMessage[id].img}.png`} />

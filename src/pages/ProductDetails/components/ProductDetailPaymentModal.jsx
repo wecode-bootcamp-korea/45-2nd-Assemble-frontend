@@ -13,14 +13,11 @@ const { v4: uuidv4 } = require("uuid");
 const clientKey = process.env.REACT_APP_CLIENTKEY;
 
 export default NiceModal.create(({ reserveData, courtData }) => {
-  console.log(courtData);
   useBodyOverflow("hidden");
   const modal = useModal();
   const [paymentMethod, setPaymentMethod] = useState("");
   const { price, amount, timeSlot, isMatch, courtName, courtId } = reserveData;
   const { easyPay } = paymentMethod;
-
-  console.log("reserveData", reserveData);
 
   const closedModal = () => {
     modal.remove();
@@ -57,7 +54,7 @@ export default NiceModal.create(({ reserveData, courtData }) => {
         });
     });
   };
-  const handleChange = e => {
+  const handleChangePaymentMethod = e => {
     const { name, value } = e.target;
     setPaymentMethod(prev => ({ ...prev, [name]: value }));
   };
@@ -79,7 +76,7 @@ export default NiceModal.create(({ reserveData, courtData }) => {
                 type="radio"
                 name="easyPay"
                 value="토스페이"
-                onChange={handleChange}
+                onChange={handleChangePaymentMethod}
               />
               토스페이
             </PaymentMethod>
@@ -89,7 +86,7 @@ export default NiceModal.create(({ reserveData, courtData }) => {
                 readOnly
                 name="easyPay"
                 value="가상계좌"
-                onChange={handleChange}
+                onChange={handleChangePaymentMethod}
               />
               가상계좌
             </PaymentMethod>
