@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { timeFormat } from "../../../utils/function";
 
 const TimeTable = ({ time, setSelectedTime }) => {
   const getTime = e => {
@@ -10,13 +11,8 @@ const TimeTable = ({ time, setSelectedTime }) => {
     <TimeTableBox>
       {time.map(data => {
         const timeSlot = data.timeSlot;
-        const startTime = timeSlot.slice(11, 16);
-        const endTime = new Date(timeSlot);
-        endTime.setHours(endTime.getHours() + 1);
-        const formattedTime = `${startTime} ~ ${endTime
-          .getHours()
-          .toString()
-          .padStart(2, "0")}:00`;
+        const newTimeObject = timeFormat(timeSlot);
+        const {startTime,endTime,formattedTime} = newTimeObject;
         return (
           <TimeButton
             onClick={getTime}
