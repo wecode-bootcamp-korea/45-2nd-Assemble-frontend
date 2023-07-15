@@ -36,7 +36,6 @@ const PaymentInProgress = () => {
       orderId: orderId,
       timeSlot: timeSlot,
     };
-    console.log("paymentReserveDetails", paymentReserveDetails);
 
     const completeMatchingPayment = async () => {
       const res = await mutateAsync(paymentDetails);
@@ -68,9 +67,7 @@ const PaymentInProgress = () => {
           { headers: { Authorization: Token } }
         )
         .then(res => {
-          console.log(res.data);
           const item = res.data.reservation;
-          console.log("item", item);
           const { court, isMatch, timeSlot } = item;
           const { courtImages, courtName, price, address, courtId } = court;
           const courtImageObj = courtImages[0];

@@ -33,7 +33,7 @@ export const useProductPaymentProcess = () => {
           reserveData: reserveData,
           courtData: courtData,
         });
-        await userInfoModal.remove();
+          userInfoModal.remove();
         // }
       } else {
         //로그인 했을 때
@@ -57,7 +57,7 @@ export const useProductPaymentProcess = () => {
               courtData: courtData,
               reserveData: reserveData,
             });
-            await userInfoModal.remove();
+              userInfoModal.remove();
             await paymentModal.show({
               reserveData: reserveData,
               courtData: courtData,
