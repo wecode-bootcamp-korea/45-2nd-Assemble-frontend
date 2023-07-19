@@ -9,6 +9,7 @@ import ProductInfo from "./components/ProductInfo";
 import ProductLocation from "./components/ProductLocation";
 import ProductReserve from "./components/ProductReserve";
 import { dateFormat } from "../../utils/function";
+import MobileNav from "../../components/Nav/MobileNav";
 
 const ProductDetails = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -40,6 +41,7 @@ const ProductDetails = () => {
   return (
     <MainLayout>
       <Background>
+        <MobileNav />
         <ProductWrapper>
           <ProductTitle courtData={courtData[0]} />
           <ProductImages courtData={courtData[0]} />
@@ -63,9 +65,16 @@ export default ProductDetails;
 
 const Background = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   padding-bottom: 100px;
+
+    @media screen and (min-width: 551px) {
+    > :first-child {
+      display: none;
+    }
+  }
+
 `;
 
 const ProductWrapper = styled.div`
