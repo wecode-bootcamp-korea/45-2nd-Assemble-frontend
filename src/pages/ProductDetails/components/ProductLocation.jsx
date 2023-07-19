@@ -3,12 +3,11 @@ import styled from "styled-components";
 import KakaoMap from "./KakaoMap";
 
 const ProductLocation = ({ courtData }) => {
-  const { address, longitude, latitude } = courtData;
-
+  const { address } = courtData;
   return (
     <Flex>
       <Title>지도보기</Title>
-      <KakaoMap longitude={longitude} latitude={latitude} />
+      <KakaoMap courtData={courtData} />
       <Location>{address}</Location>
     </Flex>
   );
