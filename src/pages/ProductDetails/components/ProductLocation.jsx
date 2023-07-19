@@ -3,7 +3,8 @@ import styled from "styled-components";
 import KakaoMap from "./KakaoMap";
 
 const ProductLocation = ({ courtData }) => {
-  const { address } = courtData;
+  const { address } = courtData[0];
+  console.log(address);
   return (
     <Flex>
       <Title>지도보기</Title>
@@ -18,7 +19,7 @@ export default ProductLocation;
 const Flex = styled.div`
   width: 100%;
   height: 100%;
-  margin-top: 150px;
+  margin-top: 100px;
 
   @media screen and (max-width: 1280px) {
     width: 70%;

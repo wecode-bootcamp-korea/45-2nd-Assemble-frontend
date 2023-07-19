@@ -45,14 +45,16 @@ const KakaoMap = ({ courtData }) => {
       image: markerImage,
     });
 
+    let content = `<div style=" padding: 10px; width:auto; color:white; background:#89B922; border-radius:5px; border:1px solid white; box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);">${courtName}</div>`
 
-
-
-    let infowindow = new kakao.maps.InfoWindow({
-      content: `${courtName}`,
+    let customOverlay = new kakao.maps.CustomOverlay({
+      map: map,
+      content: content,
+      position: coords,
+			xAnchor: 0.5, 
+			yAnchor: 2.9 
     });
 
-    infowindow.open(map, marker);
 
     map.setCenter(coords);
   }, [windowSize]);
