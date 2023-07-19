@@ -4,7 +4,6 @@ import KakaoMap from "./KakaoMap";
 
 const ProductLocation = ({ courtData }) => {
   const { address } = courtData[0];
-  console.log(address);
   return (
     <Flex>
       <Title>지도보기</Title>
