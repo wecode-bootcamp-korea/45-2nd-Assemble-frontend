@@ -112,6 +112,9 @@ const Container = styled.div`
   @media screen and (max-width: 950px) {
     max-width: 550px;
   }
+    @media screen and (max-width: 550px) {
+    display: none;
+  }
 `;
 const FilterContainer = styled.div`
   width: 840px;
@@ -120,10 +123,8 @@ const FilterContainer = styled.div`
   border-radius: 50px;
   display: flex;
   align-items: center;
-  @media screen and (max-width: 950px) {
-    width: 100%;
-  }
 `;
+
 const FilterNode = styled.div`
   position: relative;
   @media screen and (max-width: 950px) {
