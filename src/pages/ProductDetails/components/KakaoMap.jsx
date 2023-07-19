@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 const { kakao } = window;
 
-const KakaoMap = ({ longitude, latitude }) => {
+const KakaoMap = ({ courtData }) => {
+  const {latitude, longitude, courtName} = courtData[0];
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -44,8 +45,11 @@ const KakaoMap = ({ longitude, latitude }) => {
       image: markerImage,
     });
 
+
+
+
     let infowindow = new kakao.maps.InfoWindow({
-      content: `얍!`,
+      content: `${courtName}`,
     });
 
     infowindow.open(map, marker);
@@ -63,3 +67,8 @@ const Location = styled.div`
   height: 40vw;
   border: 1px solid black;
 `;
+
+const LocationName = styled.div`
+  width: auto;
+  height: auto;
+`
