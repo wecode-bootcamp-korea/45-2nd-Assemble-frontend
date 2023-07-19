@@ -3,7 +3,7 @@ import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
 import { useMutateMe } from "../../service//mutation/useMutateMe";
 import { fadeIn, fadeOut } from "../../pages/Matching/components/animation";
-import ProductDetailPaymentModal from "../../pages/ProductDetails/components/ProductDetailPaymentModal";
+import ProductDetailPaymentModal from "../Payment/ProductDetailPaymentModal";
 
 export default NiceModal.create(({ reserveData, courtData }) => {
   const { mutate } = useMutateMe();

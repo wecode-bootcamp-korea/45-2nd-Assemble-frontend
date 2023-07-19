@@ -24,7 +24,7 @@ const ProfileButton = ({ user }) => {
         />
         <ProfileImg
           user={user}
-          src={user.level && `images/Level${user.level}.png`}
+          src={user.level ? `images/Level${user.level}.png` : `images/logo2.png`}
         />
       </ProfileMenuButton>
       {isOpenMenu && (

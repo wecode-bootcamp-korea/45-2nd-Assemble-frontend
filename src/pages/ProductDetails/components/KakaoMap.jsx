@@ -55,7 +55,6 @@ const KakaoMap = ({ courtData }) => {
 			yAnchor: 2.9 
     });
 
-
     map.setCenter(coords);
   }, [windowSize]);
 

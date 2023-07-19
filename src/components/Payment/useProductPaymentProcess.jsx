@@ -1,5 +1,5 @@
 import { useModal } from "@ebay/nice-modal-react";
-import ProductDetailPaymentModal from "../../pages/ProductDetails/components/ProductDetailPaymentModal";
+import ProductDetailPaymentModal from "./ProductDetailPaymentModal";
 import LoginModal from "../Login/LoginModal";
 import UserInfoModal from "../Login/UserInfoModal";
 import { useAuth } from "../../hooks/useAuth";

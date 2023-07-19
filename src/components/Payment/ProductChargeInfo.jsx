@@ -2,7 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 const ProductChargeInfo = ({ courtData }) => {
-  const { isMatch, price } = courtData;
+  if(!courtData) return;
+  const { isMatch, price } =  courtData;
+
   const priceN = Number(price);
   const SERVICE_FEE = priceN * 0.14;
   const SUBTOTAL = priceN + SERVICE_FEE;

@@ -69,14 +69,14 @@ const PaymentInProgress = () => {
         .then(res => {
           const item = res.data.reservation;
           const { court, isMatch, timeSlot } = item;
-          const { courtImages, courtName, price, address, courtId } = court;
+          const { courtImages, name, price, address, courtId } = court;
           const courtImageObj = courtImages[0];
           const { courtImage } = courtImageObj;
 
           const ReserveDetails = {
             courtId: courtId,
             courtImage: courtImage,
-            courtName: courtName,
+            courtName: name,
             price: price,
             isMatch: isMatch,
             timeSlot: timeSlot,
