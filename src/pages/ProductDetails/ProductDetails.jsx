@@ -66,7 +66,7 @@ export default ProductDetails;
 const Background = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
   padding-bottom: 100px;
 
     @media screen and (min-width: 551px) {
