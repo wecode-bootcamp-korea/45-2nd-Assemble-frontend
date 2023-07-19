@@ -9,8 +9,7 @@ import SuccessPageButton from "./component/SuccessPageButton";
 const PaymentSuccess = () => {
   const location = useLocation();
   const [data, setData] = useState(location.state);
-
-  if (!data.courtId) return;
+  if (!data) return;
 
   return (
     <PageBackground>

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import styled from "styled-components";
-import useBodyOverflow from "../../../hooks/useBodyOverflow";
-import MatchingButton from "../../Matching/components/MatchingButton";
-import CardForModal from "../../../components/Card/CardForModal";
-import ProductChargeInfo from "../../../components/Payment/ProductChargeInfo";
-import { fadeIn, fadeOut } from "../../Matching/components/animation";
+import useBodyOverflow from "../../hooks/useBodyOverflow";
+import MatchingButton from "../../pages/Matching/components/MatchingButton";
+import CardForModal from "../Card/CardForModal";
+import ProductChargeInfo from "./ProductChargeInfo";
+import { fadeIn, fadeOut } from "../../pages/Matching/components/animation";
 import { loadTossPayments } from "@tosspayments/payment-sdk";
 
 const { v4: uuidv4 } = require("uuid");
@@ -27,10 +27,10 @@ export default NiceModal.create(({ reserveData, courtData }) => {
     amount: amount,
     orderId: orderId,
     orderName: courtName,
-    successUrl: `http://localhost:3000/success?courtId=${courtId}&isMatch=${isMatch}&amount=${amount}&timeSlot=${encodeURIComponent(
+    successUrl: `${process.env.REACT_APP_BASE_URL}/success?courtId=${courtId}&isMatch=${isMatch}&amount=${amount}&timeSlot=${encodeURIComponent(
       timeSlot
     )}`,
-    failUrl: "http://localhost:3000/fail",
+    failUrl: `${process.env.REACT_APP_BASE_URL}/fail`,
     flowMode: "DIRECT",
     easyPay: easyPay,
   };
@@ -67,7 +67,7 @@ export default NiceModal.create(({ reserveData, courtData }) => {
         <Location>
           <CardForModal courtInfo={courtData} timeSlot={timeSlot} />
         </Location>
-        <ProductChargeInfo price={Number(price)} isMatch={isMatch} />
+        <ProductChargeInfo courtData={reserveData} />
         <PaymentMethodContainer>
           <PaymentMethodTitle>결제 수단</PaymentMethodTitle>
           <PaymentMethods>
