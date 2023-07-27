@@ -33,7 +33,7 @@ const ProductReserve = ({
   });
 
   const newTimeObject = timeFormat(selectedTime);
-  const {startTime,endTime,formattedTime} = newTimeObject;
+  const {startTime,formattedTime} = newTimeObject;
 
   const changeDate = () => {
     if (!selectedDate) return startDate;

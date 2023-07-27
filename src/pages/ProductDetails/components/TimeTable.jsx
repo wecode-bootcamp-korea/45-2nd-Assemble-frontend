@@ -12,7 +12,7 @@ const TimeTable = ({ time, setSelectedTime }) => {
       {time.map(data => {
         const timeSlot = data.timeSlot;
         const newTimeObject = timeFormat(timeSlot);
-        const {startTime,endTime,formattedTime} = newTimeObject;
+        const {formattedTime} = newTimeObject;
         return (
           <TimeButton
             onClick={getTime}
