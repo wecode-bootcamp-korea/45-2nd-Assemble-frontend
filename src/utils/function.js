@@ -1,21 +1,16 @@
 export const timeFormat = (data) => {
   const startTime = data.slice(11, 16);
-  const endTime = new Date(data);
-  endTime.setHours(endTime.getHours() + 1);
-  const formattedTime = `${startTime} ~ ${endTime
-    .getHours()
-    .toString()
-    .padStart(2, "0")}:00`;
+  const fullTimeData = new Date(data);
+  const endTime = fullTimeData.getHours() + 1;
+  const formattedTime = `${startTime} ~ ${endTime}:00`;
 
-    return {"startTime":startTime,
-    "endTime":endTime
-    ,"formattedTime":formattedTime,
+  return {
+    "startTime":startTime,
+    "formattedTime":formattedTime,
   }
-
 }
 
 export const dateFormat = date => {
-    if (!date) return;
     let month = date.getMonth() + 1;
     let day = date.getDate();
 
