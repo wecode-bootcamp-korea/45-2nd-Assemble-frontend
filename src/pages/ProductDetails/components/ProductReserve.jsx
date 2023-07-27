@@ -46,7 +46,7 @@ const ProductReserve = ({
   };
 
   const matching = isMatched.matching;
-  const isMatch = matching ? 1 : 0; // 서버로 보낼 때 true === 1 로 false === 0 으로 
+  const isMatch = matching ? 1 : 0; // 서버로 보낼 때 true는 1 로 false는 0 으로 
   const taxPrice = Math.ceil(Number(price) * 1.14);
   const totalPrice = () => {
     return matching ? taxPrice / 2 : taxPrice;

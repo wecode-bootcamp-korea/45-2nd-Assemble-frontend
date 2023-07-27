@@ -15,7 +15,7 @@ const ProductChargeInfo = ({ courtData }) => {
 
   return (
     <PaymentInfo>
-      <PaymentInfoTitle successPage>요금 세부정보</PaymentInfoTitle>
+      <PaymentInfoTitle>요금 세부정보</PaymentInfoTitle>
       <ChargeFee>
         <PaymentDetail>
           <div>기본 결제 금액</div>
@@ -72,8 +72,7 @@ const PaymentInfo = styled.div`
 `;
 
 const PaymentInfoTitle = styled.div`
-  font-size: ${props =>
-    props.successPage ? props.theme.base.fontSize : props.theme.xl.fontSize};
+  font-size: ${props => props.theme.base.fontSize};
 
   @media screen and (max-width: 440px) {
     font-size: ${props => props.theme.base.fontSize};

@@ -3,12 +3,12 @@ import styled from "styled-components";
 const { kakao } = window;
 
 const KakaoMap = ({ courtData }) => {
-  const {latitude, longitude, courtName} = courtData[0];
+  const {latitude, longitude, courtName} = courtData;
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleWindowResize = () => {
-      setWindowSize(window.innerWidth);
+      setWindowSize(window.innerWidth); 
     };
 
     window.addEventListener("resize", handleWindowResize);

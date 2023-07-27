@@ -54,7 +54,7 @@ const ProductDetails = () => {
               setStartDate={setStartDate}
             />
           </ContentsFlex>
-          <ProductLocation courtData={courtData} />
+          <ProductLocation courtData={courtData[0]} />
         </ProductWrapper>
       </Background>
     </MainLayout>

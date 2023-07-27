@@ -7,7 +7,7 @@ const ChargeInfo = ({ price }) => {
   const SUBTOTAL = MATCHED_PRICE + SERVICE_FEE;
   return (
     <PaymentInfo>
-      <PaymentInfoTitle successPage>요금 세부정보</PaymentInfoTitle>
+      <PaymentInfoTitle >요금 세부정보</PaymentInfoTitle>
       <ChargeFee>
         <PaymentDetail>
           <div>{`${MATCHED_PRICE.toLocaleString()} 원 x 1 시간`}</div>
@@ -48,8 +48,7 @@ const PaymentInfo = styled.div`
 `;
 
 const PaymentInfoTitle = styled.div`
-  font-size: ${props =>
-    props.successPage ? props.theme.base.fontSize : props.theme.xl.fontSize};
+  font-size: ${props => props.theme.xl.fontSize};
 
   @media screen and (max-width: 440px) {
     font-size: ${props => props.theme.base.fontSize};

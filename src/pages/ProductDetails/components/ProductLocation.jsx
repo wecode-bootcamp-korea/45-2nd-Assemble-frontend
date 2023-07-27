@@ -3,7 +3,7 @@ import styled from "styled-components";
 import KakaoMap from "./KakaoMap";
 
 const ProductLocation = ({ courtData }) => {
-  const { address } = courtData[0];
+  const { address } = courtData;
   return (
     <Flex>
       <Title>지도보기</Title>
